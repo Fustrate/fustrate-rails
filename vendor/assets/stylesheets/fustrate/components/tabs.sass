@@ -1,0 +1,38 @@
+$tab-padding: rem-calc(10)
+$tab-font-size: rem-calc(12)
+$tab-content-padding: 0 rem-calc(10)
+
+ul.tabs
+  margin-bottom: 0
+
+  > li
+    display: inline
+
+    a
+      +button-base
+      +button-size($tab-padding)
+      +button-style(white)
+
+      &.active
+        +button-style($primary-color, $hover: false)
+
+.tabs-content
+  .content
+    display: none
+    overflow: hidden
+    padding: $tab-content-padding
+
+    &.active
+      display: block
+
+  &.panel
+    padding: $tab-content-padding
+
+    .content
+      padding: 0
+
+@media #{$small-only}
+  ul.tabs
+    > li
+      a
+        +button-size($tab-padding * .6)

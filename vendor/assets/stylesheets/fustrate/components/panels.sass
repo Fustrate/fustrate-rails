@@ -1,0 +1,48 @@
+$panel-bg: darken(#fff, 5%)
+
+$panel-margin-bottom: rem-calc(20)
+$panel-padding: rem-calc(16 20)
+
+$panel-font-color: #333
+$panel-font-color-alt: #fff
+
+=panel-color($bg: $panel-bg)
+  border: 1px solid darken($bg, 11%)
+  background: $bg
+
+  // We set the font color based on the darkness of the bg.
+  h1, h2, h3, h4, h5, h6, p, li, dl
+    color: if(lightness($bg) >= 50%, $panel-font-color, $panel-font-color-alt)
+
+.panel
+  margin-bottom: $panel-margin-bottom
+  padding: $panel-padding
+  font-size: rem-calc(14)
+  +panel-color
+
+  // reset header line-heights for panels
+  h1, h2, h3, h4, h5, h6
+    line-height: 1
+    margin-bottom: rem-calc(20) / 2
+
+  ul, ol, dl
+    font-size: inherit
+
+  // Respect the padding, fool.
+  & > :first-child
+    margin-top: 0
+  & > :last-child
+    margin-bottom: 0
+
+  &.radius
+    border-radius: 3px
+
+  &.info
+    +panel-color(lighten($info-color, 5%))
+  &.success
+    +panel-color(lighten($success-color, 20%))
+  &.danger
+    +panel-color(scale_color($danger-color, $lightness: 70%, $saturation: -20%))
+
+  &.small
+    padding: $panel-padding / 2

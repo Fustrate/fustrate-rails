@@ -1,0 +1,51 @@
+ul.pagination
+  display: block
+  min-height: rem-calc(24)
+  margin-left: rem-calc(-5)
+  text-align: center
+
+  li
+    height: rem-calc(24)
+    color: #222
+    font-size: rem-calc(14)
+    margin-left: rem-calc(1)
+    display: inline-block
+
+    a, button
+      display: block
+      padding: rem-calc(1 10 1)
+      color: #999
+      background: none
+      border-radius: 4px
+      font-weight: normal
+      font-size: 1em
+      line-height: inherit
+      +transition(background-color .3s ease-out)
+
+    &:hover a,
+    a:focus,
+    &:hover button,
+    button:focus
+      background: scale-color(#fff, $lightness: -10%)
+
+    &.unavailable
+      a, button
+        cursor: default
+        color: #999
+
+      &:hover a,
+      & a:focus,
+      &:hover button,
+      & button:focus
+        background: transparent
+
+    &.current
+      a, button
+        background: $primary-color
+        color: #fff
+        font-weight: bold
+        cursor: default
+
+        &:hover,
+        &:focus
+          background: $primary-color

@@ -1,0 +1,196 @@
+// We use this to set the base for lots of form spacing and positioning styles
+$form-spacing: rem-calc(16)
+$label-font-size: rem-calc(14)
+$input-font-size: rem-calc(14)
+$form-element-margin: 0 0 ($form-spacing / 2) 0
+$form-disabled-color: #777
+
+form
+  margin: 0 0 $form-spacing
+
+label
+  font-size: $label-font-size
+  color: #4d4d4d
+  cursor: pointer
+  display: block
+  font-weight: normal
+  line-height: 1.5
+  margin-bottom: 0
+
+  &.inline
+    margin: $form-element-margin
+    padding: $form-spacing / 2 + rem-calc(1px) rem-calc(5px)
+    float: none !important
+    text-align: right
+    display: inline-block
+
+select::-ms-expand
+  display: none
+
+.prefix,
+.postfix
+  display: block
+  position: relative
+  z-index: 2
+  text-align: center
+  width: 100%
+  padding-top: 0
+  padding-bottom: 0
+  overflow: hidden
+  font-size: $label-font-size
+  height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1))
+  line-height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1))
+  background: scale-color(#fff, $lightness: -5%)
+  border: 1px solid scale-color(#fff, $lightness: -20%)
+  color: #333
+
+.prefix
+  border-right: none
+
+.postfix
+  border-left: none
+
+/* We use this to get basic styling on all basic form elements */
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea
+  -webkit-appearance: none
+  -webkit-border-radius: 0px
+  background-color: #fff
+  font-family: inherit
+  border: 1px solid scale-color(#fff, $lightness: -20%)
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1)
+  color: #000
+  display: block
+  font-size: $input-font-size
+  margin: $form-element-margin
+  padding: $form-spacing / 2
+  height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1))
+  width: 100%
+  box-sizing: border-box
+  transition: box-shadow 450ms, border-color 450ms ease-in-out
+
+  &.inline
+    width: auto
+    display: inline-block
+
+  &:focus
+    background: #fff
+    border-color: scale-color(#fff, $lightness: -40%)
+    outline: none
+    box-shadow: 0 0 5px scale_color(#fff, $lightness: -40%)
+
+  &:disabled,
+  &[disabled],
+  &[readonly],
+  fieldset[disabled] &
+    background-color: #ddd
+    cursor: disabled
+    color: $form-disabled-color
+
+  td &:only-child,
+  th &:only-child
+    margin: 0
+
+input[type="submit"]
+  -webkit-appearance: none
+  -webkit-border-radius: 0px
+
+textarea
+  height: auto
+  min-height: 50px
+
+/* Respect enforced amount of rows for textarea */
+textarea[rows]
+  height: auto
+
+/* Add height value for select elements to match text input height */
+select
+  -webkit-appearance: none !important
+  -webkit-border-radius: 0px
+  background-color: #fff
+
+  // The custom arrow have some fake horizontal padding so we can align it
+  // from the right side of the element without relying on CSS3
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMTJweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+)
+  background-position: 100% center
+  background-repeat: no-repeat
+
+  border: 1px solid scale-color(#fff, $lightness: -20%)
+  padding: $form-spacing / 2
+  padding-right: 24px
+  font-size: $input-font-size
+  color: #000
+  line-height: normal
+  border-radius: 0
+  width: 100%
+
+  &.inline
+    width: auto
+    display: inline-block
+
+  &:hover
+    background-color: #fff
+
+  height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1))
+
+  &:disabled,
+  &[disabled],
+  &[disabled]:hover
+    background-color: #ddd
+    border-color: scale-color(#fff, $lightness: -20%)
+    cursor: disabled
+    color: $form-disabled-color
+
+  &[multiple]
+    height: auto
+    background-image: none
+
+/* Adjust margin for form elements below */
+input[type="file"],
+input[type="checkbox"],
+input[type="radio"],
+select
+  margin: $form-element-margin
+
+  td &:only-child,
+  th &:only-child
+    margin: 0
+
+input[type="checkbox"] + label,
+input[type="radio"] + label
+  display: inline-block
+  margin-left: $form-spacing * .5
+  margin-right: $form-spacing
+  margin-bottom: 0
+  vertical-align: baseline
+
+/* Normalize file input width */
+input[type="file"]
+  width: 100%
+
+input.error,
+input.error:focus,
+input.error:focus:hover
+  background: scale_color($red, $lightness: 90%)
+  border-color: scale_color($red, $lightness: 20%)
+
+.twitter-typeahead::before
+  +font-awesome("\f0eb", $padding-right: 0)
+  position: absolute
+  right: 10px
+  line-height: 2.3125rem
+  font-size: 1.15rem
+  z-index: 9
+  opacity: .8

@@ -1,0 +1,109 @@
+#= require_self
+#= require_directory .
+#= require_tree .
+
+class window.Fustrate
+  @libs: {}
+
+  constructor: ->
+    lib.init() for own name, lib of @constructor.libs
+
+    for own component of Fustrate.Components
+      Fustrate.Components[component].initialize()
+
+    @initialize()
+
+  initialize: ->
+    $('[data-js-class]').each (index, elem) ->
+      element = $(elem)
+      klass = Fustrate._stringToClass element.data('js-class')
+
+      element.data 'js-object', new klass(element)
+
+    $.ajaxSetup
+      cache: false
+      beforeSend: $.rails.CSRFProtection
+
+    $('table').wrap '<div class="responsive-table"></div>'
+
+    $('.number').each (index, elem) ->
+      elem = $ @
+
+      number = if elem.data('number') != undefined
+        elem.data('number')
+      else
+        elem.html()
+
+      elem.addClass 'negative' if parseInt(number, 10) < 0
+
+  @_stringToClass: (string) ->
+    pieces = string.split('.')
+
+    Fustrate._arrayToClass(pieces, window)
+
+  @_arrayToClass: (pieces, root) ->
+    if pieces.length == 1
+      root[pieces[0]]
+    else
+      Fustrate._arrayToClass pieces.slice(1), root[pieces[0]]
+
+  @linkTo: (text, path) ->
+    $('<a>').prop('href', path).html(text)
+
+  @ajaxUpload: (url, data) ->
+    formData = new FormData
+
+    formData.append key, value for key, value of data
+
+    $.ajax
+      url: url
+      type: 'POST'
+      data: formData
+      processData: false
+      contentType: false
+      dataType: 'script'
+      beforeSend: (xhr) ->
+        $.rails.CSRFProtection xhr
+
+  @humanDate: (date, time = false) ->
+    if date.year() == moment().year()
+      date.format("M/D#{if time then ' h:mm A' else ''}")
+    else
+      date.format("M/D/YY#{if time then ' h:mm A' else ''}")
+
+  @label: (text, type) ->
+    type = if type then "#{type} " else ""
+
+    $('<span>')
+      .text(text)
+      .prop('class', "label #{type}#{text.toLowerCase()}")
+
+  @icon: (type) ->
+    $('<i class="fa">').addClass("fa-#{type}")
+
+String::titleize = ->
+  @replace(/_/g, ' ').replace /\b[a-z]/g, (char) -> char.toUpperCase()
+
+String::phoneFormat = ->
+  if /^(\d+)(ext|x)(\d+)$/.test @
+    @replace /(\d+)(ext|x)(\d+)/, ->
+      arguments[1].phoneFormat() + ' x' + arguments[3]
+  else if /^1\d{10}$/.test @
+    @replace /1(\d{3})(\d{3})(\d{4})/, '1 ($1) $2-$3'
+  else if /^\d{10}$/.test @
+    @replace /(\d{3})(\d{3})(\d{4})/, '($1) $2-$3'
+  else if /^\d{7}$/.test @
+    @replace /(\d{3})(\d{4})/, '$1-$2'
+  else
+    @
+
+Array::toSentence = ->
+  switch @length
+    when 0 then ''
+    when 1 then @[0]
+    when 2 then "#{@[0]} and #{@[1]}"
+    else "#{@slice(0, -1).join(', ')}, and #{@[@length - 1]}"
+
+Array::remove = (object) ->
+  index = @indexOf object
+  @splice index, 1 if index isnt -1
