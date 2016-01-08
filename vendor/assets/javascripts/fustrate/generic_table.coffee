@@ -1,4 +1,5 @@
 class Fustrate.GenericTable extends Fustrate.GenericPage
+  @blankRow: null
   table: null
 
   initialize: =>

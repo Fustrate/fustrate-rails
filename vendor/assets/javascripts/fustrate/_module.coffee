@@ -84,6 +84,9 @@ class window.Fustrate
 String::titleize = ->
   @replace(/_/g, ' ').replace /\b[a-z]/g, (char) -> char.toUpperCase()
 
+String::capitalize = ->
+  @charAt(0).toUpperCase() + @slice(1)
+
 String::phoneFormat = ->
   if /^(\d+)(ext|x)(\d+)$/.test @
     @replace /(\d+)(ext|x)(\d+)/, ->
