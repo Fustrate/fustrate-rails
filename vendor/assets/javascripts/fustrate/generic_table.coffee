@@ -20,7 +20,7 @@ class Fustrate.GenericTable extends Fustrate.GenericPage
   updateRow: (row, item) ->
     row
 
-  reloadRows: (rows, {sort}) =>
+  reloadRows: (rows, {sort = null}) =>
     tbody = $ 'tbody', @table
 
     $('tr.loading', tbody).hide()
