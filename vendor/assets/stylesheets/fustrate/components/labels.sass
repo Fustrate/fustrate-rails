@@ -38,164 +38,25 @@ $label-font-color-alt: #fff
   &.bad,
   &.no,
   &.danger,
-  &.architectural.denied,
-  &.communication.open,
-  &.inactive,
-  &.key.disabled,
-  &.request.denied,
-  &.compliance.open,
-  &.work_order.open,
-  &.busy
+  &.inactive
     +label-color($red)
 
   &.good,
   &.yes,
-  &.active,
-  &.architectural.approved,
-  &.communication.closed,
-  &.key.active,
-  &.online,
-  &.request.approved,
-  &.success,
-  &.compliance.closed,
-  &.work_order.closed
+  &.success
     +label-color($green)
 
-  &.idle,
-  &.new-message,
-  &.overtime,
-  &.warning,
-  &.architectural.partial
+  &.warning
     +label-color($orange)
 
-  &.architectural.open,
-  &.request.open,
-  &.offline,
-  &.vendor,
   &.plain
     +label-color(#eee)
     border: #ddd 1px solid
 
-  &.key.lost,
-  &.architectural.withdrawn,
-  &.request.closed
-    +label-color(#555)
-
-  &.holiday
-    +label-color($holiday)
-  &.board_meeting
-    +label-color($board_meeting)
-  &.sick
-    +label-color($sick)
-  &.vacation
-    +label-color($vacation)
-  &.whiteboard
-    +label-color($whiteboard)
-  &.office
-    +label-color($office)
-  &.overtime2
-    +label-color($purple)
-
   // Check Mark
-  &.communication.closed::before,
-  &.compliance.closed::before,
-  &.work_order.closed::before,
-  &.architectural.approved::before,
-  &.request.approved::before,
-  &.key.active::before,
   &.yes::before
     +font-awesome("\f00c")
 
   // X
-  &.architectural.denied::before,
-  &.key.disabled::before,
   &.no::before
     +font-awesome("\f00d")
-
-  // Puzzle
-  &.architectural.incomplete::before
-    +font-awesome("\f12e")
-
-  // Question Mark
-  &.architectural.partial::before
-    +font-awesome("\f128")
-
-  // Trash Can
-  &.request.closed::before
-    +font-awesome("\f1f8")
-
-  // Thumbs Up
-  &.request.approved::before
-    +font-awesome("\f164")
-
-  // Thumbs Down
-  &.request.denied::before
-    +font-awesome("\f165")
-
-  // Leaf
-  &.vendor.landscaping::before
-    +font-awesome("\f18c")
-
-  // Gavel
-  &.vendor.legal::before
-    +font-awesome("\f0e3")
-
-  // Lightning
-  &.vendor.electric::before
-    +font-awesome("\f0e7")
-
-  // Life Buoy
-  &.vendor.pools::before
-    +font-awesome("\f1cd")
-
-  // Paint Brush
-  &.vendor.painting::before
-    +font-awesome("\f1fc")
-
-  // Wrench
-  &.vendor.construction::before,
-  &.vendor.maintenance::before
-    +font-awesome("\f0ad")
-
-  // Paw
-  &.vendor.animal_control::before
-    +font-awesome("\f1b0")
-
-  // Water Droplet
-  &.vendor.backflow::before,
-  &.vendor.plumbing::before
-    +font-awesome("\f043")
-
-  // Magic Wand
-  &.vendor.cleaning::before
-    +font-awesome("\f0d0")
-
-  // Key
-  &.vendor.gates::before
-    +font-awesome("\f084")
-
-  // Flag
-  &.vendor.printing_signs::before
-    +font-awesome("\f024")
-
-  // House
-  &.vendor.roofing::before
-    +font-awesome("\f015")
-
-  // Road
-  &.vendor.streets::before
-    +font-awesome("\f018")
-
-  // Bank
-  &.vendor.bank::before
-    +font-awesome("\f19c")
-
-  // Fire
-  &.vendor.fire_disaster::before
-    +font-awesome("\f06d")
-
-  &.vendor.security::before
-    +font-awesome("\f132")
-
-  &.vendor.alarms::before
-    +font-awesome("\f0a2")

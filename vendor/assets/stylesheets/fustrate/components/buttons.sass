@@ -84,8 +84,7 @@ $export-button-classes: true !default
     &.logout,
     &.destroy,
     &.deny,
-    &.reopen,
-    &.recurrence
+    &.delete
       +button-style($red)
     &.save,
     &.submit,
@@ -100,9 +99,6 @@ $export-button-classes: true !default
     &.email,
     &.cancel
       +button-style(#eaeaea)
-
-    &.architectural.partial
-      +button-style($orange)
 
     h4 &
       vertical-align: middle
