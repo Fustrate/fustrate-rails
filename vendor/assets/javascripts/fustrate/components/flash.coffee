@@ -4,19 +4,19 @@ class Fustrate.Components.Flash extends Fustrate.Components.Base
   @displayTime: 4000
 
   constructor: (message, {type, icon} = {}) ->
-    message = "#{VMG.icon(icon).prop('outerHTML')} #{message}" if icon
+    message = "#{Fustrate.icon(icon).prop('outerHTML')} #{message}" if icon
 
-    bar = $ "<div class=\"alert #{type ? 'info'}\"></div>"
+    bar = $ "<div class=\"flash #{type ? 'info'}\"></div>"
       .html message
       .hide()
-      .prependTo $('#alerts')
+      .prependTo $('#flashes')
       .fadeIn @constructor.fadeInSpeed
       .delay @constructor.displayTime
       .fadeOut @constructor.fadeOutSpeed, ->
         bar.remove()
 
   @initialize: ->
-    $('body').append '<div id="alerts">'
+    $('body').append '<div id="flashes">'
 
   class @Error
     constructor: (message, {icon} = {}) ->
