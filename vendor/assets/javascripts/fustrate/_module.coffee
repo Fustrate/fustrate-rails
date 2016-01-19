@@ -76,7 +76,7 @@ class window.Fustrate
 
     $('<span>')
       .text(text)
-      .prop('class', "label #{type}#{text.toLowerCase()}")
+      .prop('class', "label #{type}#{text}".toLowerCase())
 
   @icon: (type) ->
     $('<i class="fa">').addClass("fa-#{type}")
