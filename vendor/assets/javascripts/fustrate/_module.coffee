@@ -48,7 +48,7 @@ class window.Fustrate
       Fustrate._arrayToClass pieces.slice(1), root[pieces[0]]
 
   @linkTo: (text, path) ->
-    $('<a>').prop('href', path).html(text)
+    $('<a>').prop('href', path).html(text).outerHTML()
 
   @ajaxUpload: (url, data) ->
     formData = new FormData
@@ -110,3 +110,10 @@ Array::toSentence = ->
 Array::remove = (object) ->
   index = @indexOf object
   @splice index, 1 if index isnt -1
+
+jQuery.fn.outerHTML = ->
+  return '' unless @length
+
+  return @[0].outerHTML if @[0].outerHTML
+
+  $('<div>').append(@[0].clone()).remove().html()
