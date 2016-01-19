@@ -47,8 +47,12 @@ class window.Fustrate
     else
       Fustrate._arrayToClass pieces.slice(1), root[pieces[0]]
 
-  @linkTo: (text, path) ->
-    $('<a>').prop('href', path).html(text).outerHTML()
+  @linkTo: (text, path, options = {}) ->
+    link = $('<a>').prop('href', path).html(text)
+
+    link.addClass(options.class) if options.class?
+
+    link.outerHTML()
 
   @ajaxUpload: (url, data) ->
     formData = new FormData
