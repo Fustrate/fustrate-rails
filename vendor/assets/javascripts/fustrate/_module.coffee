@@ -47,8 +47,12 @@ class window.Fustrate
     else
       Fustrate._arrayToClass pieces.slice(1), root[pieces[0]]
 
-  @linkTo: (text, path) ->
-    $('<a>').prop('href', path).html(text)
+  @linkTo: (text, path, options = {}) ->
+    link = $('<a>').prop('href', path).html(text)
+
+    link.addClass(options.class) if options.class?
+
+    link.outerHTML()
 
   @ajaxUpload: (url, data) ->
     formData = new FormData
@@ -76,7 +80,7 @@ class window.Fustrate
 
     $('<span>')
       .text(text)
-      .prop('class', "label #{type}#{text.toLowerCase()}")
+      .prop('class', "label #{type}#{text}".toLowerCase())
 
   @icon: (type) ->
     $('<i class="fa">').addClass("fa-#{type}")
@@ -110,3 +114,10 @@ Array::toSentence = ->
 Array::remove = (object) ->
   index = @indexOf object
   @splice index, 1 if index isnt -1
+
+jQuery.fn.outerHTML = ->
+  return '' unless @length
+
+  return @[0].outerHTML if @[0].outerHTML
+
+  $('<div>').append(@[0].clone()).remove().html()

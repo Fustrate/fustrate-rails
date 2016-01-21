@@ -1,5 +1,4 @@
 class Fustrate.Components.Tooltip extends Fustrate.Components.Base
-  @tooltips: {}
   @fadeSpeed: 100
 
   constructor: (element, title) ->
@@ -10,21 +9,12 @@ class Fustrate.Components.Tooltip extends Fustrate.Components.Base
 
     @element.attr('title', title) if title
 
-    @generateId()
-
-    @constructor.tooltips[@id] = @
-
-  generateId: =>
-    if @element.data('tooltip_id')
-      @id = @element.data('tooltip_id')
-    else
-      @id = Math.random().toString(36).substr(2, 5)
-      @element.data('tooltip_id', @id)
-
   addEventListeners: =>
     @element
-      .on 'mouseover.tooltips', @show
-      .on 'mouseleave.tooltips', @hide
+      .off '.tooltip'
+      .on 'mouseenter.tooltip', @_show
+      .on 'mousemove.tooltip', @_move
+      .on 'mouseleave.tooltip', @_hide
 
   setTitle: (title) ->
     if @active
@@ -32,8 +22,15 @@ class Fustrate.Components.Tooltip extends Fustrate.Components.Base
     else
       @element.prop('title', title)
 
-  show: (e) =>
-    e?.stopPropagation()
+  _move: (e) =>
+    e.stopPropagation()
+
+    return unless @active
+
+    @tooltip.css @_tooltipPosition(e)
+
+  _show: (e) =>
+    e.stopPropagation()
 
     return if @active
 
@@ -41,45 +38,36 @@ class Fustrate.Components.Tooltip extends Fustrate.Components.Base
 
     return unless title.length > 0
 
-    @constructor.hideAll()
-
     @tooltip ?= $('<span class="tooltip">').hide()
 
     @element.attr('title', '').removeAttr('title')
 
-    console.log "Fading in #{@id}"
+    @active = true
 
     @tooltip
       .text title
       .appendTo $('body')
-      .css
-        top: "#{@element.offset().top + @element.height() + 2}px"
-        left: "#{@element.offset().left - 2}px"
-      .fadeIn @constructor.fadeSpeed, =>
-        @active = true
+      .css @_tooltipPosition(e)
+      .fadeIn @constructor.fadeSpeed
 
-  hide: (e) =>
+  _hide: (e) =>
     e?.stopPropagation()
 
-    return unless @active && @tooltip
+    # No use hiding something that doesn't exist.
+    return unless @tooltip
 
-    console.log "Fading out #{@id}"
+    @element.attr 'title', @tooltip.text()
+    @active = false
 
-    @tooltip.fadeOut @constructor.fadeSpeed, =>
-      @tooltip.detach()
-      @element.attr 'title', @tooltip.text()
+    @tooltip.fadeOut @constructor.fadeSpeed, @tooltip.detach
 
-      @active = false
-
-  isActive: =>
-    @visible
+  _tooltipPosition: (e) ->
+    top: "#{e.pageY + 15}px"
+    left: "#{e.pageX - 10}px"
 
   @initialize: ->
     $('[data-tooltip]').each (index, elem) ->
       new Fustrate.Components.Tooltip elem
-
-  @hideAll: =>
-    tooltip.hide() for key, tooltip of @tooltips
 
 $.fn.extend
   tooltip: (options) ->
