@@ -12,343 +12,344 @@ $h2-font-reduction: rem-calc(10)
 $h3-font-reduction: rem-calc(5)
 $h4-font-reduction: rem-calc(5)
 
-html,
-body
-  height: 100%
-  font-size: 1em
+=fustrate-typography
+  html,
+  body
+    height: 100%
+    font-size: 1em
 
-*,
-*:before,
-*:after
-  box-sizing: border-box
+  *,
+  *:before,
+  *:after
+    box-sizing: border-box
 
-body
-  background: #fafafa
-  color: $font-color
-  padding: 0
-  margin: 0
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif
-  font-weight: normal
-  font-style: normal
-  line-height: $base-line-height
-  position: relative
-  cursor: default
+  body
+    background: #fafafa
+    color: $font-color
+    padding: 0
+    margin: 0
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif
+    font-weight: normal
+    font-style: normal
+    line-height: $base-line-height
+    position: relative
+    cursor: default
 
-a:hover
-  cursor: pointer
-
-img
-  max-width: 100%
-  height: auto
-  display: inline-block
-  vertical-align: middle
-  -ms-interpolation-mode: bicubic
-
-div,
-dl,
-dt,
-dd,
-ul,
-ol,
-li,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-pre,
-form,
-p,
-blockquote,
-th,
-td
-  margin: 0
-  padding: 0
-
-a
-  color: $primary-color
-  text-decoration: none
-  line-height: inherit
-
-  &:hover,
-  &:active
-    color: scale-color($primary-color, $lightness: -14%)
+  a:hover
+    cursor: pointer
 
   img
-    border: none
+    max-width: 100%
+    height: auto
+    display: inline-block
+    vertical-align: middle
+    -ms-interpolation-mode: bicubic
 
-p
-  font-family: inherit
-  font-weight: normal
-  font-size: 1rem
-  line-height: 1.6
-  margin-bottom: rem-calc(20)
-  text-rendering: optimizeLegibility
+  div,
+  dl,
+  dt,
+  dd,
+  ul,
+  ol,
+  li,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  pre,
+  form,
+  p,
+  blockquote,
+  th,
+  td
+    margin: 0
+    padding: 0
 
-  &.lead
-    font-size: 1rem + rem-calc(3.5)
+  a
+    color: $primary-color
+    text-decoration: none
+    line-height: inherit
+
+    &:hover,
+    &:active
+      color: scale-color($primary-color, $lightness: -14%)
+
+    img
+      border: none
+
+  p
+    font-family: inherit
+    font-weight: normal
+    font-size: 1rem
     line-height: 1.6
+    margin-bottom: rem-calc(20)
+    text-rendering: optimizeLegibility
 
-h1, h2, h3, h4, h5, h6
-  font-family: inherit
-  font-weight: normal
-  font-style: normal
-  color: #222
-  text-rendering: optimizeLegibility
-  margin-top: .2rem
-  margin-bottom: .5rem
-  line-height: 1.4
-  padding: 0 rem-calc(20)
+    &.lead
+      font-size: 1rem + rem-calc(3.5)
+      line-height: 1.6
 
-  small
-    font-size: 60%
-    color: scale-color(#222, $lightness: 35%)
-    line-height: 0
-
-h1
-  font-size: $h1-font-size - $h1-font-reduction
-h2
-  font-size: $h2-font-size - $h2-font-reduction
-h3
-  font-size: $h3-font-size - $h3-font-reduction
-h4
-  font-size: $h4-font-size - $h4-font-reduction
-h5
-  font-size: $h5-font-size
-h6
-  font-size: $h6-font-size
-
-.subheader
-  line-height: 1.4
-  color: scale-color(#222, $lightness: 35%)
-  font-weight: normal
-  margin-top: .2rem
-  margin-bottom: .5rem
-
-hr
-  border: solid #ccc
-  border-width: 1px 0 0
-  clear: both
-  margin: rem-calc(20) 0 (rem-calc(20) - rem-calc(1px))
-  height: 0
-
-em,
-i
-  font-style: italic
-  line-height: inherit
-
-strong,
-b
-  font-weight: bold
-  line-height: inherit
-
-small
-  font-size: 80%
-  line-height: inherit
-
-ul,
-ol,
-dl
-  font-size: 1rem
-  line-height: 1.6
-  margin-bottom: rem-calc(20)
-  list-style-position: outside
-  font-family: inherit
-
-ul
-  list-style-type: none
-  margin-left: 0
-  padding-left: 0
-  &.no-bullet
-    margin-left: 0
-    li
-      ul,
-      ol
-        margin-left: rem-calc(20)
-        margin-bottom: 0
-        list-style: none
-
-ul
-  li
-    ul,
-    ol
-      margin-left: rem-calc(20)
-      margin-bottom: 0
-
-  &.square,
-  &.circle,
-  &.disc
-    margin-left: 1.1rem
-    li ul
-      list-style: inherit
-
-  &.square
-    list-style-type: square
-  &.circle
-    list-style-type: circle
-  &.disc
-    list-style-type: disc
-  &.no-bullet
-    list-style: none
-
-ol
-  margin-left: 1.4rem
-  li
-    ul,
-    ol
-      margin-left: rem-calc(20)
-      margin-bottom: 0
-
-dl
-  dt
-    padding-left: 0
-    margin-bottom: .3rem
-    font-weight: bold
-  dd
-    margin-bottom: rem-calc(12)
-    padding-left: 10px
-
-    :last-child
-      margin-bottom: 0
-
-address
-  font-style: normal
-  white-space: pre
-
-abbr,
-acronym
-  text-transform: uppercase
-  font-size: 90%
-  color: $font-color
-  border-bottom: 1px dotted #ddd
-  cursor: help
-
-abbr
-  text-transform: none
-
-blockquote
-  margin: 0 0 rem-calc(20)
-  padding: rem-calc(9 20 9 19)
-  border-left: 1px solid #ddd
-
-  // Respect the padding, fool.
-  & > :first-child
-    margin-top: 0
-  & > :last-child
-    margin-bottom: 0
-
-blockquote,
-blockquote p
-  line-height: 1.6
-  color: scale-color(#222, $lightness: 35%)
-
-iframe
-  margin-bottom: rem-calc(20)
-
-@media #{$medium-up}
-  h1,h2,h3,h4,h5,h6
+  h1, h2, h3, h4, h5, h6
+    font-family: inherit
+    font-weight: normal
+    font-style: normal
+    color: #222
+    text-rendering: optimizeLegibility
+    margin-top: .2rem
+    margin-bottom: .5rem
     line-height: 1.4
+    padding: 0 rem-calc(20)
+
+    small
+      font-size: 60%
+      color: scale-color(#222, $lightness: 35%)
+      line-height: 0
 
   h1
-    font-size: $h1-font-size
+    font-size: $h1-font-size - $h1-font-reduction
   h2
-    font-size: $h2-font-size
+    font-size: $h2-font-size - $h2-font-reduction
   h3
-    font-size: $h3-font-size
+    font-size: $h3-font-size - $h3-font-reduction
   h4
-    font-size: $h4-font-size
+    font-size: $h4-font-size - $h4-font-reduction
   h5
     font-size: $h5-font-size
   h6
     font-size: $h6-font-size
 
-.text-left
-  text-align: left !important
-.text-right
-  text-align: right !important
-.text-center
-  text-align: center !important
-.text-justify
-  text-align: justify !important
+  .subheader
+    line-height: 1.4
+    color: scale-color(#222, $lightness: 35%)
+    font-weight: normal
+    margin-top: .2rem
+    margin-bottom: .5rem
 
-#map_canvas,
-.map_canvas
-  img,
-  embed,
-  object
-    max-width: none !important
+  hr
+    border: solid #ccc
+    border-width: 1px 0 0
+    clear: both
+    margin: rem-calc(20) 0 (rem-calc(20) - rem-calc(1px))
+    height: 0
 
-.left
-  float: left !important
-.right
-  float: right !important
-.clearfix
-  +clearfix
-.hide
-  display: none !important
+  em,
+  i
+    font-style: italic
+    line-height: inherit
 
-.antialiased
-  -webkit-font-smoothing: antialiased
-  -moz-osx-font-smoothing: grayscale
+  strong,
+  b
+    font-weight: bold
+    line-height: inherit
 
-.print-only
-  display: none !important
+  small
+    font-size: 80%
+    line-height: inherit
 
-.large
-  font-size: 1.2rem
-  vertical-align: middle
+  ul,
+  ol,
+  dl
+    font-size: 1rem
+    line-height: 1.6
+    margin-bottom: rem-calc(20)
+    list-style-position: outside
+    font-family: inherit
 
-.help
-  opacity: .7
-  font-size: 0.8rem
-  margin: 0
+  ul
+    list-style-type: none
+    margin-left: 0
+    padding-left: 0
+    &.no-bullet
+      margin-left: 0
+      li
+        ul,
+        ol
+          margin-left: rem-calc(20)
+          margin-bottom: 0
+          list-style: none
 
-.dim
-  opacity: .6
+  ul
+    li
+      ul,
+      ol
+        margin-left: rem-calc(20)
+        margin-bottom: 0
 
-.preserve
-  white-space: pre-wrap
+    &.square,
+    &.circle,
+    &.disc
+      margin-left: 1.1rem
+      li ul
+        list-style: inherit
 
-.nowrap
-  white-space: nowrap
+    &.square
+      list-style-type: square
+    &.circle
+      list-style-type: circle
+    &.disc
+      list-style-type: disc
+    &.no-bullet
+      list-style: none
 
-@media print
-  *
-    background: transparent !important
-    color: #000 !important
-    box-shadow: none !important
-    text-shadow: none !important
+  ol
+    margin-left: 1.4rem
+    li
+      ul,
+      ol
+        margin-left: rem-calc(20)
+        margin-bottom: 0
 
-  pre,
+  dl
+    dt
+      padding-left: 0
+      margin-bottom: .3rem
+      font-weight: bold
+    dd
+      margin-bottom: rem-calc(12)
+      padding-left: 10px
+
+      :last-child
+        margin-bottom: 0
+
+  address
+    font-style: normal
+    white-space: pre
+
+  abbr,
+  acronym
+    text-transform: uppercase
+    font-size: 90%
+    color: $font-color
+    border-bottom: 1px dotted #ddd
+    cursor: help
+
+  abbr
+    text-transform: none
+
   blockquote
-    border: 1px solid #999
-    page-break-inside: avoid
+    margin: 0 0 rem-calc(20)
+    padding: rem-calc(9 20 9 19)
+    border-left: 1px solid #ddd
 
-  thead
-    display: table-header-group
+    // Respect the padding, fool.
+    & > :first-child
+      margin-top: 0
+    & > :last-child
+      margin-bottom: 0
 
-  tr,
-  img
-    page-break-inside: avoid
+  blockquote,
+  blockquote p
+    line-height: 1.6
+    color: scale-color(#222, $lightness: 35%)
 
-  img
-    max-width: 100% !important
+  iframe
+    margin-bottom: rem-calc(20)
 
-  @page
-    margin: 0.5cm
+  @media #{$medium-up}
+    h1,h2,h3,h4,h5,h6
+      line-height: 1.4
 
-  p,
-  h2,
-  h3
-    orphans: 3
-    widows: 3
+    h1
+      font-size: $h1-font-size
+    h2
+      font-size: $h2-font-size
+    h3
+      font-size: $h3-font-size
+    h4
+      font-size: $h4-font-size
+    h5
+      font-size: $h5-font-size
+    h6
+      font-size: $h6-font-size
 
-  h2,
-  h3
-    page-break-after: avoid
+  .text-left
+    text-align: left !important
+  .text-right
+    text-align: right !important
+  .text-center
+    text-align: center !important
+  .text-justify
+    text-align: justify !important
+
+  #map_canvas,
+  .map_canvas
+    img,
+    embed,
+    object
+      max-width: none !important
+
+  .left
+    float: left !important
+  .right
+    float: right !important
+  .clearfix
+    +clearfix
+  .hide
+    display: none !important
+
+  .antialiased
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
 
   .print-only
-    display: inherit !important
-  .no-print
     display: none !important
+
+  .large
+    font-size: 1.2rem
+    vertical-align: middle
+
+  .help
+    opacity: .7
+    font-size: 0.8rem
+    margin: 0
+
+  .dim
+    opacity: .6
+
+  .preserve
+    white-space: pre-wrap
+
+  .nowrap
+    white-space: nowrap
+
+  @media print
+    *
+      background: transparent !important
+      color: #000 !important
+      box-shadow: none !important
+      text-shadow: none !important
+
+    pre,
+    blockquote
+      border: 1px solid #999
+      page-break-inside: avoid
+
+    thead
+      display: table-header-group
+
+    tr,
+    img
+      page-break-inside: avoid
+
+    img
+      max-width: 100% !important
+
+    @page
+      margin: 0.5cm
+
+    p,
+    h2,
+    h3
+      orphans: 3
+      widows: 3
+
+    h2,
+    h3
+      page-break-after: avoid
+
+    .print-only
+      display: inherit !important
+    .no-print
+      display: none !important

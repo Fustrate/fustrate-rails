@@ -16,62 +16,63 @@ $alert-font-size: rem-calc(14)
     color: $color
     text-decoration: underline
 
-.alert-box
-  border-style: solid
-  border-width: 1px
-  display: block
-  font-weight: normal
-  margin-bottom: rem-calc(20)
-  position: relative
-  padding: $alert-padding
-  font-size: $alert-font-size
-  +transition(opacity 300ms ease-out)
-  +alert-color
-
-  .panel &:last-child
-    margin-bottom: 0
-
-  li, p
+=fustrate-alerts
+  .alert-box
+    border-style: solid
+    border-width: 1px
+    display: block
+    font-weight: normal
+    margin-bottom: rem-calc(20)
+    position: relative
+    padding: $alert-padding
     font-size: $alert-font-size
+    +transition(opacity 300ms ease-out)
+    +alert-color
 
-  & > :last-child
-    margin-bottom: 0
+    .panel &:last-child
+      margin-bottom: 0
 
-  a.close
-    font-size: rem-calc(22)
-    padding: 9px 6px 4px
-    line-height: 0
-    position: absolute
-    top: 50%
-    margin-top: -(rem-calc(22) / 2)
-    right: rem-calc(4)
-    opacity: 0.6
-    color: #333
-    text-decoration: none !important
+    li, p
+      font-size: $alert-font-size
 
-    &:hover,
-    &:focus
-      opacity: 0.8
+    & > :last-child
+      margin-bottom: 0
 
-  &.radius
-    border-radius: 3px
-  &.round
-    border-radius: 8px
+    a.close
+      font-size: rem-calc(22)
+      padding: 9px 6px 4px
+      line-height: 0
+      position: absolute
+      top: 50%
+      margin-top: -(rem-calc(22) / 2)
+      right: rem-calc(4)
+      opacity: 0.6
+      color: #333
+      text-decoration: none !important
 
-  &.plain
-    +alert-color(lighten($grey, 57%))
-  &.success,
-  &.good,
-  &.birthday
-    +alert-color($success-color)
-  &.alert
-    +alert-color($alert-color)
-  &.secondary
-    +alert-color($secondary-color)
-  &.warning
-    +alert-color($warning-color)
-  &.danger,
-  &.error
-    +alert-color($danger-color)
-  &.info
-    +alert-color($info-color)
+      &:hover,
+      &:focus
+        opacity: 0.8
+
+    &.radius
+      border-radius: 3px
+    &.round
+      border-radius: 8px
+
+    &.plain
+      +alert-color(lighten($grey, 57%))
+    &.success,
+    &.good,
+    &.birthday
+      +alert-color($success-color)
+    &.alert
+      +alert-color($alert-color)
+    &.secondary
+      +alert-color($secondary-color)
+    &.warning
+      +alert-color($warning-color)
+    &.danger,
+    &.error
+      +alert-color($danger-color)
+    &.info
+      +alert-color($info-color)

@@ -14,35 +14,36 @@ $panel-font-color-alt: #fff
   h1, h2, h3, h4, h5, h6, p, li, dl
     color: if(lightness($bg) >= 50%, $panel-font-color, $panel-font-color-alt)
 
-.panel
-  margin-bottom: $panel-margin-bottom
-  padding: $panel-padding
-  font-size: rem-calc(14)
-  +panel-color
+=fustrate-panels
+  .panel
+    margin-bottom: $panel-margin-bottom
+    padding: $panel-padding
+    font-size: rem-calc(14)
+    +panel-color
 
-  // reset header line-heights for panels
-  h1, h2, h3, h4, h5, h6
-    line-height: 1
-    margin-bottom: rem-calc(20) / 2
+    // reset header line-heights for panels
+    h1, h2, h3, h4, h5, h6
+      line-height: 1
+      margin-bottom: rem-calc(20) / 2
 
-  ul, ol, dl
-    font-size: inherit
+    ul, ol, dl
+      font-size: inherit
 
-  // Respect the padding, fool.
-  & > :first-child
-    margin-top: 0
-  & > :last-child
-    margin-bottom: 0
+    // Respect the padding, fool.
+    & > :first-child
+      margin-top: 0
+    & > :last-child
+      margin-bottom: 0
 
-  &.radius
-    border-radius: 3px
+    &.radius
+      border-radius: 3px
 
-  &.info
-    +panel-color(lighten($info-color, 5%))
-  &.success
-    +panel-color(lighten($success-color, 20%))
-  &.danger
-    +panel-color(scale_color($danger-color, $lightness: 70%, $saturation: -20%))
+    &.info
+      +panel-color(lighten($info-color, 5%))
+    &.success
+      +panel-color(lighten($success-color, 20%))
+    &.danger
+      +panel-color(scale_color($danger-color, $lightness: 70%, $saturation: -20%))
 
-  &.small
-    padding: $panel-padding / 2
+    &.small
+      padding: $panel-padding / 2

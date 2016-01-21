@@ -1,22 +1,23 @@
 $disclosure-title-font-size: rem-calc(12)
 
-.disclosure
-  .disclosure-title
-    +user-select(none)
-    cursor: pointer
-    font-size: $disclosure-title-font-size
+=fustrate-disclosures
+  .disclosure
+    .disclosure-title
+      +user-select(none)
+      cursor: pointer
+      font-size: $disclosure-title-font-size
 
-    &:before
-      content: "\25b8"
-      width: 12px
-      display: inline-block
-
-  .disclosure-content
-    display: none
-
-  &.open
-    .disclosure-title:before
-      content: "\25be"
+      &:before
+        content: "\25b8"
+        width: 12px
+        display: inline-block
 
     .disclosure-content
-      display: inherit
+      display: none
+
+    &.open
+      .disclosure-title:before
+        content: "\25be"
+
+      .disclosure-content
+        display: inherit

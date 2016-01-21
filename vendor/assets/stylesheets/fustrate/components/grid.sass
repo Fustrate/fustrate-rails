@@ -156,44 +156,45 @@ $column-gutter: rem-calc(30)
   .columns.#{$size}-uncentered.opposite
     float: right
 
-.row
-  +grid-row
-
-  &.fluid
-    width: 100%
-    max-width: 100%
-
-  &.collapse
-    > .column,
-    > .columns
-      +grid-column($collapse: true, $float: false)
-
-    .row
-      margin-left: 0
-      margin-right: 0
-
+=fustrate-grid
   .row
-    +grid-row(nest)
+    +grid-row
+
+    &.fluid
+      width: 100%
+      max-width: 100%
 
     &.collapse
-      +grid-row(nest-collapse)
+      > .column,
+      > .columns
+        +grid-column($collapse: true, $float: false)
 
-.column,
-.columns
-  +grid-column($columns: $total-columns)
+      .row
+        margin-left: 0
+        margin-right: 0
 
-[class*="column"] + [class*="column"]:last-child
-  float: right
-[class*="column"] + [class*="column"].end
-  float: left
+    .row
+      +grid-row(nest)
 
-@media #{$small-up}
-  +grid-html-classes($size: small)
+      &.collapse
+        +grid-row(nest-collapse)
 
-@media #{$medium-up}
-  +grid-html-classes($size: medium)
+  .column,
+  .columns
+    +grid-column($columns: $total-columns)
 
-@media #{$large-up}
-  +grid-html-classes($size: large)
-  .large-column-count-2
-    +columns(2)
+  [class*="column"] + [class*="column"]:last-child
+    float: right
+  [class*="column"] + [class*="column"].end
+    float: left
+
+  @media #{$small-up}
+    +grid-html-classes($size: small)
+
+  @media #{$medium-up}
+    +grid-html-classes($size: medium)
+
+  @media #{$large-up}
+    +grid-html-classes($size: large)
+    .large-column-count-2
+      +columns(2)
