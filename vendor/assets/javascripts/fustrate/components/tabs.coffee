@@ -6,7 +6,7 @@ class Fustrate.Components.Tabs extends Fustrate.Components.Base
       @activateTab $(e.currentTarget)
 
     if window.location.hash
-      @activateTab $("li > a[href=#{window.location.hash}]", @tabs).first()
+      @activateTab $("li > a[href='#{window.location.hash}']", @tabs).first()
     else if $('li > a.active', @tabs).length > 0
       @activateTab $('li > a.active', @tabs).first()
     else
