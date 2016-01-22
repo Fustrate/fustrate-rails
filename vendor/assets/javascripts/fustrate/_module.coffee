@@ -115,6 +115,14 @@ Array::remove = (object) ->
   index = @indexOf object
   @splice index, 1 if index isnt -1
 
+Array::first = ->
+  @[0]
+
+Array::last = ->
+  @[@length - 1]
+
+Array::peek = Array::last
+
 jQuery.fn.outerHTML = ->
   return '' unless @length
 
