@@ -1,7 +1,5 @@
 class Fustrate.Components.Modal extends Fustrate.Components.Base
-  @background: undefined
   @fadeSpeed: 250
-  @openModal: undefined
 
   @settings:
     closeOnBackgroundClick: true
@@ -19,28 +17,19 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
 
   constructor: ({title, content, size, settings}) ->
     @modal = @constructor.createModal size: size
+    @settings = $.extend true, @constructor.settings, (settings ? {})
+    @settings.previousModal = $()
+
     @setTitle title
     @setContent content
 
-    @settings = $.extend true, @constructor.settings, (settings ? {})
-
-    @locked = false
-    @previousModal = undefined
-
     @_reloadUIElements()
     @addEventListeners()
+    @initialize()
 
     super
 
-  @createModal: ({size}) ->
-    $ """
-      <div class="modal #{size ? 'tiny'}">
-        <div class="modal-title">
-          <span></span>
-          <a href="#" class="modal-close">&#215;</a>
-        </div>
-        <div class="modal-content"></div>
-      </div>"""
+  initialize: ->
 
   _reloadUIElements: =>
     @fields = {}
@@ -60,42 +49,24 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
   setContent: (content) =>
     $('.modal-content', @modal).html content
 
+    @settings._cachedHeight = undefined
+
     @_reloadUIElements()
 
   addEventListeners: =>
     @modal
       .off '.modal'
-      .on 'hide.modal close.modal', @close
-      .on 'show.modal open.modal', @open
+      .on 'close.modal', @close
+      .on 'open.modal', @open
+      .on 'hide.modal', @hide
       .on 'opened.modal', @focusFirstInput
-      .on 'click.modal', '.modal-close', @closeButtonClicked
+      .on 'click.modal', '.modal-close', @constructor.closeButtonClicked
 
     # TODO: Re-enable when modals are fully converted
     #   .off '.modal'
-    $(document)
-      .on 'click.modal touchstart.modal', '.modal-overlay', @backgroundClicked
-
-  backgroundClicked: (e) =>
-    return if !@constructor.openModal || @constructor.openModal.locked
-
-    # Don't continue to close if we're not supposed to
-    return unless @constructor.openModal.settings.closeOnBackgroundClick
-
-    e.preventDefault()
-    e.stopPropagation()
-
-    @close()
-
-    false
-
-  closeButtonClicked: (e) =>
-    return if !@constructor.openModal || @constructor.openModal.locked
-
-    e.preventDefault()
-
-    @close()
-
-    false
+    $(document).on 'click.modal touchstart.modal',
+                   '.modal-overlay',
+                   @constructor.backgroundClicked
 
   focusFirstInput: =>
     # Focus requires a slight physical scroll on iOS 8.4
@@ -106,35 +77,20 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
       .first()
       .focus()
 
-  @toggleBackground: (visible = true) =>
-    @overlay = $ '<div class="modal-overlay">' unless @overlay
-
-    if visible
-      return if @overlay.is(':visible')
-
-      @overlay
-        .hide()
-        .appendTo('body')
-        .fadeIn @fadeSpeed
-    else
-      @overlay
-        .fadeOut @fadeSpeed, ->
-          $(@).detach()
-
   open: =>
-    return if @locked || @modal.hasClass 'open'
+    return if @modal.hasClass('locked') || @modal.hasClass('open')
 
-    @locked = true
+    @modal.addClass('locked')
 
     # If there is currently a modal being shown, store it and re-open it when
     # this modal closes.
-    @previousModal = @constructor.openModal
+    @settings.previousModal = $('.modal.open')
 
     # These events only matter when the modal is visible
     $('body')
       .off 'keyup.modal'
       .on 'keyup.modal', (e) =>
-        return if @locked || e.which != 27
+        return if @modal.hasClass('locked') || e.which != 27
 
         @close()
 
@@ -142,8 +98,8 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
 
     @_cacheHeight() if typeof @settings._cachedHeight == 'undefined'
 
-    if @previousModal
-      @previousModal.close()
+    if @settings.previousModal.length
+      @settings.previousModal.trigger('hide.modal')
     else
       # There are no open modals - show the background overlay
       @constructor.toggleBackground true
@@ -162,24 +118,17 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
         .css css
         .addClass('open')
         .animate end_css, 250, 'linear', =>
-          @locked = false
-          @modal.trigger 'opened.modal'
-          @constructor.openModal = @
+          @modal.removeClass('locked').trigger('opened.modal')
     ), 125
 
   close: =>
-    return if @locked || !@modal.hasClass 'open'
+    return if @modal.hasClass('locked') || !@modal.hasClass('open')
 
-    @locked = true
+    @modal.addClass 'locked'
 
     $('body').off 'keyup.modal'
 
-    close_event = $.Event 'close.modal'
-    @modal.trigger close_event
-
-    return if close_event.isDefaultPrevented()
-
-    @constructor.toggleBackground(false) unless @previousModal
+    @constructor.toggleBackground(false) unless @settings.previousModal.length
 
     end_css =
       top: - $(window).scrollTop() - @settings._cachedHeight + 'px',
@@ -188,31 +137,75 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     setTimeout (=>
       @modal
         .animate end_css, 250, 'linear', =>
-          @locked = false
-          @modal.css @settings.css.close
-          @modal.trigger 'closed.modal'
-          @constructor.openModal = undefined
+          @modal
+            .css @settings.css.close
+            .removeClass 'locked'
+            .trigger 'closed.modal'
           @openPreviousModal()
         .removeClass('open')
     ), 125
 
+  # Just hide the modal immediately and don't bother with an overlay
+  hide: =>
+    @modal.removeClass('open locked').css @settings.css.close
+
   openPreviousModal: =>
-    @previousModal?.open()
+    @settings.previousModal.trigger 'open.modal'
 
-    @previousModal = undefined
-
-  # If this modal hasn't been attached to a relatively positioned element,
-  # attach it to #content
-  attachToContent: =>
-    return if @modal.parent('#content').length > 0
-
-    # placeholder = @modal.wrap('<div style="display: none;" />').parent()
-
-    @modal.detach().appendTo '#content'
+    @settings.previousModal = $()
 
   _cacheHeight: =>
-    @attachToContent()
-
     @settings._cachedHeight = @modal.show().height()
 
     @modal.hide()
+
+  @createModal: ({size}) ->
+    $("""
+      <div class="modal #{size ? 'tiny'}">
+        <div class="modal-title">
+          <span></span>
+          <a href="#" class="modal-close">&#215;</a>
+        </div>
+        <div class="modal-content"></div>
+      </div>""").appendTo('#content')
+
+  @toggleBackground: (visible = true) =>
+    @overlay = $ '<div class="modal-overlay">' unless @overlay
+
+    if visible
+      return if @overlay.is(':visible')
+
+      @overlay
+        .hide()
+        .appendTo('body')
+        .fadeIn @fadeSpeed
+    else
+      @overlay
+        .fadeOut @fadeSpeed, ->
+          $(@).detach()
+
+  @backgroundClicked: (e) ->
+    modal = $ '.modal.open'
+
+    return if !modal || modal.hasClass('locked')
+
+    # Don't continue to close if we're not supposed to
+    return unless Fustrate.Components.Modal.settings.closeOnBackgroundClick
+
+    e.preventDefault()
+    e.stopPropagation()
+
+    modal.trigger 'close.modal'
+
+    false
+
+  @closeButtonClicked: (e) ->
+    modal = $ '.modal.open'
+
+    return if !modal || modal.hasClass('locked')
+
+    e.preventDefault()
+
+    modal.trigger 'close.modal'
+
+    false
