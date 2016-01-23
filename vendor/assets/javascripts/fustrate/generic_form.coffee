@@ -2,7 +2,7 @@
 
 class Fustrate.GenericForm extends Fustrate.GenericPage
   _reloadUIElements: =>
-    @fields = {}
+    super
 
     for domObject in $('[name][id]', @root)
       element = $ domObject
