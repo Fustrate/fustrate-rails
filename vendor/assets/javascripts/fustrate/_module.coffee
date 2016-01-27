@@ -48,11 +48,7 @@ class window.Fustrate
       Fustrate._arrayToClass pieces.slice(1), root[pieces[0]]
 
   @linkTo: (text, path, options = {}) ->
-    link = $('<a>').prop('href', path).html(text)
-
-    link.addClass(options.class) if options.class?
-
-    link.outerHTML()
+    $('<a>').prop('href', path).html(text).prop(options).outerHTML()
 
   @ajaxUpload: (url, data) ->
     formData = new FormData
@@ -82,8 +78,10 @@ class window.Fustrate
       .text(text)
       .prop('class', "label #{type}#{text}".toLowerCase())
 
-  @icon: (type) ->
-    $('<i class="fa">').addClass("fa-#{type}")
+  @icon: (types) ->
+    classes = ("fa-#{type}" for type in types).join(' ')
+
+    "<i class=\"fa #{classes}\"></i>"
 
 String::titleize = ->
   @replace(/_/g, ' ').replace /\b[a-z]/g, (char) -> char.toUpperCase()
