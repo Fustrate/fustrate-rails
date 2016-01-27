@@ -79,7 +79,7 @@ class window.Fustrate
       .prop('class', "label #{type}#{text}".toLowerCase())
 
   @icon: (types) ->
-    classes = ("fa-#{type}" for type in types).join(' ')
+    classes = ("fa-#{type}" for type in types.split(' ')).join(' ')
 
     "<i class=\"fa #{classes}\"></i>"
 
