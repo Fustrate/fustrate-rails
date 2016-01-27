@@ -44,3 +44,9 @@ class Fustrate.GenericTable extends Fustrate.GenericPage
   updated: =>
     $('tbody tr.no-records', @table)
       .toggle $('tbody tr:not(.no-records):not(.loading)', @table).length < 1
+
+  # This should be fed a response from a JSON request for a paginated
+  # collection.
+  updatePagination: (response) =>
+    $('.pagination', @root)
+      .replaceWith (new Fustrate.Components.Pagination response).generate()
