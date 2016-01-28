@@ -27,16 +27,43 @@ class Fustrate.Components.Pagination extends Fustrate.Components.Base
     pages = []
 
     if @total_pages > 1
-      for i in [1..@total_pages]
+      pages = for i in @windowedPageNumbers()
         if i == @current_page
-          pages.push "<li class=\"current\">#{VMG.linkTo(i, '#')}</li>"
+          "<li class=\"current\">#{VMG.linkTo(i, '#')}</li>"
+        else if i == 'gap'
+          '<li class="unavailable"><span class="gap">…</span></li>'
         else
-          pages.push "<li>#{@link i, i}</li>"
+          "<li>#{@link i, i}</li>"
 
       pages.unshift @previousLink()
       pages.push @nextLink()
 
-    $('<ul class="pagination">').html(pages.join ' ')
+    $('<ul class="pagination">').html pages.join(' ')
+
+  windowedPageNumbers: =>
+    window_from = @current_page - 4
+    window_to = @current_page + 4
+
+    if window_to > @total_pages
+      window_from -= window_to - @total_pages
+      window_to = @total_pages
+
+    if window_from < 1
+      window_to += 1 - window_from
+      window_from = 1
+      window_to = @total_pages if window_to > @total_pages
+
+    middle = [window_from..window_to]
+
+    left = if 4 < middle[0] then [1, 2, 'gap'] else [1...middle[0]]
+
+    if @total_pages - 3 > middle.last()
+      right = [(@total_pages - 1)..@total_pages]
+      right.unshift 'gap'
+    else
+      right = [(middle.last() + 1)..@total_pages]
+
+    left.concat middle, right
 
   @getCurrentPage: ->
     window.location.search.match(/[?&]page=(\d+)/)?[1] ? 1

@@ -14,7 +14,7 @@ $pagination-active-color: $primary-color !default
       margin-left: rem-calc(1)
       display: inline-block
 
-      a, button
+      a, span
         display: block
         padding: rem-calc(1 10 1)
         color: #999
@@ -27,12 +27,12 @@ $pagination-active-color: $primary-color !default
 
       &:hover a,
       a:focus,
-      &:hover button,
-      button:focus
+      &:hover span,
+      span:focus
         background: scale-color(#fff, $lightness: -10%)
 
       &.unavailable
-        a, button
+        a, span
           cursor: default
           color: #999
 
@@ -43,7 +43,7 @@ $pagination-active-color: $primary-color !default
           background: transparent
 
       &.current
-        a, button
+        a, span
           background: $pagination-active-color
           color: #fff
           font-weight: bold

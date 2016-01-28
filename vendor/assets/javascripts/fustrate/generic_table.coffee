@@ -48,5 +48,6 @@ class Fustrate.GenericTable extends Fustrate.GenericPage
   # This should be fed a response from a JSON request for a paginated
   # collection.
   updatePagination: (response) =>
-    $('.pagination', @root)
-      .replaceWith (new Fustrate.Components.Pagination response).generate()
+    @pagination = new Fustrate.Components.Pagination response
+
+    $('.pagination', @root).replaceWith @pagination.generate()
