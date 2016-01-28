@@ -60,8 +60,10 @@ class Fustrate.Components.Pagination extends Fustrate.Components.Base
     if @total_pages - 3 > middle.last()
       right = [(@total_pages - 1)..@total_pages]
       right.unshift 'gap'
-    else
+    else if middle.last() + 1 <= @total_pages
       right = [(middle.last() + 1)..@total_pages]
+    else
+      right = []
 
     left.concat middle, right
 
