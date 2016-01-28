@@ -4,7 +4,7 @@ class Fustrate.Components.Flash extends Fustrate.Components.Base
   @displayTime: 4000
 
   constructor: (message, {type, icon} = {}) ->
-    message = "#{Fustrate.icon(icon).prop('outerHTML')} #{message}" if icon
+    message = "#{Fustrate.icon(icon)} #{message}" if icon
 
     bar = $ "<div class=\"flash #{type ? 'info'}\"></div>"
       .html message
