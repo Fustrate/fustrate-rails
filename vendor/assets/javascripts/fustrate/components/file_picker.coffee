@@ -3,7 +3,7 @@ class Fustrate.Components.FilePicker extends Fustrate.Components.Base
     input = $ '<input type="file">'
 
     input
-      .on 'change', (e) ->
+      .change ->
         callback input[0].files
 
         input.remove()
