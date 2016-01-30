@@ -121,6 +121,10 @@ Array::last = ->
 
 Array::peek = Array::last
 
+# Used to define getters and setters
+Function::define = (name, methods) ->
+  Object.defineProperty @::, name, methods
+
 jQuery.fn.outerHTML = ->
   return '' unless @length
 
