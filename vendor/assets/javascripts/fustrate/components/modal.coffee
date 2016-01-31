@@ -121,14 +121,15 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
           @modal.removeClass('locked').trigger('opened.modal')
     ), 125
 
-  close: ({openPrevious} = {openPrevious: true}) =>
+  close: (openPrevious = true) =>
     return if @modal.hasClass('locked') || !@modal.hasClass('open')
 
     @modal.addClass 'locked'
 
     $('body').off 'keyup.modal'
 
-    @constructor.toggleBackground(false) unless @settings.previousModal.length
+    unless @settings.previousModal.length && openPrevious
+      @constructor.toggleBackground(false)
 
     end_css =
       top: - $(window).scrollTop() - @settings._cachedHeight + 'px',
