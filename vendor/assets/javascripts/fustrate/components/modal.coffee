@@ -121,7 +121,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
           @modal.removeClass('locked').trigger('opened.modal')
     ), 125
 
-  close: =>
+  close: ({openPrevious} = {openPrevious: true}) =>
     return if @modal.hasClass('locked') || !@modal.hasClass('open')
 
     @modal.addClass 'locked'
@@ -141,7 +141,12 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
             .css @settings.css.close
             .removeClass 'locked'
             .trigger 'closed.modal'
-          @openPreviousModal()
+
+          if openPrevious
+            @openPreviousModal()
+          else
+            @settings.previousModal = $()
+
         .removeClass('open')
     ), 125
 
