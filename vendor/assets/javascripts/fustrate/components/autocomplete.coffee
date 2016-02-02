@@ -139,24 +139,6 @@ $.fn.autocomplete = (options) ->
               Hogan.compile(options.templates.default).render(context)
             empty: options.templates.empty
 
-    if options.prefetch?
-      bloodhound = new Bloodhound
-        prefetch:       options.prefetch
-        datumTokenizer: options.datumTokenizer
-        queryTokenizer: options.queryTokenizer
-        limit:          options.limit
-
-      bloodhound.initialize()
-
-      datasets.push
-        name:       options.name + (index * 3 + 2)
-        source:     bloodhound.ttAdapter()
-        displayKey: options.displayKey
-        templates:
-          suggestion: (context) ->
-            Hogan.compile(options.templates.default).render(context)
-          empty: options.templates.empty
-
     if datasets.length == 0
       throw new Error 'Autocomplete must have at least one source'
 
