@@ -3,10 +3,10 @@ class Fustrate.Components.AlertBox extends Fustrate.Components.Base
 
   @initialize: ->
     $('.alert-box').on 'click', '.close', (e) ->
-      event.preventDefault()
+      e.preventDefault()
 
       alert_box = $(e.currentTarget).closest('.alert-box')
 
-      alert_box.fadeOut @constructor.fadeSpeed, -> alert_box.remove()
+      alert_box.fadeOut @constructor.fadeSpeed, alert_box.remove
 
       false
