@@ -48,29 +48,27 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
       list.map (type) -> "/#{type}/search.json?search=%QUERY&commit=Search"
 
   class @Local
-    constructor: (input, suggestions, options) ->
-      @input = $ input
+    constructor: (@input, @suggestions) ->
+      @comboplete = new Awesomplete(
+        @input[0]
+        list: @suggestions
+        minChars: 0
+      )
 
-      locals = for suggestion in suggestions
-        if $.isPlainObject(suggestion)
-          suggestion
-        else
-          { title: suggestion }
+      @addEventListeners()
 
-      @options =
-        displayKey: 'title'
-        minLength: 0
-        local: locals
-        templates:
-          default: '''
-            <span class="title">{{title}}</span>
-            <span class="code">{{code}}</span>
-            <ul class="description"><li>{{description}}</li></ul>'''
-          empty: ''
+    addEventListeners: =>
+      @input
+        .off '.autocomplete'
+        .on 'focus.autocomplete', @toggleDropdown
 
-      @options = $.extend true, {}, @options, options if options
-
-      @input.autocomplete @options
+    toggleDropdown: =>
+      if @comboplete.ul.childNodes.length == 0
+        @comboplete.evaluate()
+      else if @comboplete.ul.hasAttribute('hidden')
+        @comboplete.open()
+      else
+        @comboplete.close()
 
   @filterForUrl: (url) ->
     return filter[1] for filter in @filters when filter[0].test(url)
@@ -140,24 +138,6 @@ $.fn.autocomplete = (options) ->
             suggestion: (context) ->
               Hogan.compile(options.templates.default).render(context)
             empty: options.templates.empty
-
-    if options.local?
-      bloodhound = new Bloodhound
-        local:          options.local
-        datumTokenizer: options.datumTokenizer
-        queryTokenizer: options.queryTokenizer
-        limit:          options.limit
-
-      bloodhound.initialize()
-
-      datasets.push
-        name:       options.name + (index * 3 + 1)
-        source:     bloodhound.ttAdapter()
-        displayKey: options.displayKey
-        templates:
-          suggestion: (context) ->
-            Hogan.compile(options.templates.default).render(context)
-          empty: options.templates.empty
 
     if options.prefetch?
       bloodhound = new Bloodhound
