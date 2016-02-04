@@ -161,4 +161,4 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
     @types[name] = func
 
   @addTypes: (types) ->
-    @addType(name, func) for own name, func of filters
+    @addType(name, func) for own name, func of types
