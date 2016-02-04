@@ -1,153 +1,164 @@
 class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
-  # Store URLs that we try to match filters for
-  @filters: []
+  @types:
+    plain:
+      displayKey: 'value'
+      item: (object, userInput) -> "<li>#{@highlight object.value}</li>"
+      filter: (object, userInput) -> object.value.indexOf(userInput) >= 0
 
-  class @Remote
-    constructor: (input, types, options) ->
-      @input = $ input
+  @initialize: ->
+    # Override the default sort
+    Awesomplete.SORT_BYLENGTH = ->
 
-      @options =
-        remote: @constructor.urlsForTypes(types ? @input.data('autocomplete'))
-        templates:
-          default: '''
-            <span class="title">{{title}}</span>
-            <span class="code">{{code}}</span>
-            <ul class="description"><li>{{description}}</li></ul>'''
-        displayKey: 'title'
-        onSelect: @onSelect
+  constructor: (@input, types) ->
+    if $.isArray types
+      types = {
+        plain:
+          list: types.map (value) -> { value: value }
+      }
 
-      @options = $.extend true, {}, @options, options if options
+    @sources = for own type, options of types
+      $.extend({}, @constructor.types[type], options)
 
-      @input
-        .autocomplete @options
-        .off '.autocomplete'
-        .on 'change.autocomplete', @onChange
+    @sources = [@sources] if $.isPlainObject @sources
 
-    onChange: =>
-      return unless @input.val().length < 1
+    existing = @input.data('awesomplete')
 
-      $("[data-autocomplete-id=#{@data 'autocomplete-id'}]").val ''
+    if existing
+      existing.sources = @sources
+      return
 
-      @data 'datum', null
+    @awesomplete = new Awesomplete(
+      @input[0]
+      minChars: 0
+      maxItems: 25
+      filter: -> true
+      item: (option, userInput) -> option # Items are pre-rendered
+    )
 
-    onSelect: (e, datum) =>
-      @input
-        .data 'datum', datum
-        .typeahead 'val', datum.title
+    @input
+      .data 'awesomplete', @
+      .on 'awesomplete-highlight', @onHighlight
+      .on 'awesomplete-select', @onSelect
+      .on 'keyup', @constructor.debounce(@onKeyup)
+      .on 'focus', @onFocus
 
-      autocomplete_id = @input.data('autocomplete-id')
+  blanked: =>
+    return unless @input.val().trim() == ''
 
-      $(".id_field[data-autocomplete-id=#{autocomplete_id}]")
-        .val datum.id
-      $(".type_field[data-autocomplete-id=#{autocomplete_id}]")
-        .val datum.type
+    @awesomplete.close()
 
-    @urlsForTypes: (types) ->
-      list = if $.isArray(types) then types else types.split(' ')
+    $("~ input:hidden##{@input.attr('id')}_id", @awesomplete.container)
+      .val null
+    $("~ input:hidden##{@input.attr('id')}_type", @awesomplete.container)
+      .val null
 
-      list.map (type) -> "/#{type}/search.json?search=%QUERY&commit=Search"
+    @input.trigger 'blanked.autocomplete'
 
-  class @Local
-    constructor: (@input, @suggestions) ->
-      @comboplete = new Awesomplete(
-        @input[0]
-        list: @suggestions
-        minChars: 0
-      )
+  onFocus: =>
+    @items = []
+    @value = @input.val().trim() ? ''
 
-      @addEventListeners()
+    for source in @sources when source.list?.length
+      for datum in source.list when source.filter(datum, @value)
+        @items.push @createListItem(datum, source)
 
-    addEventListeners: =>
-      @input
-        .off '.autocomplete'
-        .on 'focus.autocomplete', @toggleDropdown
+    @awesomplete.list = @items
+    @awesomplete.evaluate()
 
-    toggleDropdown: =>
-      if @comboplete.ul.childNodes.length == 0
-        @comboplete.evaluate()
-      else if @comboplete.ul.hasAttribute('hidden')
-        @comboplete.open()
-      else
-        @comboplete.close()
+  onHighlight: =>
+    item = $('+ ul li[aria-selected="true"]', @input)
 
-  @filterForUrl: (url) ->
-    return filter[1] for filter in @filters when filter[0].test(url)
+    return unless item[0]
 
-    (response) -> response
+    item[0].scrollIntoView false
+    @replace item.data('datum')._displayValue
 
-  @addFilter: (regex, func) =>
-    @filters.push [new RegExp(regex), func]
+  onSelect: (e) =>
+    # aria-selected isn't set on click
+    item = $(e.originalEvent.origin).closest('li')
+    datum = item.data('datum')
 
-  @addFilters: (filters) ->
-    @addFilter(regex, func) for own regex, func of filters
+    @replace datum._displayValue
+    @awesomplete.close()
 
-  @initialize: =>
-    $('[data-autocomplete]').each (index, elem) =>
-      new @Remote elem
+    $("~ input:hidden##{@input.attr('id')}_id", @awesomplete.container)
+      .val datum.id
+    $("~ input:hidden##{@input.attr('id')}_type", @awesomplete.container)
+      .val datum._type
 
-$.fn.autocomplete = (options) ->
-  return @ unless @length
+    @input.data(datum: datum).trigger('finished.autocomplete')
 
-  defaults =
-    name:           "Autocomplete#{Math.floor(Math.random() * 1000)}"
-    minLength:      2
-    hint:           false
-    limit:          25
-    datumTokenizer: (d) ->
-      Bloodhound.tokenizers.whitespace d.val
-    queryTokenizer: Bloodhound.tokenizers.whitespace
-    onSelect: ->
-    templates:
-      empty: '<div class="no-results">No results found</div>'
+    false
 
-  if options.displayKey?
-    unless options.datumTokenizer?
-      defaults.datumTokenizer = (d) ->
-        Bloodhound.tokenizers.whitespace d[options.displayKey]
+  onKeyup: (e) =>
+    keyCode = e.which || e.keyCode
 
-    defaults.templates.default =
-      "<span class=\"title\">{{#{options.displayKey}}}</span>"
+    value = @input.val().trim()
 
-  options = $.extend true, {}, defaults, options
+    return @blanked() if value == ''
 
-  @each (index, elem) ->
-    datasets = []
+    # Ignore: Tab, Enter, Esc, Left, Up, Right, Down
+    return if keyCode in [9, 13, 27, 37, 38, 39, 40]
 
-    if options.remote?
-      remotes = if $.isArray(options.remote)
-        options.remote
-      else
-        [options.remote]
+    # Don't perform the same search twice in a row
+    return unless value != @value && value.length >= 2
 
-      remotes.forEach (url, index) ->
-        bloodhound = new Bloodhound
-          remote:
-            url:          url
-            filter:       Fustrate.Components.Autocomplete.filterForUrl(url)
-          datumTokenizer: options.datumTokenizer
-          queryTokenizer: options.queryTokenizer
-          limit:          options.limit
+    @value = value
+    @items = []
 
-        bloodhound.initialize()
+    for source in @sources
+      if source.url?
+        @performSearch(source)
+      else if source.list?
+        for datum in source.list when source.filter(datum, @value)
+          @items.push @createListItem(datum, source)
 
-        datasets.push
-          name:       options.name + (index * 3)
-          source:     bloodhound.ttAdapter()
-          displayKey: options.displayKey
-          templates:
-            suggestion: (context) ->
-              Hogan.compile(options.templates.default).render(context)
-            empty: options.templates.empty
+        @awesomplete.list = @items
+        @awesomplete.evaluate()
 
-    if datasets.length == 0
-      throw new Error 'Autocomplete must have at least one source'
+  performSearch: (source) =>
+    $.get source.url(search: @value, commit: 1, format: 'json')
+    .done (response) =>
+      for datum in response
+        @items.push @createListItem(datum, source)
 
-    $(elem).typeahead({
-      minLength: options.minLength
-      hint:      options.hint
-    }, datasets)
-    .on 'typeahead:selected typeahead:autocompleted', (e, datum) ->
-      options.onSelect(e, datum)
-      $(elem)
-        .data 'datum', datum
-        .trigger 'typeahead:finished', datum
+      @awesomplete.list = @items
+      @awesomplete.evaluate()
+
+  createListItem: (datum, source) ->
+    datum._displayValue = datum[source.displayKey]
+    datum._type = source.type
+
+    $ source.item.call(@, datum, @value)
+      .data datum: datum
+      .get(0)
+
+  highlight: (text) =>
+    return '' unless text
+
+    text.replace RegExp("(#{@value.split(/\s+/).join('|')})", 'gi'),
+                 '<mark>$&</mark>'
+
+  replace: (text) =>
+    @awesomplete.replace(text)
+
+  @debounce: (func, milliseconds = 300, immediate = false) ->
+    timeout = null
+
+    (args...) ->
+      delayed = =>
+        func.apply(@, args) unless immediate
+        timeout = null
+
+      if timeout
+        clearTimeout(timeout)
+      else if immediate
+        func.apply(@, args)
+
+      timeout = setTimeout delayed, milliseconds
+
+  @addType: (name, func) =>
+    @types[name] = func
+
+  @addTypes: (types) ->
+    @addType(name, func) for own name, func of filters
