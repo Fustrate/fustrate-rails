@@ -114,7 +114,6 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
           @items.push @createListItem(datum, source)
 
         @awesomplete.list = @items
-        @awesomplete.evaluate()
 
   performSearch: (source) =>
     $.get source.url(search: @value, commit: 1, format: 'json')
@@ -123,7 +122,6 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
         @items.push @createListItem(datum, source)
 
       @awesomplete.list = @items
-      @awesomplete.evaluate()
 
   createListItem: (datum, source) ->
     datum._displayValue = datum[source.displayKey]
