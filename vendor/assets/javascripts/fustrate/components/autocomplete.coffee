@@ -63,7 +63,6 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
         @items.push @createListItem(datum, source)
 
     @awesomplete.list = @items
-    @awesomplete.evaluate()
 
   onHighlight: =>
     item = $('+ ul li[aria-selected="true"]', @input)
