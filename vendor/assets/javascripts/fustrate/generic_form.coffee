@@ -1,6 +1,11 @@
 #= require './generic_page'
 
 class Fustrate.GenericForm extends Fustrate.GenericPage
+  addEventListeners: =>
+    super
+
+    @root.on 'submit', @onSubmit
+
   _reloadUIElements: =>
     super
 
@@ -12,3 +17,15 @@ class Fustrate.GenericForm extends Fustrate.GenericPage
         @fields[captures[1]] = element
       else
         @fields[name] = element
+
+  validate: -> true
+
+  onSubmit: (e) =>
+    e.preventDefault()
+
+    unless @validate()
+      setTimeout (=> $.rails.enableFormElements(@root)), 100
+
+      return false
+
+    true
