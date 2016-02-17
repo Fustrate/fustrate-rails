@@ -29,7 +29,7 @@ class Fustrate.Components.Pagination extends Fustrate.Components.Base
     if @total_pages > 1
       pages = for i in @windowedPageNumbers()
         if i == @current_page
-          "<li class=\"current\">#{VMG.linkTo(i, '#')}</li>"
+          "<li class=\"current\">#{Fustrate.linkTo(i, '#')}</li>"
         else if i == 'gap'
           '<li class="unavailable"><span class="gap">…</span></li>'
         else
