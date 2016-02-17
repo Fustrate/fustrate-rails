@@ -33,3 +33,8 @@ class Fustrate.GenericPage
 
   setHeader: (text) ->
     $('.header > span', @root).text text
+
+  # Calls all methods matching /refresh.+/
+  refresh: =>
+    for own name, func of @
+      func() if name.indexOf('refresh') == 0 && name != 'refresh'
