@@ -45,6 +45,9 @@ class Fustrate.GenericTable extends Fustrate.GenericPage
     $('tbody tr.no-records', @table)
       .toggle $('tbody tr:not(.no-records):not(.loading)', @table).length < 1
 
+  getCheckedIds: =>
+    (item.value for item in $('td:first-child input:checked', @table))
+
   # This should be fed a response from a JSON request for a paginated
   # collection.
   updatePagination: (response) =>
