@@ -190,7 +190,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
         .fadeOut @fadeSpeed, ->
           $(@).detach()
 
-  @backgroundClicked: (e) ->
+  @backgroundClicked: ->
     modal = $ '.modal.open'
 
     return if !modal || modal.hasClass('locked')
@@ -198,19 +198,14 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     # Don't continue to close if we're not supposed to
     return unless Fustrate.Components.Modal.settings.closeOnBackgroundClick
 
-    e.preventDefault()
-    e.stopPropagation()
-
     modal.trigger 'close.modal'
 
     false
 
-  @closeButtonClicked: (e) ->
+  @closeButtonClicked: ->
     modal = $ '.modal.open'
 
     return if !modal || modal.hasClass('locked')
-
-    e.preventDefault()
 
     modal.trigger 'close.modal'
 

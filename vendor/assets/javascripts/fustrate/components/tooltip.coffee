@@ -23,20 +23,16 @@ class Fustrate.Components.Tooltip extends Fustrate.Components.Base
       @element.prop('title', title)
 
   _move: (e) =>
-    e.stopPropagation()
+    @tooltip.css @_tooltipPosition(e) if @active
 
-    return unless @active
-
-    @tooltip.css @_tooltipPosition(e)
+    false
 
   _show: (e) =>
-    e.stopPropagation()
-
-    return if @active
+    return false if @active
 
     title = @element.prop('title') ? ''
 
-    return unless title.length > 0
+    return false unless title.length > 0
 
     @tooltip ?= $('<span class="tooltip">').hide()
 
@@ -50,16 +46,17 @@ class Fustrate.Components.Tooltip extends Fustrate.Components.Base
       .css @_tooltipPosition(e)
       .fadeIn @constructor.fadeSpeed
 
+    false
+
   _hide: (e) =>
-    e?.stopPropagation()
-
     # No use hiding something that doesn't exist.
-    return unless @tooltip
+    if @tooltip
+      @element.attr 'title', @tooltip.text()
+      @active = false
 
-    @element.attr 'title', @tooltip.text()
-    @active = false
+      @tooltip.fadeOut @constructor.fadeSpeed, @tooltip.detach
 
-    @tooltip.fadeOut @constructor.fadeSpeed, @tooltip.detach
+    false
 
   _tooltipPosition: (e) ->
     top: "#{e.pageY + 15}px"

@@ -1,9 +1,9 @@
 class Fustrate.Components.Tabs extends Fustrate.Components.Base
   constructor: (@tabs) ->
     @tabs.on 'click', 'li > a', (e) =>
-      e.preventDefault()
-
       @activateTab $(e.currentTarget)
+
+      false
 
     if window.location.hash
       @activateTab $("li > a[href='#{window.location.hash}']", @tabs).first()
