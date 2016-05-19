@@ -4,6 +4,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
   @settings:
     closeOnBackgroundClick: true
     distanceFromTop: 25
+    appendTo: 'body'
     css:
       open:
         opacity: 0
@@ -173,7 +174,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
           <a href="#" class="modal-close">&#215;</a>
         </div>
         <div class="modal-content"></div>
-      </div>""").appendTo('#content')
+      </div>""").appendTo(@settings.appendTo)
 
   @toggleBackground: (visible = true) =>
     @overlay = $ '<div class="modal-overlay">' unless @overlay
