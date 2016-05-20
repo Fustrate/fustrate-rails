@@ -10,9 +10,9 @@ class Fustrate.GenericTable extends Fustrate.GenericPage
   reloadTable: ->
 
   sortRows: (rows, sortFunction = ->) ->
-    ([sortFunction(row), row] for row in rows)
-      .sort (x, y) -> if x[0] == y[0] then 0 else x[0] > y[0]
-      .map (row) -> row[1]
+    sorted = ([sortFunction(row), row] for row in rows)
+    sorted.sort (x, y) -> if x[0] == y[0] then 0 else x[0] > y[0]
+    sorted.map (row) -> row[1]
 
   createRow: (item) =>
     @updateRow @constructor.blankRow.clone(), item
