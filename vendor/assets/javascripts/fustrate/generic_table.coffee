@@ -11,7 +11,8 @@ class Fustrate.GenericTable extends Fustrate.GenericPage
 
   sortRows: (rows, sortFunction = ->) ->
     sorted = ([sortFunction(row), row] for row in rows)
-    sorted.sort (x, y) -> if x[0] == y[0] then 0 else x[0] > y[0]
+    sorted.sort (x, y) ->
+      if x[0] == y[0] then 0 else if x[0] > y[0] then 1 else -1
     sorted.map (row) -> row[1]
 
   createRow: (item) =>
