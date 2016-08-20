@@ -187,11 +187,6 @@ $column-gutter: rem-calc(30)
     & + &.end
       float: left
 
-  [class*="column"] + [class*="column"]:last-child
-    float: right
-  [class*="column"] + [class*="column"].end
-    float: left
-
   @media #{$small-up}
     +grid-html-classes($size: small)
 
