@@ -183,6 +183,10 @@ $column-gutter: rem-calc(30)
   .columns
     +grid-column($columns: $total-columns)
 
+    & + &:last-child,
+    & + &.end
+      float: left
+
   [class*="column"] + [class*="column"]:last-child
     float: right
   [class*="column"] + [class*="column"].end

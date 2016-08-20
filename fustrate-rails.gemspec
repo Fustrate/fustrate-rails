@@ -22,8 +22,8 @@ Gem::Specification.new do |s|
   s.executables = []
   s.require_paths = ['lib']
 
-  s.add_runtime_dependency 'coffee-script', '>= 2.2'
-  s.add_runtime_dependency 'sass',          '>= 3.1'
+  s.add_runtime_dependency 'coffee-script', '>= 2.4'
+  s.add_runtime_dependency 'sass',          '>= 3.4'
   s.add_runtime_dependency 'railties',      '>= 4', '< 5.1'
 
   # CSS Libraries

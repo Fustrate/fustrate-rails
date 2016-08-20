@@ -3,7 +3,7 @@
 #= require_tree .
 
 class window.Fustrate
-  @VERSION: '0.3.2'
+  @VERSION: '0.3.3'
   @libs: {}
 
   constructor: ->
