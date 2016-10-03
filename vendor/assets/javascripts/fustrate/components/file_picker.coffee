@@ -3,6 +3,7 @@ class Fustrate.Components.FilePicker extends Fustrate.Components.Base
     input = $ '<input type="file">'
 
     input
+      .appendTo $('body')
       .change ->
         callback input[0].files
 
