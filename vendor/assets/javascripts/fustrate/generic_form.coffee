@@ -21,11 +21,10 @@ class Fustrate.GenericForm extends Fustrate.GenericPage
   validate: -> true
 
   onSubmit: (e) =>
+    return true if @validate()
+
     e.preventDefault()
 
-    unless @validate()
-      setTimeout (=> $.rails.enableFormElements(@root)), 100
+    setTimeout (=> $.rails.enableFormElements(@root)), 100
 
-      return false
-
-    true
+    false
