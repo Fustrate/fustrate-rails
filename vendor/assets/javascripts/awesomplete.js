@@ -1,4 +1,4 @@
-/* 1795543d988d0fd9ca6237a5ac176f8e88d63990 */
+/* 8185a3c51433e1ce8a24c0c6d3bf63dcfd2bc41f */
 
 /**
  * Simple, lightweight, usable local autocomplete library for modern browsers
@@ -14,6 +14,8 @@ var _ = function (input, o) {
 
 	// Setup
 
+	this.isOpened = false;
+
 	this.input = $(input);
 	this.input.setAttribute("autocomplete", "off");
 	this.input.setAttribute("aria-autocomplete", "list");
@@ -24,6 +26,7 @@ var _ = function (input, o) {
 		minChars: 2,
 		maxItems: 10,
 		autoFirst: false,
+		data: _.DATA,
 		filter: _.FILTER_CONTAINS,
 		sort: _.SORT_BYLENGTH,
 		item: _.ITEM,
@@ -56,7 +59,7 @@ var _ = function (input, o) {
 
 	$.bind(this.input, {
 		"input": this.evaluate.bind(this),
-		"blur": this.close.bind(this),
+		"blur": this.close.bind(this, { reason: "blur" }),
 		"keydown": function(evt) {
 			var c = evt.keyCode;
 
@@ -68,7 +71,7 @@ var _ = function (input, o) {
 					me.select();
 				}
 				else if (c === 27) { // Esc
-					me.close();
+					me.close({ reason: "esc" });
 				}
 				else if (c === 38 || c === 40) { // Down/Up arrow
 					evt.preventDefault();
@@ -78,7 +81,7 @@ var _ = function (input, o) {
 		}
 	});
 
-	$.bind(this.input.form, {"submit": this.close.bind(this)});
+	$.bind(this.input.form, {"submit": this.close.bind(this, { reason: "submit" })});
 
 	$.bind(this.ul, {"mousedown": function(evt) {
 		var li = evt.target;
@@ -119,9 +122,18 @@ _.prototype = {
 			list = $(list);
 
 			if (list && list.children) {
-				this._list = slice.apply(list.children).map(function (el) {
-					return el.textContent.trim();
+				var items = [];
+				slice.apply(list.children).forEach(function (el) {
+					if (!el.disabled) {
+						var text = el.textContent.trim();
+						var value = el.value || text;
+						var label = el.label || text;
+						if (value !== "") {
+							items.push({ label: label, value: value });
+						}
+					}
 				});
+				this._list = items;
 			}
 		}
 
@@ -135,18 +147,24 @@ _.prototype = {
 	},
 
 	get opened() {
-		return !this.ul.hasAttribute("hidden");
+		return this.isOpened;
 	},
 
-	close: function () {
+	close: function (o) {
+		if (!this.opened) {
+			return;
+		}
+
 		this.ul.setAttribute("hidden", "");
+		this.isOpened = false;
 		this.index = -1;
 
-		$.fire(this.input, "awesomplete-close");
+		$.fire(this.input, "awesomplete-close", o || {});
 	},
 
 	open: function () {
 		this.ul.removeAttribute("hidden");
+		this.isOpened = true;
 
 		if (this.autoFirst && this.index === -1) {
 			this.goto(0);
@@ -157,14 +175,14 @@ _.prototype = {
 
 	next: function () {
 		var count = this.ul.children.length;
-
-		this.goto(this.index < count - 1? this.index + 1 : -1);
+		this.goto(this.index < count - 1 ? this.index + 1 : (count ? 0 : -1) );
 	},
 
 	previous: function () {
 		var count = this.ul.children.length;
+		var pos = this.index - 1;
 
-		this.goto(this.selected? this.index - 1 : count - 1);
+		this.goto(this.selected && pos !== -1 ? pos : count - 1);
 	},
 
 	// Should not be used, highlights specific item without any checks!
@@ -180,25 +198,34 @@ _.prototype = {
 		if (i > -1 && lis.length > 0) {
 			lis[i].setAttribute("aria-selected", "true");
 			this.status.textContent = lis[i].textContent;
-		}
 
-		$.fire(this.input, "awesomplete-highlight");
+			$.fire(this.input, "awesomplete-highlight", {
+				text: this.suggestions[this.index]
+			});
+		}
 	},
 
 	select: function (selected, origin) {
-		selected = selected || this.ul.children[this.index];
+		if (selected) {
+			this.index = $.siblingIndex(selected);
+		} else {
+			selected = this.ul.children[this.index];
+		}
 
 		if (selected) {
+			var suggestion = this.suggestions[this.index];
+
 			var allowed = $.fire(this.input, "awesomplete-select", {
-				text: selected.textContent,
-				data: this.suggestions[$.siblingIndex(selected)],
+				text: suggestion,
 				origin: origin || selected
 			});
 
 			if (allowed) {
-				this.replace(selected.textContent);
-				this.close();
-				$.fire(this.input, "awesomplete-selectcomplete");
+				this.replace(suggestion);
+				this.close({ reason: "select" });
+				$.fire(this.input, "awesomplete-selectcomplete", {
+					text: suggestion
+				});
 			}
 		}
 	},
@@ -213,6 +240,9 @@ _.prototype = {
 			this.ul.innerHTML = "";
 
 			this.suggestions = this._list
+				.map(function(item) {
+					return new Suggestion(me.data(item, value));
+				})
 				.filter(function(item) {
 					return me.filter(item, value);
 				})
@@ -224,13 +254,13 @@ _.prototype = {
 				});
 
 			if (this.ul.children.length === 0) {
-				this.close();
+				this.close({ reason: "nomatches" });
 			} else {
 				this.open();
 			}
 		}
 		else {
-			this.close();
+			this.close({ reason: "nomatches" });
 		}
 	}
 };
@@ -256,7 +286,7 @@ _.SORT_BYLENGTH = function (a, b) {
 };
 
 _.ITEM = function (text, input) {
-	var html = input === '' ? text : text.replace(RegExp($.regExpEscape(input.trim()), "gi"), "<mark>$&</mark>");
+	var html = input.trim() === '' ? text : text.replace(RegExp($.regExpEscape(input.trim()), "gi"), "<mark>$&</mark>");
 	return $.create("li", {
 		innerHTML: html,
 		"aria-selected": "false"
@@ -264,10 +294,27 @@ _.ITEM = function (text, input) {
 };
 
 _.REPLACE = function (text) {
-	this.input.value = text;
+	this.input.value = text.value;
 };
 
+_.DATA = function (item/*, input*/) { return item; };
+
 // Private functions
+
+function Suggestion(data) {
+	var o = Array.isArray(data)
+	  ? { label: data[0], value: data[1] }
+	  : typeof data === "object" && "label" in data && "value" in data ? data : { label: data, value: data };
+
+	this.label = o.label || o.value;
+	this.value = o.value;
+}
+Object.defineProperty(Suggestion.prototype = Object.create(String.prototype), "length", {
+	get: function() { return this.label.length; }
+});
+Suggestion.prototype.toString = Suggestion.prototype.valueOf = function () {
+	return "" + this.label;
+};
 
 function configure(instance, properties, o) {
 	for (var i in properties) {
