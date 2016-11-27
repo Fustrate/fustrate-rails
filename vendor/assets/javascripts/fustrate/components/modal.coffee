@@ -73,7 +73,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     # Focus requires a slight physical scroll on iOS 8.4
     return true if /iPad|iPhone|iPod/g.test navigator.userAgent
 
-    $('input, select', @modal)
+    $('input, select, textarea', @modal)
       .filter(':visible:not(:disabled):not([readonly])')
       .first()
       .focus()
