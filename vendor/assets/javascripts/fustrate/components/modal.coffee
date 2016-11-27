@@ -16,7 +16,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
         display: 'none'
     _cachedHeight: undefined
 
-  constructor: ({title, content, size, settings}) ->
+  constructor: ({ title, content, size, settings }) ->
     @modal = @constructor.createModal size: size
     @settings = $.extend true, @constructor.settings, (settings ? {})
     @settings.previousModal = $()
@@ -79,7 +79,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
       .focus()
 
   open: =>
-    return if @modal.hasClass('locked') || @modal.hasClass('open')
+    return if @modal.hasClass('locked') or @modal.hasClass('open')
 
     @modal.addClass('locked')
 
@@ -91,13 +91,13 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     $('body')
       .off 'keyup.modal'
       .on 'keyup.modal', (e) =>
-        return if @modal.hasClass('locked') || e.which != 27
+        return if @modal.hasClass('locked') or e.which isnt 27
 
         @close()
 
     @modal.trigger 'opening.modal'
 
-    @_cacheHeight() if typeof @settings._cachedHeight == 'undefined'
+    @_cacheHeight() if typeof @settings._cachedHeight is 'undefined'
 
     if @settings.previousModal.length
       @settings.previousModal.trigger('hide.modal')
@@ -123,17 +123,17 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     ), 125
 
   close: (openPrevious = true) =>
-    return if @modal.hasClass('locked') || !@modal.hasClass('open')
+    return if @modal.hasClass('locked') or not @modal.hasClass('open')
 
     @modal.addClass 'locked'
 
     $('body').off 'keyup.modal'
 
-    unless @settings.previousModal.length && openPrevious
+    unless @settings.previousModal.length and openPrevious
       @constructor.toggleBackground(false)
 
     end_css =
-      top: - $(window).scrollTop() - @settings._cachedHeight + 'px',
+      top: -$(window).scrollTop() - @settings._cachedHeight + 'px',
       opacity: 0
 
     setTimeout (=>
@@ -166,7 +166,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
 
     @modal.hide()
 
-  @createModal: ({size}) ->
+  @createModal: ({ size }) ->
     $("""
       <div class="modal #{size ? 'tiny'}">
         <div class="modal-title">
@@ -194,7 +194,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
   @backgroundClicked: ->
     modal = $ '.modal.open'
 
-    return if !modal || modal.hasClass('locked')
+    return if not modal or modal.hasClass('locked')
 
     # Don't continue to close if we're not supposed to
     return unless Fustrate.Components.Modal.settings.closeOnBackgroundClick
@@ -206,7 +206,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
   @closeButtonClicked: ->
     modal = $ '.modal.open'
 
-    return if !modal || modal.hasClass('locked')
+    return if not modal or modal.hasClass('locked')
 
     modal.trigger 'close.modal'
 

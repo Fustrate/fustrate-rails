@@ -1,5 +1,5 @@
 class Fustrate.Components.Pagination extends Fustrate.Components.Base
-  constructor: ({@current_page, @total_pages, @total_entries, @per_page}) ->
+  constructor: ({ @current_page, @total_pages, @total_entries, @per_page }) ->
     @base = @constructor._getPreppedPaginationURL()
 
   link: (text, page, options = {}) =>
@@ -28,9 +28,9 @@ class Fustrate.Components.Pagination extends Fustrate.Components.Base
 
     if @total_pages > 1
       pages = for i in @windowedPageNumbers()
-        if i == @current_page
+        if i is @current_page
           "<li class=\"current\">#{Fustrate.linkTo(i, '#')}</li>"
-        else if i == 'gap'
+        else if i is 'gap'
           '<li class="unavailable"><span class="gap">…</span></li>'
         else
           "<li>#{@link i, i}</li>"
@@ -74,9 +74,9 @@ class Fustrate.Components.Pagination extends Fustrate.Components.Base
   @_getPreppedPaginationURL: ->
     search = window.location.search.replace(/[?&]page=\d+/, '')
 
-    search = if search[0] == '?'
+    search = if search[0] is '?'
                "#{search}&"
-             else if search[0] == '&'
+             else if search[0] is '&'
                "?#{search[1...search.length]}&"
              else
                '?'

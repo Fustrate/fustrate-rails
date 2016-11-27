@@ -3,7 +3,7 @@ class Fustrate.Components.Flash extends Fustrate.Components.Base
   @fadeOutSpeed: 2000
   @displayTime: 4000
 
-  constructor: (message, {type, icon} = {}) ->
+  constructor: (message, { type, icon } = {}) ->
     message = "#{Fustrate.icon(icon)} #{message}" if icon
 
     bar = $ "<div class=\"flash #{type ? 'info'}\"></div>"
@@ -19,13 +19,13 @@ class Fustrate.Components.Flash extends Fustrate.Components.Base
     $('body').append '<div id="flashes">'
 
   class @Error
-    constructor: (message, {icon} = {}) ->
+    constructor: (message, { icon } = {}) ->
       new Fustrate.Components.Flash message, type: 'error', icon: icon
 
   class @Info
-    constructor: (message, {icon} = {}) ->
+    constructor: (message, { icon } = {}) ->
       new Fustrate.Components.Flash message, type: 'info', icon: icon
 
   class @Success
-    constructor: (message, {icon} = {}) ->
+    constructor: (message, { icon } = {}) ->
       new Fustrate.Components.Flash message, type: 'success', icon: icon

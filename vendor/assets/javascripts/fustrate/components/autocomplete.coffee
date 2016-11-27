@@ -43,7 +43,7 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
       .on 'focus', @onFocus
 
   blanked: =>
-    return unless @input.val().trim() == ''
+    return unless @input.val().trim() is ''
 
     @awesomplete.close()
 
@@ -90,17 +90,17 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
     false
 
   onKeyup: (e) =>
-    keyCode = e.which || e.keyCode
+    keyCode = e.which or e.keyCode
 
     value = @input.val().trim()
 
-    return @blanked() if value == ''
+    return @blanked() if value is ''
 
     # Ignore: Tab, Enter, Esc, Left, Up, Right, Down
     return if keyCode in [9, 13, 27, 37, 38, 39, 40]
 
     # Don't perform the same search twice in a row
-    return unless value != @value && value.length >= 2
+    return unless value isnt @value and value.length >= 2
 
     @value = value
     @items = []

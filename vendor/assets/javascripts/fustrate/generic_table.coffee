@@ -12,7 +12,7 @@ class Fustrate.GenericTable extends Fustrate.GenericPage
   sortRows: (rows, sortFunction = ->) ->
     sorted = ([sortFunction(row), row] for row in rows)
     sorted.sort (x, y) ->
-      if x[0] == y[0] then 0 else if x[0] > y[0] then 1 else -1
+      if x[0] is y[0] then 0 else if x[0] > y[0] then 1 else -1
     sorted.map (row) -> row[1]
 
   createRow: (item) =>
@@ -21,7 +21,7 @@ class Fustrate.GenericTable extends Fustrate.GenericPage
   updateRow: (row, item) ->
     row
 
-  reloadRows: (rows, {sort} = { sort: null }) =>
+  reloadRows: (rows, { sort } = { sort: null }) =>
     tbody = $ 'tbody', @table
 
     $('tr.loading', tbody).hide()

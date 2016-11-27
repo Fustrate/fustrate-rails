@@ -30,7 +30,7 @@ class window.Fustrate
     $('.number').each (index, elem) ->
       elem = $ @
 
-      number = if elem.data('number') != undefined
+      number = if elem.data('number') isnt undefined
         elem.data('number')
       else
         elem.html()
@@ -43,7 +43,7 @@ class window.Fustrate
     Fustrate._arrayToClass(pieces, window)
 
   @_arrayToClass: (pieces, root) ->
-    if pieces.length == 1
+    if pieces.length is 1
       root[pieces[0]]
     else
       Fustrate._arrayToClass pieces.slice(1), root[pieces[0]]
@@ -67,13 +67,13 @@ class window.Fustrate
         $.rails.CSRFProtection xhr
 
   @humanDate: (date, time = false) ->
-    if date.year() == moment().year()
+    if date.year() is moment().year()
       date.format("M/D#{if time then ' h:mm A' else ''}")
     else
       date.format("M/D/YY#{if time then ' h:mm A' else ''}")
 
   @label: (text, type) ->
-    type = if type then "#{type} " else ""
+    type = if type then "#{type} " else ''
 
     $('<span>')
       .text(text)

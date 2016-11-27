@@ -22,13 +22,13 @@ class Fustrate.GenericPage
       button = $ element
       @buttons[button.data('button')] = button
 
-  flashSuccess: (message, {icon} = {}) ->
+  flashSuccess: (message, { icon } = {}) ->
     new Fustrate.Components.Flash.Success(message, icon: icon)
 
-  flashError: (message, {icon} = {}) ->
+  flashError: (message, { icon } = {}) ->
     new Fustrate.Components.Flash.Error(message, icon: icon)
 
-  flashInfo: (message, {icon} = {}) ->
+  flashInfo: (message, { icon } = {}) ->
     new Fustrate.Components.Flash.Info(message, icon: icon)
 
   setHeader: (text) ->
@@ -37,4 +37,4 @@ class Fustrate.GenericPage
   # Calls all methods matching /refresh.+/
   refresh: =>
     for own name, func of @
-      func() if name.indexOf('refresh') == 0 && name != 'refresh'
+      func() if name.indexOf('refresh') is 0 and name isnt 'refresh'

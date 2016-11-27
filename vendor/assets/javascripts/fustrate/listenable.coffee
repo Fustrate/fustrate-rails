@@ -18,7 +18,7 @@ class Fustrate.Listenable
   trigger: =>
     [name, args...] = arguments
 
-    return unless name && @listeners[name]
+    return unless name and @listeners[name]
 
     event.apply(@, args) for event in @listeners[name]
 
