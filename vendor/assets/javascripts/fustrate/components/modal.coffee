@@ -1,6 +1,8 @@
 class Fustrate.Components.Modal extends Fustrate.Components.Base
   @size: 'tiny'
   @type: null
+  @icon: null
+  @title: null
 
   @fadeSpeed: 250
 
@@ -19,12 +21,12 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
         display: 'none'
     _cachedHeight: undefined
 
-  constructor: ({ title, content, settings } = {}) ->
+  constructor: ({ content, settings } = {}) ->
     @modal = @constructor.createModal()
     @settings = $.extend true, @constructor.settings, (settings ? {})
     @settings.previousModal = $()
 
-    @setTitle title
+    @setTitle @constructor.title, icon: @constructor.icon
     @setContent content
 
     @_reloadUIElements()
@@ -47,8 +49,14 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
       button = $ element
       @buttons[button.data('button')] = button
 
-  setTitle: (title) =>
-    $('.modal-title span', @modal).html title
+  setTitle: (title, { icon } = {}) =>
+    if icon
+      $('.modal-title span', @modal).html "#{Fustrate.icon icon} #{title}"
+    else if @constructor.icon and icon isnt false
+      $('.modal-title span', @modal)
+        .html "#{Fustrate.icon @constructor.icon} #{title}"
+    else
+      $('.modal-title span', @modal).html title
 
   setContent: (content) =>
     $('.modal-content', @modal).html content
