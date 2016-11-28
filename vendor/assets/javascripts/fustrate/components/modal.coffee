@@ -180,7 +180,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
       </div>""").appendTo(@settings.appendTo)
 
   @_defaultClasses: ->
-    ['modal', @size, @type].filter (klass) klass isnt null
+    ['modal', @size, @type].filter (klass) -> klass isnt null
 
   @toggleBackground: (visible = true) =>
     @overlay = $ '<div class="modal-overlay">' unless @overlay
