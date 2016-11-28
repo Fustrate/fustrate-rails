@@ -19,7 +19,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
         display: 'none'
     _cachedHeight: undefined
 
-  constructor: ({ title, content, settings }) ->
+  constructor: ({ title, content, settings } = {}) ->
     @modal = @constructor.createModal()
     @settings = $.extend true, @constructor.settings, (settings ? {})
     @settings.previousModal = $()
