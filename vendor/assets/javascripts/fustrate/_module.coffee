@@ -43,10 +43,9 @@ class window.Fustrate
     Fustrate._arrayToClass(pieces, window)
 
   @_arrayToClass: (pieces, root) ->
-    if pieces.length is 1
-      root[pieces[0]]
-    else
-      Fustrate._arrayToClass pieces.slice(1), root[pieces[0]]
+    return root[pieces[0]] if pieces.length is 1
+
+    Fustrate._arrayToClass pieces.slice(1), root[pieces[0]]
 
   @linkTo: (text, path, options = {}) ->
     $('<a>').prop('href', path).html(text).prop(options).outerHTML()
