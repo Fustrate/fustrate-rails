@@ -1,4 +1,7 @@
 class Fustrate.Components.Modal extends Fustrate.Components.Base
+  @size: 'tiny'
+  @type: null
+
   @fadeSpeed: 250
 
   @settings:
@@ -16,8 +19,8 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
         display: 'none'
     _cachedHeight: undefined
 
-  constructor: ({ title, content, size, settings }) ->
-    @modal = @constructor.createModal size: size
+  constructor: ({ title, content, settings }) ->
+    @modal = @constructor.createModal()
     @settings = $.extend true, @constructor.settings, (settings ? {})
     @settings.previousModal = $()
 
@@ -166,15 +169,18 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
 
     @modal.hide()
 
-  @createModal: ({ size }) ->
+  @createModal: ->
     $("""
-      <div class="modal #{size ? 'tiny'}">
+      <div class="#{@_defaultClasses().join(' ')}">
         <div class="modal-title">
           <span></span>
           <a href="#" class="modal-close">&#215;</a>
         </div>
         <div class="modal-content"></div>
       </div>""").appendTo(@settings.appendTo)
+
+  @_defaultClasses: ->
+    ['modal', @size, @type].filter (klass) klass isnt null
 
   @toggleBackground: (visible = true) =>
     @overlay = $ '<div class="modal-overlay">' unless @overlay
