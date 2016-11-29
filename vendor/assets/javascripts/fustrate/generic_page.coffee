@@ -14,11 +14,11 @@ class Fustrate.GenericPage
     @fields = {}
     @buttons = {}
 
-    $('[data-field]', @root).each (index, element) =>
+    $('[data-field]', @root).not('.modal [data-field]').each (index, element) =>
       field = $ element
       @fields[field.data('field')] = field
 
-    $('[data-button]', @root).each (index, element) =>
+    $('[data-button]', @root).not('.modal [data-button]').each (index, element) =>
       button = $ element
       @buttons[button.data('button')] = button
 
