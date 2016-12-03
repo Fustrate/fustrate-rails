@@ -3,6 +3,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
   @type: null
   @icon: null
   @title: null
+  @buttons: []
 
   @fadeSpeed: 250
 
@@ -27,7 +28,8 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     @settings.previousModal = $()
 
     @setTitle @constructor.title, icon: @constructor.icon
-    @setContent content
+    @setContent content, false
+    @setButtons @constructor.buttons, false
 
     @_reloadUIElements()
     @addEventListeners()
@@ -58,12 +60,54 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     else
       $('.modal-title span', @modal).html title
 
-  setContent: (content) =>
+  setContent: (content, { reload: true }) =>
     $('.modal-content', @modal).html content
 
     @settings._cachedHeight = undefined
 
-    @_reloadUIElements()
+    @_reloadUIElements() if reload
+
+  setButtons: (buttons, { reload: true }) =>
+    if buttons?.length < 1
+      $('.modal-buttons', @modal).empty()
+
+      return
+
+    list = []
+
+    for button in buttons
+      if typeof button is 'string'
+        list.push """
+          <button data-button="#{button}" class="#{button} expand">
+            #{button.titleize()}
+          </button>"""
+      else if typeof button is 'object'
+        for name, options of button
+          if typeof options is 'object'
+            text = options.text
+          else if typeof options is 'string'
+            text = options
+
+          text ?= name.titleize()
+
+          list.push(
+            $("<button data-button=\"#{name}\" class=\"expand\">")
+              .text(text)
+              .addClass(options.type ? name)
+              .outerHTML()
+          )
+
+    columns = list.map (button) -> "<div class=\"columns\">#{button}</div>"
+
+    $('.modal-buttons', @modal)
+      .empty()
+      .html "<div class=\"row\">#{columns.join('')}</div>"
+
+    $('.row .columns', @modal).addClass("large-#{12 / columns.length}")
+
+    @settings._cachedHeight = undefined
+
+    @_reloadUIElements() if reload
 
   addEventListeners: =>
     @modal
@@ -185,6 +229,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
           <a href="#" class="modal-close">&#215;</a>
         </div>
         <div class="modal-content"></div>
+        <div class="modal-buttons"></div>
       </div>""").appendTo(@settings.appendTo)
 
   @_defaultClasses: ->
