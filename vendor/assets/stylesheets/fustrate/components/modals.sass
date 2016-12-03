@@ -23,8 +23,10 @@
     top: 0
     left: 0
     background-color: #fff
-    padding: rem-calc(12)
-    border: 1px solid #666
+    // padding: rem-calc(12)
+    // border: 1px solid #666
+    padding: 0
+    border: none
     box-shadow: 0 0 10px rgba(#000, .4)
     margin-bottom: 1rem
 
@@ -58,20 +60,59 @@
       margin-bottom: 0
 
     .modal-title
-      padding: 0 rem-calc(4) rem-calc(4)
-      margin: 0 0 rem-calc(8)
-      border-bottom: 1px solid #ddd
+      background: scale-color($blue, $lightness: -15%)
+      border: 1px solid scale-color($blue, $lightness: -40%)
+      margin: 0
+      padding: rem-calc(6) rem-calc(12)
+      text-shadow: 0 1px 1px black
+      color: white
       font-weight: bold
 
     .modal-close
       font-size: rem-calc(24)
       line-height: 1
       position: absolute
-      top: rem-calc(8)
+      top: rem-calc(5)
       right: rem-calc(16)
-      color: #aaa
+      color: white
       font-weight: bold
       cursor: pointer
+
+    .modal-content
+      padding: rem-calc(12)
+      margin: 0
+      border: 1px solid #666
+      border-width: 0 1px 0
+
+    .modal-buttons
+      background: #eee
+      border: 1px solid #666
+      border-top-color: #d4d4d4
+      padding: rem-calc(12)
+      text-align: right
+
+      &:empty
+        padding: 0
+        border-width: 0 0 1px
+
+      // The normal cancel button color is too light on a light grey background
+      .cancel
+        +button-style(#dadada)
+
+    &.success
+      .modal-title
+        background: scale-color($green, $lightness: -5%)
+        border: 1px solid scale-color($green, $lightness: -35%)
+
+    &.failure
+      .modal-title
+        background: $red
+        border: 1px solid scale-color($red, $lightness: -30%)
+
+    &.withdraw
+      .modal-title
+        background: #444
+        border: 1px solid scale-color(#444, $lightness: -30%)
 
     .picker
       height: 300px
