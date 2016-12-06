@@ -60,14 +60,14 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     else
       $('.modal-title span', @modal).html title
 
-  setContent: (content, { reload: true }) =>
+  setContent: (content, { reload = true }) =>
     $('.modal-content', @modal).html content
 
     @settings._cachedHeight = undefined
 
     @_reloadUIElements() if reload
 
-  setButtons: (buttons, { reload: true }) =>
+  setButtons: (buttons, { reload = true }) =>
     if buttons?.length < 1
       $('.modal-buttons', @modal).empty()
 
