@@ -28,8 +28,8 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     @settings.previousModal = $()
 
     @setTitle @constructor.title, icon: @constructor.icon
-    @setContent content, reload: false
-    @setButtons @constructor.buttons, reload: false
+    @setContent content, false
+    @setButtons @constructor.buttons, false
 
     @_reloadUIElements()
     @addEventListeners()
@@ -60,14 +60,14 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     else
       $('.modal-title span', @modal).html title
 
-  setContent: (content, { reload } = { reload: true }) =>
+  setContent: (content, reload = true) =>
     $('.modal-content', @modal).html content
 
     @settings._cachedHeight = undefined
 
     @_reloadUIElements() if reload
 
-  setButtons: (buttons, { reload } = { reload: true }) =>
+  setButtons: (buttons, reload = true) =>
     if buttons?.length < 1
       $('.modal-buttons', @modal).empty()
 
