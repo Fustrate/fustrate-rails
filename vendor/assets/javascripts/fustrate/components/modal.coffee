@@ -28,8 +28,8 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     @settings.previousModal = $()
 
     @setTitle @constructor.title, icon: @constructor.icon
-    @setContent content, false
-    @setButtons @constructor.buttons, false
+    @setContent content, reload: false
+    @setButtons @constructor.buttons, reload: false
 
     @_reloadUIElements()
     @addEventListeners()
