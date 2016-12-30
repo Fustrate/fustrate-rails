@@ -15,6 +15,9 @@ class window.Fustrate
     @initialize()
 
   initialize: ->
+    # Loop through every element on the page with a data-js-class attribute
+    # and convert the data attribute's value to a real object. Then instantiate
+    # a new object of that class.
     $('[data-js-class]').each (index, elem) ->
       element = $(elem)
       klass = Fustrate._stringToClass element.data('js-class')
@@ -37,6 +40,8 @@ class window.Fustrate
 
       elem.addClass 'negative' if parseInt(number, 10) < 0
 
+  # Take a string like 'Asgard.Whiteboard.Entry' and retrieve the real class
+  # with that name. Start at `window` and work down from there.
   @_stringToClass: (string) ->
     pieces = string.split('.')
 
@@ -47,6 +52,7 @@ class window.Fustrate
 
     Fustrate._arrayToClass pieces.slice(1), root[pieces[0]]
 
+  # Very similar to the Rails helper `link_to`. Returns an HTML string.
   @linkTo: (text, path, options = {}) ->
     $('<a>').prop('href', path).html(text).prop(options).outerHTML()
 
@@ -83,6 +89,7 @@ class window.Fustrate
 
     "<i class=\"fa #{classes}\"></i>"
 
+# Replicate a few comment prototype methods on String and Array
 String::titleize = ->
   @replace(/_/g, ' ').replace /\b[a-z]/g, (char) -> char.toUpperCase()
 
