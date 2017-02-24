@@ -1,3 +1,8 @@
+$dropdown-color: #000 !default
+$dropdown-bg-color: #fff !default
+$dropdown-border-color: #ccc !default
+$dropdown-hover-bg-color: #f4f4f4 !default
+
 =fustrate-dropdowns
   .has-dropdown
     &::after
@@ -5,8 +10,8 @@
       padding-left: .5em
 
     & + .dropdown
-      background: white
-      border: 1px solid #ccc
+      background: $dropdown-bg-color
+      border: 1px solid $dropdown-border-color
       border-radius: 4px
       display: inline-block
       left: -9999px
@@ -16,16 +21,16 @@
 
       a,
       span
-        color: black
+        color: $dropdown-color
         cursor: pointer
         display: block
         font-size: .9rem
         padding: 3px 10px
 
         &:hover
-          background: #f4f4f4
+          background: scale-color($dropdown-bg-color, $lightness: -5%)
 
         &.divider
-          border-top: 1px solid #ccc
+          border-top: 1px solid $dropdown-border-color
           margin: 3px 0
           padding: 0

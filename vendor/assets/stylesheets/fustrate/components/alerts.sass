@@ -1,8 +1,10 @@
-$alert-padding: rem-calc(8) rem-calc(24) rem-calc(8) rem-calc(14)
-$alert-font-size: rem-calc(14)
+$alert-padding: rem-calc(8) rem-calc(24) rem-calc(8) rem-calc(14) !default
+$alert-font-size: rem-calc(14) !default
+$alert-dark-color: #333 !default
+$alert-light-color: #fff !default
 
 =alert-color($bg: #eaeaea)
-  $color: if(lightness($bg) > 70%, #333, #fff)
+  $color: if(lightness($bg) > 70%, $alert-dark-color, $alert-light-color)
 
   background-color: $bg
   border-color: scale-color($bg, $lightness: -14%)
@@ -30,14 +32,15 @@ $alert-font-size: rem-calc(14)
     .panel &:last-child
       margin-bottom: 0
 
-    li, p
+    li,
+    p
       font-size: $alert-font-size
 
     & > :last-child
       margin-bottom: 0
 
     a.close
-      color: #333
+      color: $alert-dark-color
       font-size: rem-calc(22)
       line-height: 0
       margin-top: -(rem-calc(22) / 2)
