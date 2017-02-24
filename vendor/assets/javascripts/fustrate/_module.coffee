@@ -89,7 +89,7 @@ class window.Fustrate
 
     "<i class=\"fa #{classes}\"></i>"
 
-# Replicate a few comment prototype methods on String and Array
+# Replicate a few common prototype methods on String and Array
 String::titleize = ->
   @replace(/_/g, ' ').replace /\b[a-z]/g, (char) -> char.toUpperCase()
 

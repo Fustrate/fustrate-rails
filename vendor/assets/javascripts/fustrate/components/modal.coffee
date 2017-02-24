@@ -103,7 +103,8 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
       .empty()
       .html "<div class=\"row\">#{columns.join('')}</div>"
 
-    $('.modal-buttons .row .columns', @modal).addClass("large-#{12 / columns.length}")
+    $('.modal-buttons .row .columns', @modal)
+      .addClass("large-#{12 / columns.length}")
 
     @settings._cachedHeight = undefined
 
