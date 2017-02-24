@@ -1,6 +1,7 @@
 $modal-bg-color: #fff !default
 $modal-title-color: #fff !default
 $modal-border-color: #666 !default
+$modal-overlay-color: rgba(0, 0, 0, .45) !default
 
 =modal-width($width: 80%)
   margin-left: -($width / 2)
@@ -8,7 +9,7 @@ $modal-border-color: #666 !default
 
 =fustrate-modals
   .modal-overlay
-    background: rgba(0, 0, 0, .45)
+    background: $modal-overlay-color
     display: none
     height: 120%
     left: 0
@@ -20,7 +21,7 @@ $modal-border-color: #666 !default
   .modal
     background-color: $modal-bg-color
     border: 0
-    box-shadow: 0 0 10px rgba(0, 0, 0, .4)
+    box-shadow: 0 0 10px $modal-overlay-color
     display: none
     left: 0
     margin-bottom: 1rem
