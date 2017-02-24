@@ -1,3 +1,7 @@
+$modal-bg-color: #fff !default
+$modal-title-color: #fff !default
+$modal-border-color: #666 !default
+
 =modal-width($width: 80%)
   margin-left: -($width / 2)
   width: $width
@@ -14,9 +18,9 @@
     z-index: 9500
 
   .modal
-    background-color: #fff
+    background-color: $modal-bg-color
     border: 0
-    box-shadow: 0 0 10px rgba(#000, .4)
+    box-shadow: 0 0 10px rgba(0, 0, 0, .4)
     display: none
     left: 0
     margin-bottom: 1rem
@@ -41,14 +45,14 @@
     .modal-title
       background: scale-color($blue, $lightness: -15%)
       border: 1px solid scale-color($blue, $lightness: -40%)
-      color: white
+      color: $modal-title-color
       font-weight: bold
       margin: 0
       padding: rem-calc(6) rem-calc(12)
-      text-shadow: 0 1px 1px black
+      text-shadow: 0 1px 1px $black
 
     .modal-close
-      color: white
+      color: $modal-title-color
       cursor: pointer
       font-size: rem-calc(24)
       font-weight: bold
@@ -58,15 +62,15 @@
       top: rem-calc(5)
 
     .modal-content
-      border: 1px solid #666
+      border: 1px solid $modal-border-color
       border-width: 0 1px
       margin: 0
       padding: rem-calc(12)
 
     .modal-buttons
-      background: #eee
-      border: 1px solid #666
-      border-top-color: #d4d4d4
+      background: scale-color($modal-bg-color, $lightness: -7%)
+      border: 1px solid $modal-border-color
+      border-top-color: scale-color($modal-border-color, $lightness: 70%)
       padding: rem-calc(12)
       text-align: right
 
@@ -159,4 +163,4 @@
       display: none !important
 
     .modal
-      background: #fff !important
+      background: $white !important

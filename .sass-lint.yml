@@ -1,0 +1,7 @@
+rules:
+  indentation:
+    size: 2
+  force-pseudo-nesting: 0
+  force-element-nesting: 0
+  no-qualifying-elements: 0
+  no-vendor-prefixes: 0

@@ -99,7 +99,7 @@ $h4-font-reduction: rem-calc(5) !default
   h4,
   h5,
   h6
-    color: #222
+    color: $font-color
     font-family: inherit
     font-style: normal
     font-weight: normal
@@ -110,7 +110,7 @@ $h4-font-reduction: rem-calc(5) !default
     text-rendering: optimizeLegibility
 
     small
-      color: scale-color(#222, $lightness: 35%)
+      color: scale-color($font-color, $lightness: 35%)
       font-size: 60%
       line-height: 0
 
@@ -133,14 +133,14 @@ $h4-font-reduction: rem-calc(5) !default
     font-size: $h6-font-size
 
   .subheader
-    color: scale-color(#222, $lightness: 35%)
+    color: scale-color($font-color, $lightness: 35%)
     font-weight: normal
     line-height: 1.4
     margin-bottom: .5rem
     margin-top: .2rem
 
   hr
-    border: solid #ccc
+    border: solid scale-color($font-color, $lightness: 75%)
     border-width: 1px 0 0
     clear: both
     height: 0
@@ -175,21 +175,19 @@ $h4-font-reduction: rem-calc(5) !default
     padding-left: 0
 
     &.no-bullet
+      list-style: none
       margin-left: 0
 
-      li
-        ul,
-        ol
-          list-style: none
-          margin-bottom: 0
-          margin-left: rem-calc(20)
-
-  ul
-    li
       ul,
       ol
+        list-style: none
         margin-bottom: 0
         margin-left: rem-calc(20)
+
+    ul,
+    ol
+      margin-bottom: 0
+      margin-left: rem-calc(20)
 
     &.square,
     &.circle,
@@ -207,9 +205,6 @@ $h4-font-reduction: rem-calc(5) !default
 
     &.disc
       list-style-type: disc
-
-    &.no-bullet
-      list-style: none
 
   ol
     margin-left: 1.4rem
@@ -239,7 +234,7 @@ $h4-font-reduction: rem-calc(5) !default
 
   abbr,
   acronym
-    border-bottom: 1px dotted #ddd
+    border-bottom: 1px dotted scale-color($text-color, $lightness: 85%)
     color: $font-color
     cursor: help
     font-size: 90%
@@ -249,7 +244,7 @@ $h4-font-reduction: rem-calc(5) !default
     text-transform: none
 
   blockquote
-    border-left: 1px solid #ddd
+    border-left: 1px solid scale-color($text-color, $lightness: 85%)
     margin: 0 0 rem-calc(20)
     padding: rem-calc(9 20 9 19)
 
@@ -262,7 +257,7 @@ $h4-font-reduction: rem-calc(5) !default
 
     &,
     & p
-      color: #6f6f6f
+      color: scale-color($text-color, $lightness: 35%)
       line-height: 1.6
 
   iframe
