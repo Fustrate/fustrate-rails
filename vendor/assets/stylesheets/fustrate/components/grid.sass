@@ -2,8 +2,8 @@ $row-width: rem-calc(1000)
 $total-columns: 12
 $column-gutter: rem-calc(30)
 
-@function grid-calc($colNumber, $totalColumns)
-  @return percentage($colNumber / $totalColumns)
+@function grid-calc($col-number, $col-count)
+  @return percentage($col-number / $col-count)
 
 // Use +grid-row(nest) to include a nested row
 // Use +grid-row(collapse) to collapsed a container row margins
@@ -11,30 +11,27 @@ $column-gutter: rem-calc(30)
 // Use +grid-row to use a container row
 =grid-row($behavior: false)
   @if $behavior == nest
-    width: auto
-    margin-left: -($column-gutter / 2)
-    margin-right: -($column-gutter / 2)
-    margin-top: 0
-    margin-bottom: 0
+    margin: 0 (-($column-gutter / 2))
     max-width: none
+    width: auto
 
   @else if $behavior == collapse
-    width: 100%
     margin: 0
     max-width: $row-width
+    width: 100%
 
   @else if $behavior == nest-collapse
-    width: auto
     margin: 0
     max-width: none
+    width: auto
 
   @else
-    width: 100%
+    margin-bottom: 0
     margin-left: auto
     margin-right: auto
     margin-top: 0
-    margin-bottom: 0
     max-width: $row-width
+    width: 100%
 
   // Clearfix for all rows
   +clearfix
@@ -80,8 +77,8 @@ $column-gutter: rem-calc(30)
     left: grid-calc($push, $total-columns)
     right: auto
   @if $pull
-    right: grid-calc($pull, $total-columns)
     left: auto
+    right: grid-calc($pull, $total-columns)
 
   @if $float
     @if $float == left or $float == true
@@ -93,9 +90,9 @@ $column-gutter: rem-calc(30)
 
   // If centered, get rid of float and add appropriate margins
   @if $center
+    float: none
     margin-left: auto
     margin-right: auto
-    float: none
 
   // If offset, calculate appropriate margins
   @if $offset
@@ -116,7 +113,6 @@ $column-gutter: rem-calc(30)
   .columns
     +grid-column($columns: false, $position: true)
 
-
   @for $i from 1 through $total-columns
     .#{$size}-#{$i}
       +grid-column($columns: $i, $collapse: null, $float: false)
@@ -126,11 +122,11 @@ $column-gutter: rem-calc(30)
       +grid-column($offset: $i, $collapse: null, $float: false)
 
   .#{$size}-reset-order
+    float: left
+    left: auto
     margin-left: 0
     margin-right: 0
-    left: auto
     right: auto
-    float: left
 
   .column.#{$size}-centered,
   .columns.#{$size}-centered
@@ -138,9 +134,9 @@ $column-gutter: rem-calc(30)
 
   .column.#{$size}-uncentered,
   .columns.#{$size}-uncentered
+    float: left
     margin-left: 0
     margin-right: 0
-    float: left
 
   // Fighting [class*="column"] + [class*="column"]:last-child
   .column.#{$size}-centered:last-child,
@@ -161,8 +157,8 @@ $column-gutter: rem-calc(30)
     +grid-row
 
     &.fluid
-      width: 100%
       max-width: 100%
+      width: 100%
 
     &.collapse
       > .column,
@@ -195,5 +191,6 @@ $column-gutter: rem-calc(30)
 
   @media #{$large-up}
     +grid-html-classes($size: large)
+
     .large-column-count-2
       +columns(2)

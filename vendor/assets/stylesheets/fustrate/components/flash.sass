@@ -1,33 +1,38 @@
+$flash-color: #fff !default
+$flash-shadow-color: rgba(255, 255, 255, .4) !default
+$flash-bg-color: $primary-color !default
+$flash-error-bg-color: $danger-color !default
+$flash-success-bg-color: $success-color !default
+
 =fustrate-flash
   #flashes
     bottom: 0
     left: 0
+    padding: .15rem .15rem 0
     position: fixed
     width: 100%
     z-index: 9900
-    padding: 0.15rem 0.15rem 0
 
     .flash
-      position: relative
-      margin: 0 0 0.15rem
-      opacity: 0.98
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.4)
-      color: white
+      +flash-color($flash-bg-color)
+      box-shadow: 0 0 8px $flash-shadow-color
+      color: $flash-color
       font-size: 1.25em
       line-height: 40px
+      margin: 0 0 .15rem
       min-height: 40px
-      padding: 0.2em 0
+      opacity: .98
+      padding: .2em 0
+      position: relative
       text-align: center
-      background: $primary-color
-      border: 1px solid scale_color($primary-color, $lightness: 20%)
-      text-shadow: 0 1px 3px scale_color($primary-color, $lightness: -50%)
 
       &.error
-        background: $danger-color
-        border: 1px solid scale_color($danger-color, $lightness: 20%)
-        text-shadow: 0 1px 3px scale_color($danger-color, $lightness: -50%)
+        +flash-color($flash-error-bg-color)
 
       &.success
-        background: $success-color
-        border: 1px solid scale_color($success-color, $lightness: 20%)
-        text-shadow: 0 1px 3px scale_color($success-color, $lightness: -50%)
+        +flash-color($flash-success-bg-color)
+
+=flash-color($bg)
+  background: $bg
+  border: 1px solid scale-color($bg, $lightness: 20%)
+  text-shadow: 0 1px 3px scale-color($bg, $lightness: -50%)

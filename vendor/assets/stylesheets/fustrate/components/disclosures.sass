@@ -7,17 +7,17 @@ $disclosure-title-font-size: rem-calc(12)
       cursor: pointer
       font-size: $disclosure-title-font-size
 
-      &:before
-        content: "\25b8"
-        width: 12px
+      &::before
+        content: '\25b8'
         display: inline-block
+        width: 12px
 
     .disclosure-content
       display: none
 
     &.open
-      .disclosure-title:before
-        content: "\25be"
+      .disclosure-title::before
+        content: '\25be'
 
       .disclosure-content
         display: inherit

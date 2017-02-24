@@ -1,15 +1,19 @@
+$popover-bg-color: #f2f2f2 !default
+$popover-border-color: #e0e0e0 !default
+
 =fustrate-popovers
   .popover
-    background: scale_color(#fff, $lightness: -5%)
-    border: 1px solid scale_color(#fff, $lightness: -12%)
+    background: $popover-bg-color
+    border: 1px solid $popover-border-color
+    box-shadow: 0 0 12px scale-color($grey, $lightness: 80%)
     display: inline-block
-    z-index: 9001
-    position: absolute
-    box-shadow: 0 0 12px scale_color($grey, $lightness: 80%)
-    padding: rem-calc(12 16)
     opacity: .9
+    padding: rem-calc(12 16)
+    position: absolute
+    z-index: 9001
 
     & > :first-child
       margin-top: 0
+
     & > :last-child
       margin-bottom: 0

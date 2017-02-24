@@ -8,24 +8,24 @@ $label-font-color-alt: #fff
 
   @if lightness($bg) < 70%
     color: $label-font-color-alt
-    text-shadow: 0 1px 1px scale_color($bg, $lightness: -70%)
+    text-shadow: 0 1px 1px scale-color($bg, $lightness: -70%)
   @else
     color: $label-font-color
-    text-shadow: 0 1px 1px scale_color($bg, $lightness: 70%)
+    text-shadow: 0 1px 1px scale-color($bg, $lightness: 70%)
 
 =fustrate-labels
   .label
-    text-align: center
-    text-decoration: none
-    line-height: 1
-    white-space: nowrap
+    +label-color
+    border-radius: 3px
     display: inline-block
-    position: relative
+    font-size: $label-font-size
+    line-height: 1
     margin-bottom: inherit
     padding: $label-padding
-    font-size: $label-font-size
-    border-radius: 3px
-    +label-color
+    position: relative
+    text-align: center
+    text-decoration: none
+    white-space: nowrap
 
     td.status:last-child &:only-child,
     &.fw
@@ -33,6 +33,7 @@ $label-font-color-alt: #fff
 
     &.round
       border-radius: 1000px
+
     &.sharp
       border-radius: 0
 
@@ -56,8 +57,8 @@ $label-font-color-alt: #fff
 
     // Check Mark
     &.yes::before
-      +font-awesome("\f00c")
+      +font-awesome('\f00c')
 
     // X
     &.no::before
-      +font-awesome("\f00d")
+      +font-awesome('\f00d')

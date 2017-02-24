@@ -1,31 +1,25 @@
-$button-padding: rem-calc(12)
-$button-font-size: rem-calc(12)
-$button-color: #fff
-$button-alt-color: #333
+$button-padding: rem-calc(12) !default
+$button-font-size: rem-calc(12) !default
+$button-color: #fff !default
+$button-alt-color: #333 !default
 
 =button-base
-  display: inline-block
-  border: none
+  -webkit-appearance: none
+  border: 0
+  border-radius: 0
   cursor: pointer
-  margin: 0 0 rem-calc(5)
-
+  display: inline-block
   font-size: $button-font-size
   font-weight: normal
-
   line-height: normal
+  margin: 0 0 rem-calc(5)
   position: relative
-  text-decoration: none
   text-align: center
-  -webkit-appearance: none
-  -webkit-border-radius: 0
-
+  text-decoration: none
   transition: background .2s linear
 
 =button-size($padding: $button-padding, $sides: $button-padding * 1.5)
-  padding-top: $padding
-  padding-right: $sides
-  padding-bottom: $padding + rem-calc(1)
-  padding-left: $sides
+  padding: $padding $sides ($padding + rem-calc(1))
 
 =button-style($bg: $primary-color, $hover: true)
   $color: if(lightness($bg) < 70%, $button-color, $button-alt-color)
@@ -33,7 +27,7 @@ $button-alt-color: #333
 
   background: $bg
   color: $color
-  text-shadow: 0 1px 1px scale_color($bg, $lightness: $shadow-lightness)
+  text-shadow: 0 1px 1px scale-color($bg, $lightness: $shadow-lightness)
 
   .alert-box &
     color: $color
@@ -42,7 +36,7 @@ $button-alt-color: #333
   @if $hover
     &:hover,
     &:active
-      background: if($hover == true, scale_color($bg, $lightness: -17%), $hover)
+      background: if($hover == true, scale-color($bg, $lightness: -17%), $hover)
       color: $color
 
     .alert-box &:hover,
@@ -76,8 +70,8 @@ $button-alt-color: #333
 
     &.tiny
       +button-size($button-padding * .4, $button-padding * .6)
-      font-size: $button-font-size * .4
       border-radius: 5px
+      font-size: $button-font-size * .4
 
     &.danger,
     &.logout,
@@ -85,6 +79,7 @@ $button-alt-color: #333
     &.deny,
     &.delete
       +button-style($red)
+
     &.save,
     &.submit,
     &.create,
@@ -92,6 +87,7 @@ $button-alt-color: #333
     &.success,
     &.close
       +button-style($green)
+
     &.plain,
     &.toggle-all,
     &.download,

@@ -4,50 +4,28 @@
 
 =fustrate-modals
   .modal-overlay
-    position: fixed
-    height: 120%
-    width: 100%
-    background: #000
-    background: rgba(#000, .45)
-    z-index: 9500
+    background: rgba(0, 0, 0, .45)
     display: none
-    top: 0
+    height: 120%
     left: 0
+    position: fixed
+    top: 0
+    width: 100%
+    z-index: 9500
 
   .modal
-    visibility: hidden
-    display: none
-    position: absolute
-    z-index: 9501
-    width: 100vw
-    top: 0
-    left: 0
     background-color: #fff
-    // padding: rem-calc(12)
-    // border: 1px solid #666
-    padding: 0
-    border: none
+    border: 0
     box-shadow: 0 0 10px rgba(#000, .4)
+    display: none
+    left: 0
     margin-bottom: 1rem
-
-    @media #{$small-only}
-      min-height: 100vh
-
-    @media #{$medium-up}
-      +modal-width
-      top: rem-calc(100)
-      left: 50%
-
-      &.tiny
-        +modal-width(30%)
-      &.small
-        +modal-width(40%)
-      &.medium
-        +modal-width(60%)
-      &.large
-        +modal-width(70%)
-      &.xlarge
-        +modal-width(95%)
+    padding: 0
+    position: absolute
+    top: 0
+    visibility: hidden
+    width: 100vw
+    z-index: 9501
 
     .column,
     .columns
@@ -55,6 +33,7 @@
 
     & > :first-child
       margin-top: 0
+
     & > :last-child,
     .modal-content form
       margin-bottom: 0
@@ -62,27 +41,27 @@
     .modal-title
       background: scale-color($blue, $lightness: -15%)
       border: 1px solid scale-color($blue, $lightness: -40%)
+      color: white
+      font-weight: bold
       margin: 0
       padding: rem-calc(6) rem-calc(12)
       text-shadow: 0 1px 1px black
-      color: white
-      font-weight: bold
 
     .modal-close
+      color: white
+      cursor: pointer
       font-size: rem-calc(24)
+      font-weight: bold
       line-height: 1
       position: absolute
-      top: rem-calc(5)
       right: rem-calc(16)
-      color: white
-      font-weight: bold
-      cursor: pointer
+      top: rem-calc(5)
 
     .modal-content
-      padding: rem-calc(12)
-      margin: 0
       border: 1px solid #666
-      border-width: 0 1px 0
+      border-width: 0 1px
+      margin: 0
+      padding: rem-calc(12)
 
     .modal-buttons
       background: #eee
@@ -92,8 +71,8 @@
       text-align: right
 
       &:empty
-        padding: 0
         border-width: 0 0 1px
+        padding: 0
 
       // The normal cancel button color is too light on a light grey background
       .cancel
@@ -115,9 +94,9 @@
         border: 1px solid scale-color(#444, $lightness: -30%)
 
     .picker
+      background: #fafafa
       height: 300px
       overflow-y: scroll
-      background: #fafafa
       position: relative
 
       .section
@@ -126,35 +105,58 @@
 
       .title
         background: #e3e3e3
-        padding: 2px rem-calc(8)
         border: 1px solid #ccc
         cursor: pointer
+        padding: 2px rem-calc(8)
 
         .count
           float: right
           font-size: rem-calc(12)
 
       .option
-        cursor: pointer
         border: 1px solid #ccc
+        cursor: pointer
         margin-top: -1px
         padding: .5rem
 
         &:hover
           background: $info-color
-          color: scale_color($info-color, $lightness: -65%)
-          border-color: scale_color($info-color, $lightness: -20%)
-          z-index: 9999
+          border-color: scale-color($info-color, $lightness: -20%)
+          color: scale-color($info-color, $lightness: -65%)
           position: relative
+          z-index: 9999
 
         .description
-          font-size: .8rem
           color: #555
+          font-size: .8rem
           padding-left: .5rem
 
+    @media #{$small-only}
+      min-height: 100vh
+
+    @media #{$medium-up}
+      +modal-width
+      left: 50%
+      top: rem-calc(100)
+
+      &.tiny
+        +modal-width(30%)
+
+      &.small
+        +modal-width(40%)
+
+      &.medium
+        +modal-width(60%)
+
+      &.large
+        +modal-width(70%)
+
+      &.xlarge
+        +modal-width(95%)
 
   @media print
     .modal-overlay
       display: none !important
+
     .modal
       background: #fff !important

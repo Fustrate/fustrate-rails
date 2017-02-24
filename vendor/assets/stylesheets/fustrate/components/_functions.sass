@@ -6,8 +6,8 @@ $rem-base: 16px !default
 @function convert-to-rem($value, $base-value: $rem-base)
   $value: strip-unit($value) / strip-unit($base-value) * 1rem
 
-  @if ($value == 0rem)
-    $value: 0
+  @if ($value == 0)
+    @return 0
 
   @return $value
 
@@ -17,25 +17,25 @@ $rem-base: 16px !default
   @if $max == 1
     @return convert-to-rem(nth($values, 1), $base-value)
 
-  $remValues: ()
+  $rem-values: ()
 
   @for $i from 1 through $max
-    $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value))
+    $rem-values: append($rem-values, convert-to-rem(nth($values, $i), $base-value))
 
-  @return $remValues
+  @return $rem-values
 
 =font-awesome($unicode, $padding-right: 3px, $spin: false)
-  font-family: FontAwesome
+  -moz-osx-font-smoothing: grayscale
+  -webkit-font-smoothing: antialiased
   content: $unicode
+  font-family: FontAwesome
   font-weight: 100
   text-rendering: auto
-  -webkit-font-smoothing: antialiased
-  -moz-osx-font-smoothing: grayscale
 
   @if $spin
     -webkit-animation: fa-spin 2s infinite linear
     animation: fa-spin 2s infinite linear
-    margin-right: $padding-right
     display: inline-block
+    margin-right: $padding-right
   @else
     padding-right: $padding-right

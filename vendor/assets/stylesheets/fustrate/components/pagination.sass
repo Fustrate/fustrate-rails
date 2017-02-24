@@ -1,57 +1,69 @@
-$pagination-active-color: $primary-color !default
+$pagination-color: #222 !default
+$pagination-link-color: #999 !default
+$pagination-active-bg-color: $primary-color !default
+$pagination-disabled-color: #999 !default
+$pagination-active-color: #fff !default
+$pagination-hover-bg-color: rgba(0, 0, 0, .08) !default
 
 =fustrate-pagination
-  ul.pagination
+  .pagination
     display: block
-    min-height: rem-calc(24)
     margin-left: rem-calc(-5)
+    min-height: rem-calc(24)
     text-align: center
 
     &:empty
       display: none
 
     li
-      height: rem-calc(24)
-      color: #222
-      font-size: rem-calc(14)
-      margin-left: rem-calc(1)
+      color: $pagination-color
       display: inline-block
+      font-size: rem-calc(14)
+      height: rem-calc(24)
+      margin-left: rem-calc(1)
 
-      a, span
-        display: block
-        padding: rem-calc(1 10 1)
-        color: #999
+      a,
+      span
         background: none
         border-radius: 4px
-        font-weight: normal
+        color: $pagination-link-color
+        display: block
         font-size: 1em
+        font-weight: normal
         line-height: inherit
+        padding: rem-calc(1 10 1)
         transition: background-color .3s ease-out
 
-      &:hover a,
-      a:focus,
-      &:hover span,
-      span:focus
-        background: scale-color(#fff, $lightness: -10%)
+        &:focus
+          background: $pagination-hover-bg-color
+
+      &:hover
+        a,
+        span
+          background: $pagination-hover-bg-color
 
       &.unavailable
-        a, span
+        a,
+        span
+          color: $pagination-disabled-color
           cursor: default
-          color: #999
 
-        &:hover a,
-        & a:focus,
-        &:hover button,
-        & button:focus
-          background: transparent
+          &:focus
+            background: transparent
+
+        &:hover
+          a,
+          button
+            background: transparent
 
       &.current
-        a, span
-          background: $pagination-active-color
-          color: #fff
-          font-weight: bold
+        a,
+        span
+          background: $pagination-active-bg-color
+          color: $pagination-active-color
           cursor: default
+          font-weight: bold
 
           &:hover,
           &:focus
-            background: $pagination-active-color
+            background: $pagination-active-bg-color

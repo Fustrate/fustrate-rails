@@ -1,37 +1,53 @@
-$panel-bg: darken(#fff, 5%)
+$panel-bg: #f2f2f2 !default
 
-$panel-margin-bottom: rem-calc(20)
-$panel-padding: rem-calc(16 20)
+$panel-margin-bottom: rem-calc(20) !default
+$panel-padding: rem-calc(16 20) !default
 
-$panel-font-color: #333
-$panel-font-color-alt: #fff
+$panel-font-color: #333 !default
+$panel-font-color-alt: #fff !default
 
 =panel-color($bg: $panel-bg)
-  border: 1px solid darken($bg, 11%)
   background: $bg
+  border: 1px solid darken($bg, 11%)
 
   // We set the font color based on the darkness of the bg.
-  h1, h2, h3, h4, h5, h6, p, li, dl
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  dl
     color: if(lightness($bg) >= 50%, $panel-font-color, $panel-font-color-alt)
 
 =fustrate-panels
   .panel
+    +panel-color
+    font-size: rem-calc(14)
     margin-bottom: $panel-margin-bottom
     padding: $panel-padding
-    font-size: rem-calc(14)
-    +panel-color
 
     // reset header line-heights for panels
-    h1, h2, h3, h4, h5, h6
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6
       line-height: 1
       margin-bottom: rem-calc(20) / 2
 
-    ul, ol, dl
+    ul,
+    ol,
+    dl
       font-size: inherit
 
     // Respect the padding, fool.
     & > :first-child
       margin-top: 0
+
     & > :last-child
       margin-bottom: 0
 
@@ -40,10 +56,12 @@ $panel-font-color-alt: #fff
 
     &.info
       +panel-color(lighten($info-color, 5%))
+
     &.success
       +panel-color(lighten($success-color, 20%))
+
     &.danger
-      +panel-color(scale_color($danger-color, $lightness: 70%, $saturation: -20%))
+      +panel-color(scale-color($danger-color, $lightness: 70%, $saturation: -20%))
 
     &.small
       padding: $panel-padding / 2

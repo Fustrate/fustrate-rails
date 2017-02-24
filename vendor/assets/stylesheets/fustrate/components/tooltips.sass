@@ -1,6 +1,6 @@
-$tooltip-bg-color: #222
-$tooltip-color: #eee
-$tooltip-opacity: .9
+$tooltip-bg-color: #222 !default
+$tooltip-color: #eee !default
+$tooltip-opacity: .9 !default
 
 =fustrate-tooltips
   [data-tooltip]
@@ -10,19 +10,19 @@ $tooltip-opacity: .9
     background: $tooltip-bg-color
     color: $tooltip-color
     font-size: .8rem
-    padding: 5px 7px
-    opacity: $tooltip-opacity
-    position: absolute
     line-height: 1.2
     max-width: 200px
+    opacity: $tooltip-opacity
+    padding: 5px 7px
+    position: absolute
 
-    &:before
-      display: block
-      width: 0px
-      height: 0px
+    &::before
       border: 4px solid transparent
       border-bottom-color: $tooltip-bg-color
-      content: ' '
-      position: absolute
-      left: 8px
       bottom: 100%
+      content: ' '
+      display: block
+      height: 0
+      left: 8px
+      position: absolute
+      width: 0
