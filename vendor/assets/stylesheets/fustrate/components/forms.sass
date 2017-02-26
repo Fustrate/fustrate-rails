@@ -6,6 +6,8 @@ $input-font-size: rem-calc(14) !default
 $form-element-margin: 0 0 ($form-spacing / 2) 0 !default
 $form-disabled-color: #777 !default
 $form-disabled-bg-color: #ddd !default
+$form-element-border-radius: 0 !default
+$form-button-border-radius: $form-element-border-radius !default
 
 =fustrate-forms
   form
@@ -69,9 +71,9 @@ $form-disabled-bg-color: #ddd !default
   input[type='week'],
   textarea
     -webkit-appearance: none
-    -webkit-border-radius: 0
     background-color: $white
     border: 1px solid scale-color($white, $lightness: -20%)
+    border-radius: $form-element-border-radius
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1)
     box-sizing: border-box
     color: $black
@@ -109,7 +111,7 @@ $form-disabled-bg-color: #ddd !default
   input
     &[type='submit']
       -webkit-appearance: none
-      -webkit-border-radius: 0
+      border-radius: $form-button-border-radius
 
   textarea
     height: auto
@@ -122,7 +124,6 @@ $form-disabled-bg-color: #ddd !default
 
   select
     -webkit-appearance: none !important
-    -webkit-border-radius: 0
     background-color: $white
 
     // The custom arrow have some fake horizontal padding so we can align it
@@ -132,7 +133,7 @@ $form-disabled-bg-color: #ddd !default
     background-repeat: no-repeat
 
     border: 1px solid scale-color($white, $lightness: -20%)
-    border-radius: 0
+    border-radius: $form-element-border-radius
     color: $black
     font-size: $input-font-size
     // Add height value for select elements to match text input height
