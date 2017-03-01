@@ -109,6 +109,9 @@ String::phoneFormat = ->
   else
     @
 
+String::dasherize = ->
+  @replace /_/g, '-'
+
 Array::toSentence = ->
   switch @length
     when 0 then ''
