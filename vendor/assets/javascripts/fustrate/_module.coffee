@@ -82,7 +82,7 @@ class window.Fustrate
 
     $('<span>')
       .text(text)
-      .prop('class', "label #{type}#{text}".toLowerCase())
+      .prop('class', "label #{type}#{text}".toLowerCase().dasherize())
 
   @icon: (types) ->
     classes = ("fa-#{type}" for type in types.split(' ')).join(' ')
