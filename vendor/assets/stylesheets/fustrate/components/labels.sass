@@ -3,7 +3,7 @@ $label-font-size: rem-calc(12)
 $label-font-color: #333
 $label-font-color-alt: #fff
 
-=label-color($bg: $primary-color)
+=label-color($bg: $primary-color, $border: false)
   background-color: $bg
 
   @if lightness($bg) < 70%
@@ -13,6 +13,9 @@ $label-font-color-alt: #fff
     color: $label-font-color
     text-shadow: 0 1px 1px scale-color($bg, $lightness: 70%)
 
+  @if $border
+    border: 1px solid $border
+    
 =fustrate-labels
   .label
     +label-color
