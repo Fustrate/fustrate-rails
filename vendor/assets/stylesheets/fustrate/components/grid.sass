@@ -152,6 +152,11 @@ $column-gutter: rem-calc(30)
   .columns.#{$size}-uncentered.opposite
     float: right
 
+=column-html-classes($size)
+  @for $i from 2 through 6
+    .#{$size}-column-count-#{$i}
+      columns: $i
+
 =fustrate-grid
   .row
     +grid-row
@@ -185,12 +190,12 @@ $column-gutter: rem-calc(30)
 
   @media #{$small-up}
     +grid-html-classes($size: small)
+    +column-html-classes($size: small)
 
   @media #{$medium-up}
     +grid-html-classes($size: medium)
+    +column-html-classes($size: medium)
 
   @media #{$large-up}
     +grid-html-classes($size: large)
-
-    .large-column-count-2
-      +columns(2)
+    +column-html-classes($size: large)
