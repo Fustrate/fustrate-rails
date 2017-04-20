@@ -33,6 +33,7 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
       maxItems: 25
       filter: -> true
       item: (option, userInput) -> option # Items are pre-rendered
+      sort: false # Items are fed in the intended order
     )
 
     @input
