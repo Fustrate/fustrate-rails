@@ -3,7 +3,9 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
     plain:
       displayKey: 'value'
       item: (object, userInput) -> "<li>#{@highlight object.value}</li>"
-      filter: (object, userInput) -> object.value.indexOf(userInput) >= 0
+      filter: (object, userInput) ->
+        search = userInput.trim().toLowerCase()
+        object.value.toLowerCase().indexOf(search) >= 0
 
   @initialize: ->
     # Override the default sort
