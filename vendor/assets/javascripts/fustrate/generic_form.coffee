@@ -9,7 +9,7 @@ class Fustrate.GenericForm extends Fustrate.GenericPage
   _reloadUIElements: =>
     super
 
-    for domObject in $('[name][id]', @root)
+    for domObject in $('[name]', @root)
       element = $ domObject
       name = element.prop 'name'
 
