@@ -13,8 +13,8 @@ class Fustrate.GenericForm extends Fustrate.GenericPage
       element = $ domObject
       name = element.prop 'name'
 
-      if captures = name.match /\[([a-z_]+)\]$/
-        @fields[captures[1]] = element
+      if captures = name.match /\[([a-z0-9_]+)\]/g
+        @_setNestedField(captures, element)
       else
         @fields[name] = element
 
@@ -28,3 +28,17 @@ class Fustrate.GenericForm extends Fustrate.GenericPage
     setTimeout (=> $.rails.enableFormElements(@root)), 100
 
     false
+
+  # Modified to remove recursion - no need to pass elements around endlessly.
+  _setNestedField: (path, element) ->
+    context = @fields
+    first = path.shift()
+    piece = first.substring(1, first.length - 1)
+
+    while path.length > 0
+      context[piece] ?= {}
+      context = context[piece]
+      next = path.shift()
+      piece = next.substring(1, next.length - 1)
+
+    context[piece] = element
