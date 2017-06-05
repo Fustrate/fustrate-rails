@@ -1,7 +1,7 @@
-$label-padding: rem-calc(6 8)
-$label-font-size: rem-calc(12)
-$label-font-color: #333
-$label-font-color-alt: #fff
+$label-padding: rem-calc(6 8) !default
+$label-font-size: rem-calc(12) !default
+$label-font-color: #333 !default
+$label-font-color-alt: #fff !default
 
 =label-color($bg: $primary-color, $border: false)
   background-color: $bg
@@ -15,7 +15,7 @@ $label-font-color-alt: #fff
 
   @if $border
     border: 1px solid $border
-    
+
 =fustrate-labels
   .label
     +label-color

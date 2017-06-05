@@ -1,6 +1,6 @@
-$row-width: rem-calc(1000)
-$total-columns: 12
-$column-gutter: rem-calc(30)
+$row-width: rem-calc(1000) !default
+$total-columns: 12 !default
+$column-gutter: rem-calc(30) !default
 
 @function grid-calc($col-number, $col-count)
   @return percentage($col-number / $col-count)
