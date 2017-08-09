@@ -17,8 +17,11 @@ class Fustrate.Components.Tabs extends Fustrate.Components.Base
 
     $('.active', @tabs).removeClass 'active'
     tab.addClass 'active'
-
-    $("##{tab.attr('href').split('#')[1]}")
+    hash = tab.attr('href').split('#')[1]
+    
+    window.location.hash = hash
+    
+    $("##{hash}")
       .addClass 'active'
       .siblings()
       .removeClass 'active'
