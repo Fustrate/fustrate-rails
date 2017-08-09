@@ -13,7 +13,7 @@ class Fustrate.Components.Tabs extends Fustrate.Components.Base
       @activateTab $('li > a', @tabs).first()
 
   activateTab: (tab) =>
-    return unless tab
+    return unless tab.length > 0
 
     $('.active', @tabs).removeClass 'active'
     tab.addClass 'active'
