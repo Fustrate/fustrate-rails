@@ -54,7 +54,7 @@ Number::bytesToString = ->
 
   "#{(@ / 1000000000).toFixed(2).replace(/[0.]+$/, '')} GB"
 
-Object.defineProperty Object.prototype, 'tap',
+Object.defineProperty Object::, 'tap',
   enumerable: false
   value: (func) ->
     if typeof func is 'function'
@@ -71,7 +71,7 @@ String::dasherize = ->
   @replace /_/g, '-'
 
 String::isBlank = ->
-  @.trim() is ''
+  @trim() is ''
 
 String::phoneFormat = ->
   if /^1?\d{10}$/.test @
@@ -82,7 +82,7 @@ String::phoneFormat = ->
     @
 
 String::strip = ->
-  @.replace(/^\s+|\s+$/g, '')
+  @replace(/^\s+|\s+$/g, '')
 
 String::titleize = ->
   @replace(/_/g, ' ').replace /\b[a-z]/g, (char) -> char.toUpperCase()
