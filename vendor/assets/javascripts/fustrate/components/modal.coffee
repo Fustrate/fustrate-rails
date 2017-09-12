@@ -125,6 +125,8 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
                    '.modal-overlay',
                    @constructor.backgroundClicked
 
+    @buttons.cancel?.on 'click', @cancel
+
   focusFirstInput: =>
     # Focus requires a slight physical scroll on iOS 8.4
     return true if /iPad|iPhone|iPod/g.test navigator.userAgent
@@ -211,6 +213,12 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
   # Just hide the modal immediately and don't bother with an overlay
   hide: =>
     @modal.removeClass('open locked').css @settings.css.close
+
+  cancel: =>
+    # Reject any deferrals
+    @deferred?.reject()
+
+    @close()
 
   openPreviousModal: =>
     @settings.previousModal.trigger 'open.modal'
