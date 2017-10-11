@@ -50,10 +50,8 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
 
     @awesomplete.close()
 
-    $("~ input:hidden##{@input.attr('id')}_id", @awesomplete.container)
-      .val null
-    $("~ input:hidden##{@input.attr('id')}_type", @awesomplete.container)
-      .val null
+    $('~ input:hidden[name*="_id"]', @awesomplete.container).val null
+    $('~ input:hidden[name*="_type"]', @awesomplete.container).val null
 
     @input.trigger 'blanked.autocomplete'
 
@@ -83,10 +81,8 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
     @replace datum._displayValue
     @awesomplete.close()
 
-    $("~ input:hidden##{@input.attr('id')}_id", @awesomplete.container)
-      .val datum.id
-    $("~ input:hidden##{@input.attr('id')}_type", @awesomplete.container)
-      .val datum._type
+    $('~ input:hidden[name*="_id"]', @awesomplete.container).val datum.id
+    $('~ input:hidden[name*="_type"]', @awesomplete.container).val datum._type
 
     @input.data(datum: datum).trigger('finished.autocomplete')
 
