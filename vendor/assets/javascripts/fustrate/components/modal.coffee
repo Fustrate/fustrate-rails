@@ -225,6 +225,9 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
 
     @settings.previousModal = $()
 
+  closeOnBackgroundClick: ->
+    true
+
   _cacheHeight: =>
     @settings._cachedHeight = @modal.show().height()
 
@@ -275,6 +278,8 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     modal = $ '.modal.open'
 
     return if not modal or modal.hasClass('locked')
+
+    return unless modal.closeOnBackgroundClick()
 
     modal.trigger 'close.modal'
 
