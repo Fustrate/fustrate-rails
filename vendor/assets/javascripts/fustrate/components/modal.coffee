@@ -8,7 +8,6 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
   @fadeSpeed: 250
 
   @settings:
-    closeOnBackgroundClick: true
     distanceFromTop: 25
     appendTo: 'body'
     css:
@@ -268,8 +267,6 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     return if not modal or modal.hasClass('locked')
 
     # Don't continue to close if we're not supposed to
-    return unless Fustrate.Components.Modal.settings.closeOnBackgroundClick
-
     return unless modal.closeOnBackgroundClick()
 
     modal.trigger 'close.modal'
