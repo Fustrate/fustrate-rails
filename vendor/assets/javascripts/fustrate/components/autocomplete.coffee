@@ -93,7 +93,7 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
 
     value = @input.val().trim()
 
-    return @blanked() if value is ''
+    return @blanked() if value is '' and @value isnt ''
 
     # Ignore: Tab, Enter, Esc, Left, Up, Right, Down
     return if keyCode in [9, 13, 27, 37, 38, 39, 40]
