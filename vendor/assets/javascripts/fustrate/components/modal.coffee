@@ -270,6 +270,8 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     # Don't continue to close if we're not supposed to
     return unless Fustrate.Components.Modal.settings.closeOnBackgroundClick
 
+    return unless modal.closeOnBackgroundClick()
+
     modal.trigger 'close.modal'
 
     false
@@ -278,8 +280,6 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     modal = $ '.modal.open'
 
     return if not modal or modal.hasClass('locked')
-
-    return unless modal.closeOnBackgroundClick()
 
     modal.trigger 'close.modal'
 
