@@ -34,6 +34,8 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     @addEventListeners()
     @initialize()
 
+    @modal.data('modal', @)
+
     super
 
   initialize: ->
@@ -267,7 +269,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     return if not modal or modal.hasClass('locked')
 
     # Don't continue to close if we're not supposed to
-    return unless modal.closeOnBackgroundClick()
+    return unless modal.data('modal').closeOnBackgroundClick()
 
     modal.trigger 'close.modal'
 
