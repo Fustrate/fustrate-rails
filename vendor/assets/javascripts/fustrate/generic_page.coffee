@@ -4,7 +4,33 @@ class Fustrate.GenericPage
     @addEventListeners()
     @initialize()
 
-  addEventListeners: ->
+  include: (concern) =>
+    instance = new concern
+
+    for own key, value of instance.constructor
+      continue if key in ['included', 'initialize', 'strings']
+
+      @constructor[key] = value unless @constructor[key]
+
+    # Assign properties to the prototype
+    for key, value of concern.prototype
+      continue if key in ['included', 'initialize', 'strings']
+
+      @[key] = value.bind(@) unless @[key]
+
+    instance.included?.apply(@)
+
+    return unless instance.constructor.strings
+
+    @constructor.strings ?= {}
+
+    $.extend true, @constructor.strings, instance.constructor.strings
+
+  addEventListeners: =>
+    super
+
+    for name, func of @
+      func.apply(@) if /^add.+EventListeners$/.test name
 
   # Once the interface is loaded and the event listeners are active, run any
   # other tasks.
