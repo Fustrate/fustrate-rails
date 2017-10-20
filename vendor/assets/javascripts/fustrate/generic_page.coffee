@@ -27,8 +27,6 @@ class Fustrate.GenericPage
     $.extend true, @constructor.strings, instance.constructor.strings
 
   addEventListeners: =>
-    super
-
     for name, func of @
       func.apply(@) if /^add.+EventListeners$/.test name
 
