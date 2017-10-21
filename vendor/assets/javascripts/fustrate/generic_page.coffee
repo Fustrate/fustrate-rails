@@ -28,7 +28,8 @@ class Fustrate.GenericPage
 
   addEventListeners: =>
     for name, func of @
-      func.apply(@) if /^add.+EventListeners$/.test name
+      # Edge returns true for /one.+two/.test('onetwo'), 2017-10-21
+      func.apply(@) if /^add..*EventListeners$/.test name
 
   # Once the interface is loaded and the event listeners are active, run any
   # other tasks.
