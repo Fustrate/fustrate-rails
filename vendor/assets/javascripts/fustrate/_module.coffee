@@ -3,9 +3,6 @@
 #= require_tree .
 
 class window.Fustrate
-  @VERSION: '0.4.1.1'
-  @libs: {}
-
   @entityMap:
     '&': '&amp;'
     '<': '&lt;'
@@ -17,8 +14,6 @@ class window.Fustrate
     '=': '&#x3D;'
 
   constructor: ->
-    lib.init() for own name, lib of @constructor.libs
-
     for own component of Fustrate.Components
       Fustrate.Components[component].initialize()
 
