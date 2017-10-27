@@ -229,6 +229,15 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
   closeOnBackgroundClick: ->
     true
 
+  flashSuccess: (message, { icon } = {}) ->
+    new Fustrate.Components.Flash.Success(message, icon: icon)
+
+  flashError: (message, { icon } = {}) ->
+    new Fustrate.Components.Flash.Error(message, icon: icon)
+
+  flashInfo: (message, { icon } = {}) ->
+    new Fustrate.Components.Flash.Info(message, icon: icon)
+
   _cacheHeight: =>
     @settings._cachedHeight = @modal.show().height()
 
