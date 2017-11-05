@@ -47,12 +47,12 @@ Function::define = (name, methods) ->
 Number::bytesToString = ->
   return "#{@} B" if @ < 1000
 
-  return "#{(@ / 1000).toFixed(2).replace(/[0.]+$/, '')} kB" if @ < 1000000
+  return "#{(@ / 1000).toFixed(2).replace(/\.?0+$/, '')} kB" if @ < 1000000
 
   if @ < 1000000000
-    return "#{(@ / 1000000).toFixed(2).replace(/[0.]+$/, '')} MB"
+    return "#{(@ / 1000000).toFixed(2).replace(/\.?0+$/, '')} MB"
 
-  "#{(@ / 1000000000).toFixed(2).replace(/[0.]+$/, '')} GB"
+  "#{(@ / 1000000000).toFixed(2).replace(/\.?0+$/, '')} GB"
 
 Object.defineProperty Object::, 'tap',
   enumerable: false
@@ -60,7 +60,7 @@ Object.defineProperty Object::, 'tap',
     if typeof func is 'function'
       func.apply(@)
     else
-      @[func].apply(@, Array::slice.call(arguments).slice(1))
+      @[func].apply @, Array::slice.call(arguments).slice(1)
 
     @
 
