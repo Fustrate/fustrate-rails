@@ -16,6 +16,4 @@ class Fustrate.Object extends Fustrate.Listenable
   # Instantiate a new object of type klass for each item in items
   _createList: (items, klass, additional_attributes = {}) ->
     for item in items
-      obj = new klass(item)
-      obj[key] = value for key, value of additional_attributes
-      obj
+      new klass $.extend(true, {}, item, additional_attributes)
