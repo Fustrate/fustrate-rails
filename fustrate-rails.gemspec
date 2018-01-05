@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
 
   # CSS Libraries
   s.add_runtime_dependency 'bourbon'
-  s.add_runtime_dependency 'font-awesome-rails'
 
   # JavaScript Libraries
   s.add_runtime_dependency 'js-routes'
