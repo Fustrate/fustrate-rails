@@ -13,8 +13,8 @@ $h2-font-reduction: rem-calc(10) !default;
 $h3-font-reduction: rem-calc(5) !default;
 $h4-font-reduction: rem-calc(5) !default;
 
-$print-color: #000 !default;
 $print-border-color: #999 !default;
+$print-color: #000 !default;
 
 @mixin fustrate-typography {
   html,
@@ -332,8 +332,7 @@ $print-border-color: #999 !default;
     text-align: justify !important;
   }
 
-  #map_canvas,
-  .map_canvas {
+  .map-canvas {
     img,
     embed,
     object {

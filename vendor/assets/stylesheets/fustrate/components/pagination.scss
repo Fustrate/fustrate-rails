@@ -1,9 +1,9 @@
-$pagination-color: #222 !default
-$pagination-link-color: #999 !default
-$pagination-active-bg-color: $primary-color !default
-$pagination-disabled-color: #999 !default
-$pagination-active-color: #fff !default
+$pagination-active-bg-color: $primary-color !default;
+$pagination-active-color: #fff !default;
+$pagination-color: #222 !default;
+$pagination-disabled-color: #999 !default;
 $pagination-hover-bg-color: rgba(0, 0, 0, .08) !default;
+$pagination-link-color: #999 !default;
 
 @mixin fustrate-pagination {
   .pagination {

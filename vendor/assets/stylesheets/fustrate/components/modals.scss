@@ -1,7 +1,8 @@
 $modal-bg-color: #fff !default;
-$modal-title-color: #fff !default;
 $modal-border-color: #666 !default;
+$modal-cancel-button-color: #dadada !default;
 $modal-overlay-color: rgba(0, 0, 0, .45) !default;
+$modal-title-color: #fff !default;
 
 @mixin modal-width($width: 80%) {
   margin-left: -($width / 2);
@@ -90,7 +91,7 @@ $modal-overlay-color: rgba(0, 0, 0, .45) !default;
 
       // The normal cancel button color is too light on a light grey background
       .cancel {
-        @include button-style(#dadada);
+        @include button-style($modal-cancel-button-color);
       }
     }
 

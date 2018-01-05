@@ -1,11 +1,9 @@
 $panel-bg: #f2f2f2 !default;
-
-$panel-margin-bottom: rem-calc(20) !default;
-$panel-padding: rem-calc(16 20) !default;
-$panel-padding-small: rem-calc(8 10) !default;
-
-$panel-font-color: #333 !default;
 $panel-font-color-alt: #fff !default;
+$panel-font-color: #333 !default;
+$panel-margin-bottom: rem-calc(20) !default;
+$panel-padding-small: rem-calc(8 10) !default;
+$panel-padding: rem-calc(16 20) !default;
 
 @mixin panel-color($bg: $panel-bg) {
   background: $bg;

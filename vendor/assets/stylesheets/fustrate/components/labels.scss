@@ -2,6 +2,7 @@ $label-padding: rem-calc(6 8) !default;
 $label-font-size: rem-calc(12) !default;
 $label-font-color: #333 !default;
 $label-font-color-alt: #fff !default;
+$label-plain-color: #eee !default;
 
 @mixin label-color($bg: $primary-color, $border: false) {
   background-color: $bg;
@@ -50,32 +51,32 @@ $label-font-color-alt: #fff !default;
     &.no,
     &.danger,
     &.inactive {
-      @include label-color($red)
+      @include label-color($red);
     }
 
     &.good,
     &.yes,
     &.success {
-      @include label-color($green)
+      @include label-color($green);
     }
 
     &.warning {
-      @include label-color($orange)
+      @include label-color($orange);
     }
 
     &.plain {
-      @include label-color(#eee)
-      border: #ddd 1px solid
+      @include label-color($label-plain-color);
+      border: 1px solid scale-color($label-plain-color, $lightness: -7%);
     }
 
     // Check Mark
     &.yes::before {
-      @include font-awesome($fa-var-check)
+      @include font-awesome($fa-var-check);
     }
 
     // X
     &.no::before {
-      @include font-awesome($fa-var-times)
+      @include font-awesome($fa-var-times);
     }
   }
 }

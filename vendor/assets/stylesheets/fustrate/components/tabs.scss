@@ -1,10 +1,11 @@
 @import 'buttons';
 @import 'panels';
 
-$tabs-padding: rem-calc(10) !default;
-$tabs-font-size: rem-calc(12) !default;
-$tabs-content-padding: 0 rem-calc(10) !default;
 $tabs-active-color: $primary-color !default;
+$tabs-bg-color: #fff !default;
+$tabs-content-padding: 0 rem-calc(10) !default;
+$tabs-font-size: rem-calc(12) !default;
+$tabs-padding: rem-calc(10) !default;
 
 @mixin fustrate-tabs {
   ul.tabs {
@@ -16,7 +17,7 @@ $tabs-active-color: $primary-color !default;
       a {
         @include button-base;
         @include button-size($tabs-padding);
-        @include button-style(white);
+        @include button-style($tabs-bg-color);
 
         &.active {
           @include button-style($tabs-active-color, $hover: false);

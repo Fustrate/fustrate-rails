@@ -2,8 +2,9 @@ $alert-padding: rem-calc(8) rem-calc(24) rem-calc(8) rem-calc(14) !default;
 $alert-font-size: rem-calc(14) !default;
 $alert-dark-color: #333 !default;
 $alert-light-color: #fff !default;
+$alert-default-color: #eaeaea !default;
 
-@mixin alert-color($bg: #eaeaea) {
+@mixin alert-color($bg: $alert-default-color) {
   $color: if(lightness($bg) > 70%, $alert-dark-color, $alert-light-color);
 
   background-color: $bg;

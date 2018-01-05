@@ -1,13 +1,14 @@
 // We use this to set the base for lots of form spacing and positioning styles
-$form-spacing: rem-calc(16) !default;
-$label-color: #4d4d4d !default;
-$label-font-size: rem-calc(14) !default;
-$input-font-size: rem-calc(14) !default;
-$form-element-margin: 0 0 ($form-spacing / 2) 0 !default;
-$form-disabled-color: #777 !default;
-$form-disabled-bg-color: #ddd !default;
 $form-element-border-radius: 0 !default;
+$form-spacing: rem-calc(16) !default;
 $form-button-border-radius: $form-element-border-radius !default;
+$form-disabled-bg-color: #ddd !default;
+$form-disabled-color: #777 !default;
+$form-element-margin: 0 0 ($form-spacing / 2) 0 !default;
+$form-element-shadow-color: rgba(0, 0, 0, .1) !default;
+$form-input-font-size: rem-calc(14) !default;
+$form-label-color: #4d4d4d !default;
+$form-label-font-size: rem-calc(14) !default;
 
 @mixin fustrate-forms {
   form {
@@ -15,10 +16,10 @@ $form-button-border-radius: $form-element-border-radius !default;
   }
 
   label {
-    color: $label-color;
+    color: $form-label-color;
     cursor: pointer;
     display: block;
-    font-size: $label-font-size;
+    font-size: $form-label-font-size;
     font-weight: normal;
     line-height: 1.5;
     margin-bottom: 0;
@@ -40,11 +41,11 @@ $form-button-border-radius: $form-element-border-radius !default;
   .postfix {
     background: scale-color($white, $lightness: -5%);
     border: 1px solid scale-color($white, $lightness: -20%);
-    color: $label-color;
+    color: $form-label-color;
     display: block;
-    font-size: $label-font-size;
-    height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1));
-    line-height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1));
+    font-size: $form-label-font-size;
+    height: ($form-input-font-size + ($form-spacing * 1.5) - rem-calc(1));
+    line-height: ($form-input-font-size + ($form-spacing * 1.5) - rem-calc(1));
     overflow: hidden;
     padding-bottom: 0;
     padding-top: 0;
@@ -81,13 +82,13 @@ $form-button-border-radius: $form-element-border-radius !default;
     background-color: $white;
     border: 1px solid scale-color($white, $lightness: -20%);
     border-radius: $form-element-border-radius;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    box-shadow: inset 0 1px 2px $form-element-shadow-color;
     box-sizing: border-box;
     color: $black;
     display: block;
     font-family: inherit;
-    font-size: $input-font-size;
-    height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1));
+    font-size: $form-input-font-size;
+    height: ($form-input-font-size + ($form-spacing * 1.5) - rem-calc(1));
     margin: $form-element-margin;
     padding: $form-spacing / 2;
     transition: box-shadow 450ms, border-color 450ms ease-in-out;
@@ -116,7 +117,7 @@ $form-button-border-radius: $form-element-border-radius !default;
 
     td &:only-child,
     th &:only-child {
-      margin: 0
+      margin: 0;
     }
   }
 
@@ -144,16 +145,16 @@ $form-button-border-radius: $form-element-border-radius !default;
 
     // The custom arrow have some fake horizontal padding so we can align it
     // from the right side of the element without relying on CSS3
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMTJweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+);
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMTJweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+');
     background-position: 100% center;
     background-repeat: no-repeat;
 
     border: 1px solid scale-color($white, $lightness: -20%);
     border-radius: $form-element-border-radius;
     color: $black;
-    font-size: $input-font-size;
+    font-size: $form-input-font-size;
     // Add height value for select elements to match text input height
-    height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1));
+    height: ($form-input-font-size + ($form-spacing * 1.5) - rem-calc(1));
     line-height: normal;
     padding: $form-spacing / 2;
     padding-right: 24px;
