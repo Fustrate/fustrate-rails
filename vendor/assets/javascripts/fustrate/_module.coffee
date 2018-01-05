@@ -13,11 +13,16 @@ class window.Fustrate
     '`': '&#x60;'
     '=': '&#x3D;'
 
+  @start: (name) ->
+    @class = window[name]
+
+    @instance = new @class
+
+    @instance.initialize()
+
   constructor: ->
     for own component of Fustrate.Components
       Fustrate.Components[component].initialize()
-
-    @initialize()
 
     moment.updateLocale 'en',
       longDateFormat:
