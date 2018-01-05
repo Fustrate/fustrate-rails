@@ -1,0 +1,22 @@
+$base-line-height: 150% !default;
+
+$small-limit: 40em !default;
+$medium-limit: 64em !default;
+$large-limit: 88em !default;
+
+$screen: 'only screen';
+
+$landscape: '#{$screen} and (orientation: landscape)';
+$portrait: '#{$screen} and (orientation: portrait)';
+
+$small-up: $screen;
+$small-only: '#{$screen} and (max-width: #{$small-limit})';
+
+$medium-up: '#{$screen} and (min-width:#{$small-limit + .063em})';
+$medium-only: '#{$screen} and (min-width:#{$small-limit + .063em}) and (max-width:#{$medium-limit})';
+
+$large-up: '#{$screen} and (min-width:#{$medium-limit + .063em})';
+$large-only: '#{$screen} and (min-width:#{$medium-limit + .063em}) and (max-width:#{$large-limit})';
+
+$xlarge-up: '#{$screen} and (min-width:#{$large-limit + .063em})';
+$xlarge-only: $xlarge-up;

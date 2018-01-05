@@ -1,0 +1,241 @@
+$row-width: rem-calc(1000) !default;
+$total-columns: 12 !default;
+$column-gutter: rem-calc(30) !default;
+
+@function grid-calc($col-number, $col-count) {
+  @return percentage($col-number / $col-count);
+}
+
+// Use +grid-row(nest) to include a nested row
+// Use +grid-row(collapse) to collapsed a container row margins
+// Use +grid-row(nest-collapse) to collapse outer margins on a nested row
+// Use +grid-row to use a container row
+@mixin grid-row($behavior: false) {
+  @if $behavior == nest {
+    margin: 0 (-($column-gutter / 2));
+    max-width: none;
+    width: auto;
+  } @else if $behavior == collapse {
+    margin: 0;
+    max-width: $row-width;
+    width: 100%;
+  } @else if $behavior == nest-collapse {
+    margin: 0;
+    max-width: none;
+    width: auto;
+  } @else {
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    max-width: $row-width;
+    width: 100%;
+  }
+
+  // Clearfix for all rows
+  @include clearfix;
+}
+
+// Creates a column, should be used inside of a media query to control layouts
+//
+// $columns - The number of columns this should be
+// $last-column - Is this the last column? Default: false.
+// $center - Center these columns? Default: false.
+// $offset - # of columns to offset. Default: false.
+// $push - # of columns to push. Default: false.
+// $pull - # of columns to pull. Default: false.
+// $collapse - Get rid of gutter padding on column? Default: false.
+// $float - Should this float? Default: true. Options: true, false, left, right.
+@mixin grid-column($columns: false, $last-column: false, $center: false, $offset: false, $push: false, $pull: false, $collapse: false, $float: true, $position: false) {
+
+  // If positioned for default .column, include relative position
+  // push and pull require position set
+  @if $position or $push or $pull {
+    position: relative;
+  }
+
+  // If collapsed, get rid of gutter padding
+  @if $collapse {
+    padding-left: 0;
+    padding-right: 0;
+  } @else if $collapse == false {
+    // Gutter padding whenever a column isn't set to collapse
+    // (use $collapse: null to do nothing)
+    padding-left: $column-gutter / 2;
+    padding-right: $column-gutter / 2;
+  }
+
+  // If a column number is given, calculate width
+  @if $columns {
+    width: grid-calc($columns, $total-columns);
+
+    // If last column, float naturally instead of to the right
+    @if $last-column {
+      float: right;
+    }
+  }
+
+  // Source Ordering, adds left/right depending on which you use.
+  @if $push {
+    left: grid-calc($push, $total-columns);
+    right: auto;
+  } @if $pull {
+    left: auto;
+    right: grid-calc($pull, $total-columns);
+  }
+
+  @if $float {
+    @if $float == left or $float == true {
+      float: left;
+    } @else if $float == right {
+      float: right;
+    } @else {
+      float: none;
+    }
+  }
+
+  // If centered, get rid of float and add appropriate margins
+  @if $center {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // If offset, calculate appropriate margins
+  @if $offset {
+    margin-left: grid-calc($offset, $total-columns) !important;
+  }
+}
+
+// Create presentational classes for grid
+//
+// $size - Name of class to use, i.e. "large" will generate .large-1, .large-2, etc.
+@mixin grid-html-classes($size) {
+  @for $i from 0 through $total-columns - 1 {
+    .#{$size}-push-#{$i} {
+      @include grid-column($push: $i, $collapse: null, $float: false);
+    }
+
+    .#{$size}-pull-#{$i} {
+      @include grid-column($pull: $i, $collapse: null, $float: false);
+    }
+  }
+
+  .column,
+  .columns {
+    @include grid-column($columns: false, $position: true);
+  }
+
+  @for $i from 1 through $total-columns {
+    .#{$size}-#{$i} {
+      @include grid-column($columns: $i, $collapse: null, $float: false);
+    }
+  }
+
+  @for $i from 0 through $total-columns - 1 {
+    .#{$size}-offset-#{$i} {
+      @include grid-column($offset: $i, $collapse: null, $float: false);
+    }
+  }
+
+  .#{$size}-reset-order {
+    float: left;
+    left: auto;
+    margin-left: 0;
+    margin-right: 0;
+    right: auto;
+  }
+
+  .column.#{$size}-centered,
+  .columns.#{$size}-centered {
+    @include grid-column($center: true, $collapse: null, $float: false);
+  }
+
+  .column.#{$size}-uncentered,
+  .columns.#{$size}-uncentered {
+    float: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  // Fighting [class*="column"] + [class*="column"]:last-child
+  .column.#{$size}-centered:last-child,
+  .columns.#{$size}-centered:last-child {
+    float: none;
+  }
+
+  // Fighting .column.<previous-size>-centered:last-child
+  .column.#{$size}-uncentered:last-child,
+  .columns.#{$size}-uncentered:last-child {
+    float: left;
+  }
+
+  .column.#{$size}-uncentered.opposite,
+  .columns.#{$size}-uncentered.opposite {
+    float: right;
+  }
+}
+
+@mixin column-html-classes($size) {
+  @for $i from 2 through 6 {
+    .#{$size}-column-count-#{$i} {
+      columns: $i;
+    }
+  }
+}
+
+@mixin fustrate-grid {
+  .row {
+    @include grid-row;
+
+    &.fluid {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    &.collapse {
+      > .column,
+      > .columns {
+        @include grid-column($collapse: true, $float: false);
+      }
+
+      .row {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    .row {
+      @include grid-row(nest);
+
+      &.collapse {
+        @include grid-row(nest-collapse);
+      }
+    }
+  }
+
+  .column,
+  .columns {
+    @include grid-column($columns: $total-columns);
+
+    & + &:last-child,
+    & + &.end {
+      float: left;
+    }
+  }
+
+  @media #{$small-up} {
+    @include grid-html-classes($size: small);
+    @include column-html-classes($size: small);
+  }
+
+  @media #{$medium-up} {
+    @include grid-html-classes($size: medium);
+    @include column-html-classes($size: medium);
+  }
+
+  @media #{$large-up} {
+    @include grid-html-classes($size: large);
+    @include column-html-classes($size: large);
+  }
+}

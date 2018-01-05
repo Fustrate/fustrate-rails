@@ -1,0 +1,204 @@
+$modal-bg-color: #fff !default;
+$modal-title-color: #fff !default;
+$modal-border-color: #666 !default;
+$modal-overlay-color: rgba(0, 0, 0, .45) !default;
+
+@mixin modal-width($width: 80%) {
+  margin-left: -($width / 2);
+  width: $width;
+}
+
+@mixin fustrate-modals {
+  .modal-overlay {
+    background: $modal-overlay-color;
+    display: none;
+    height: 120%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9500;
+  }
+
+  .modal {
+    background-color: $modal-bg-color;
+    border: 0;
+    box-shadow: 0 0 10px $modal-overlay-color;
+    display: none;
+    left: 0;
+    margin-bottom: 1rem;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    width: 100vw;
+    z-index: 9501;
+
+    .column,
+    .columns {
+      min-width: 0;
+    }
+
+    & > :first-child {
+      margin-top: 0;
+    }
+
+    & > :last-child,
+    .modal-content form {
+      margin-bottom: 0;
+    }
+
+    .modal-title {
+      background: scale-color($blue, $lightness: -15%);
+      border: 1px solid scale-color($blue, $lightness: -40%);
+      color: $modal-title-color;
+      font-weight: bold;
+      margin: 0;
+      padding: rem-calc(6) rem-calc(12);
+      text-shadow: 0 1px 1px $black;
+    }
+
+    .modal-close {
+      color: $modal-title-color;
+      cursor: pointer;
+      font-size: rem-calc(24);
+      font-weight: bold;
+      line-height: 1;
+      position: absolute;
+      right: rem-calc(16);
+      top: rem-calc(5);
+    }
+
+    .modal-content {
+      border: 1px solid $modal-border-color;
+      border-width: 0 1px;
+      margin: 0;
+      padding: rem-calc(12);
+    }
+
+    .modal-buttons {
+      background: scale-color($modal-bg-color, $lightness: -7%);
+      border: 1px solid $modal-border-color;
+      border-top-color: scale-color($modal-border-color, $lightness: 70%);
+      padding: rem-calc(12);
+      text-align: right;
+
+      &:empty {
+        border-width: 0 0 1px;
+        padding: 0;
+      }
+
+      // The normal cancel button color is too light on a light grey background
+      .cancel {
+        @include button-style(#dadada);
+      }
+    }
+
+    &.success {
+      .modal-title {
+        background: scale-color($green, $lightness: -5%);
+        border: 1px solid scale-color($green, $lightness: -35%);
+      }
+    }
+
+    &.failure {
+      .modal-title {
+        background: $red;
+        border: 1px solid scale-color($red, $lightness: -30%);
+      }
+    }
+
+    &.withdraw {
+      .modal-title {
+        background: #444;
+        border: 1px solid scale-color(#444, $lightness: -30%);
+      }
+    }
+
+    .picker {
+      background: #fafafa;
+      height: 300px;
+      overflow-y: scroll;
+      position: relative;
+
+      .section {
+        &:not(:first-child) {
+          margin-top: .5rem;
+        }
+      }
+
+      .title {
+        background: #e3e3e3;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        padding: 2px rem-calc(8);
+
+        .count {
+          float: right;
+          font-size: rem-calc(12);
+        }
+      }
+
+      .option {
+        border: 1px solid #ccc;
+        cursor: pointer;
+        margin-top: -1px;
+        padding: .5rem;
+
+        &:hover {
+          background: $info-color;
+          border-color: scale-color($info-color, $lightness: -20%);
+          color: scale-color($info-color, $lightness: -65%);
+          position: relative;
+          z-index: 9999;
+        }
+
+        .description {
+          color: #555;
+          font-size: .8rem;
+          padding-left: .5rem;
+        }
+      }
+    }
+
+    @media #{$small-only} {
+      min-height: 100vh;
+    }
+
+    @media #{$medium-up} {
+      @include modal-width;
+      left: 50%;
+      top: rem-calc(100);
+
+      &.tiny {
+        @include modal-width(30%);
+      }
+
+      &.small {
+        @include modal-width(40%);
+      }
+
+      &.medium {
+        @include modal-width(60%);
+      }
+
+      &.large {
+        @include modal-width(70%);
+      }
+
+      &.xlarge {
+        @include modal-width(95%);
+      }
+    }
+  }
+
+  @media print {
+    .modal-overlay {
+      display: none !important;
+    }
+
+    .modal {
+      background: $white !important;
+    }
+  }
+}
