@@ -53,11 +53,10 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
       @buttons[button.data('button')] = button
 
   setTitle: (title, { icon } = {}) =>
+    icon ?= @constructor.icon if icon isnt false
+
     if icon
       $('.modal-title span', @modal).html "#{Fustrate.icon icon} #{title}"
-    else if @constructor.icon and icon isnt false
-      $('.modal-title span', @modal)
-        .html "#{Fustrate.icon @constructor.icon} #{title}"
     else
       $('.modal-title span', @modal).html title
 
