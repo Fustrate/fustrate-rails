@@ -23,8 +23,8 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_runtime_dependency 'coffee-script', '>= 2.4'
-  s.add_runtime_dependency 'sass', '>= 3.4'
   s.add_runtime_dependency 'railties', '>= 4', '< 5.3'
+  s.add_runtime_dependency 'sass', '>= 3.4'
 
   # CSS Libraries
   s.add_runtime_dependency 'bourbon'
