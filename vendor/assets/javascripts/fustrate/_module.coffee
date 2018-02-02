@@ -118,12 +118,6 @@ class window.Fustrate
 
     $.get "#{pathname}.json#{window.location.search}"
 
-  @humanDate: (date, time = false) ->
-    if date.year() is moment().year()
-      date.format("M/D#{if time then ' h:mm A' else ''}")
-    else
-      date.format("M/D/YY#{if time then ' h:mm A' else ''}")
-
   @label: (text, type) ->
     css_classes = ['label', text.replace(/\s+/g, '-'), type].compact()
 
