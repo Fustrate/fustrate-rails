@@ -47,15 +47,17 @@ Function::define = (name, methods) ->
 Number::accountingFormat = ->
   if @ < 0 then "($#{(@ * -1).toFixed(2)})" else "$#{@.toFixed(2)}"
 
+Number::truncate = (digits = 2) ->
+  @toFixed(digits).replace(/\.?0+$/, '')
+
 Number::bytesToString = ->
   return "#{@} B" if @ < 1000
 
-  return "#{(@ / 1000).toFixed(2).replace(/\.?0+$/, '')} kB" if @ < 1000000
+  return "#{(@ / 1000).truncate()} kB" if @ < 1000000
 
-  if @ < 1000000000
-    return "#{(@ / 1000000).toFixed(2).replace(/\.?0+$/, '')} MB"
+  return "#{(@ / 1000000).truncate()} MB" if @ < 1000000000
 
-  "#{(@ / 1000000000).toFixed(2).replace(/\.?0+$/, '')} GB"
+  "#{(@ / 1000000000).truncate()} GB"
 
 Object.defineProperty Object::, 'tap',
   enumerable: false
