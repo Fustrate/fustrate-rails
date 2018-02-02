@@ -56,7 +56,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
     icon ?= @constructor.icon if icon isnt false
 
     if icon
-      $('.modal-title span', @modal).html "#{Fustrate.icon icon} #{title}"
+      $('.modal-title span', @modal).html "#{Fustrate.class.icon icon} #{title}"
     else
       $('.modal-title span', @modal).html title
 
