@@ -44,6 +44,9 @@ Function::debounce = (delay = 250) ->
 Function::define = (name, methods) ->
   Object.defineProperty @::, name, methods
 
+Number::accountingFormat = ->
+  if @ < 0 then "($#{(@ * -1).toFixed(2)})" else "$#{@.toFixed(2)}"
+
 Number::bytesToString = ->
   return "#{@} B" if @ < 1000
 
@@ -70,8 +73,35 @@ String::capitalize = ->
 String::dasherize = ->
   @replace /_/g, '-'
 
+# Example:
+#   'hello {planet}'.format(planet: 'world') # => 'Hello world'
+String::format = ->
+  e = @toString()
+
+  return e if not arguments.length
+
+  n = if typeof(arguments[0]) in ['string', 'number']
+    Array.prototype.slice.call(arguments)
+  else
+    arguments[0]
+
+  e.replace /{([^}]+)}/g, (match, key) ->
+    if typeof n[key] is 'undefined' then match else n[key]
+
+String::humanize = ->
+  @.replace(/[a-z][A-Z]/, (match) -> "#{match[0]} #{match[1]}")
+    .replace('_', ' ')
+    .toLowerCase()
+
 String::isBlank = ->
   @trim() is ''
+
+String::parameterize = ->
+  @.replace(/[a-z][A-Z]/, (match) -> "#{match[0]}_#{match[1]}")
+    .replace(/[^a-zA-Z0-9\-_]+/, '-') # Turn unwanted chars into the separator
+    .replace(/\-{2,}/, '-') # No more than one of the separator in a row.
+    .replace(/^\-|\-$/, '') # Remove leading/trailing separator.
+    .toLowerCase()
 
 String::phoneFormat = ->
   if /^1?\d{10}$/.test @
@@ -86,3 +116,8 @@ String::strip = ->
 
 String::titleize = ->
   @replace(/_/g, ' ').replace /\b[a-z]/g, (char) -> char.toUpperCase()
+
+String::underscore = ->
+  @.replace(/[a-z][A-Z]/, (match) -> "#{match[0]}_#{match[1]}")
+    .replace('::', '/')
+    .toLowerCase()
