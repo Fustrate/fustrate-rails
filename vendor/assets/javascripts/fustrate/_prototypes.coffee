@@ -123,3 +123,15 @@ String::underscore = ->
   @.replace(/[a-z][A-Z]/, (match) -> "#{match[0]}_#{match[1]}")
     .replace('::', '/')
     .toLowerCase()
+
+jQuery.fn.outerHTML = ->
+  return '' unless @length
+
+  return @[0].outerHTML if @[0].outerHTML
+
+  $('<div>').append(@[0].clone()).remove().html()
+
+moment.fn.toHumanDate = (time = false) ->
+  year = if @year() isnt moment().year() then '/YY' else ''
+
+  @format("M/D#{year}#{if time then ' h:mm A' else ''}")
