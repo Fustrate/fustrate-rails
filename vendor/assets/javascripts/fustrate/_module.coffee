@@ -125,10 +125,10 @@ class window.Fustrate
       .text(text)
       .prop('class', css_classes.join(' ').toLowerCase().dasherize())
 
-  @icon: (types) ->
+  @icon: (types, style = 'regular') ->
     classes = ("fa-#{type}" for type in types.split(' ')).join(' ')
 
-    "<i class=\"fa #{classes}\"></i>"
+    "<i class=\"fa#{style[0]} #{classes}\"></i>"
 
   @escapeHtml: (string) ->
     return '' if string is null or string is undefined
@@ -142,3 +142,6 @@ class window.Fustrate
       .split(/\r?\n/)
       .map (line) -> Fustrate.escapeHtml(line)
       .join '<br />'
+
+  @redirectTo: (href) ->
+    window.setTimeout (-> window.location.href = href), 750
