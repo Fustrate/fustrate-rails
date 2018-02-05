@@ -16,7 +16,7 @@ class Fustrate.GenericTable extends Fustrate.GenericPage
     sorted.map (row) -> row[1]
 
   createRow: (item) =>
-    @updateRow @constructor.blankRow.clone(), item
+    @updateRow $(@constructor.blankRow), item
 
   updateRow: (row, item) ->
     row
