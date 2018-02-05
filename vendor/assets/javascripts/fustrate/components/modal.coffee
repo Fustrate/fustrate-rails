@@ -61,6 +61,8 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
       $('.modal-title span', @modal).html title
 
   setContent: (content, reload = true) =>
+    content = content() if typeof content is 'function'
+
     $('.modal-content', @modal).html content
 
     @settings._cachedHeight = undefined
