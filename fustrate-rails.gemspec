@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'bourbon'
 
   # JavaScript Libraries
+  s.add_runtime_dependency 'i18n-js'
   s.add_runtime_dependency 'js-routes'
   s.add_runtime_dependency 'modernizr-rails'
   s.add_runtime_dependency 'momentjs-rails'
