@@ -1,0 +1,20 @@
+AllCops:
+  Include:
+    - Capfile
+    - config.ru
+    - Gemfile
+    - Guardfile
+    - Rakefile
+    - app/views/**/*.jbuilder
+    - app/views/**/*.prawn
+  Exclude:
+    - bin/**/*
+    - db/**/*
+    - db/schema.rb
+  TargetRubyVersion: 2.5
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Style/Documentation:
+  Enabled: false
