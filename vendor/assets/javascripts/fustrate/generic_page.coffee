@@ -8,23 +8,17 @@ class Fustrate.GenericPage
     instance = new concern
 
     for own key, value of instance.constructor
-      continue if key in ['included', 'initialize', 'strings']
+      continue if key in ['included', 'initialize']
 
       @constructor[key] = value unless @constructor[key]
 
     # Assign properties to the prototype
     for key, value of concern.prototype
-      continue if key in ['included', 'initialize', 'strings']
+      continue if key in ['included', 'initialize']
 
       @[key] = value.bind(@) unless @[key]
 
     instance.included?.apply(@)
-
-    return unless instance.constructor.strings
-
-    @constructor.strings ?= {}
-
-    $.extend true, @constructor.strings, instance.constructor.strings
 
   addEventListeners: =>
     for name, func of @

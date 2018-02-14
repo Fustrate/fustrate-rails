@@ -95,7 +95,9 @@ class window.Fustrate
     Fustrate._arrayToClass pieces.slice(1), root[pieces[0]]
 
   # Very similar to the Rails helper `link_to`. Returns an HTML string.
-  @linkTo: (text, path, options = {}) ->
+  @linkTo: (text, href, options = {}) ->
+    path = if href.path then href.path() else href
+
     $('<a>').prop('href', path).html(text).prop(options).outerHTML()
 
   @ajaxUpload: (url, data) ->
@@ -144,4 +146,6 @@ class window.Fustrate
       .join '<br />'
 
   @redirectTo: (href) ->
-    window.setTimeout (-> window.location.href = href), 750
+    path = if href.path then href.path() else href
+
+    window.setTimeout (-> window.location.href = path), 750
