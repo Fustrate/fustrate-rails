@@ -7,32 +7,18 @@ module Fustrate
         # Lets us use `t` and `l` helpers.
         include ActionView::Helpers::TranslationHelper
 
-        attr_reader :current_user, :params
-
-        def initialize(current_user = nil, params = {})
-          @current_user = current_user
-
-          @params = process_params(params)
-        end
-
         protected
 
         def service(service_class)
-          service_class.new(current_user, params)
+          service_class.new
         end
 
         def authorize(action, resource)
-          Authority.enforce(action, resource, current_user)
+          Authority.enforce(action, resource, Current.user)
         end
 
         def transaction(&block)
           ActiveRecord::Base.transaction(&block)
-        end
-
-        def process_params(params)
-          return params if params.is_a? ActionController::Parameters
-
-          ActionController::Parameters.new(params)
         end
 
         class LoadPage < self

@@ -33,7 +33,7 @@ module Fustrate
 
           @subject.events.new(
             type: 'Edited',
-            user: current_user,
+            user: Current.user,
             data: @data,
             note: @note
           )
