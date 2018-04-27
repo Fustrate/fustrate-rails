@@ -62,7 +62,7 @@ class Fustrate.Record extends Fustrate.Object
           @_toFormData(data, value, key)
       else if typeof value is 'boolean'
         data.append key, Number(value)
-      else
+      else if value
         data.append key, value
 
     data
