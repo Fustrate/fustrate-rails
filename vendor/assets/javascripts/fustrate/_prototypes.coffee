@@ -59,12 +59,6 @@ Number::bytesToString = ->
 
   "#{(@ / 1000000000).truncate()} GB"
 
-Object::keys = ->
-  Object.keys(@)
-
-Object::values = ->
-  Object.values(@)
-
 String::capitalize = ->
   @charAt(0).toUpperCase() + @slice(1)
 
