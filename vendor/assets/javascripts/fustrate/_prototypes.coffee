@@ -1,8 +1,10 @@
 # Replicate a few common prototype methods on default objects
 
 Array::compact = (strings = true) ->
-  @forEach (element, index) =>
-    @splice(index, 1) if element in [undefined, null] or (strings and element is '')
+  @forEach (el, index) =>
+    return unless el is undefined or el is null or (strings and el is '')
+
+    @splice(index, 1)
 
   @
 
