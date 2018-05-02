@@ -2,7 +2,7 @@
 
 Array::compact = (strings = true) ->
   @forEach (element, index) =>
-    @splice(index, 1) if element is undefined or (strings and element is '')
+    @splice(index, 1) if element in [undefined, null] or (strings and element is '')
 
   @
 
