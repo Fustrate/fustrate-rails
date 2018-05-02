@@ -59,15 +59,11 @@ Number::bytesToString = ->
 
   "#{(@ / 1000000000).truncate()} GB"
 
-Object.defineProperty Object::, 'tap',
-  enumerable: false
-  value: (func) ->
-    if typeof func is 'function'
-      func.apply(@)
-    else
-      @[func].apply @, Array::slice.call(arguments).slice(1)
+Object::keys = ->
+  Object.keys(@)
 
-    @
+Object::values = ->
+  Object.values(@)
 
 String::capitalize = ->
   @charAt(0).toUpperCase() + @slice(1)
@@ -112,6 +108,9 @@ String::phoneFormat = ->
     @replace /(\d{3})(\d{4})/, '$1-$2'
   else
     @
+
+String::presence = ->
+  if @isBlank() then null else @
 
 String::strip = ->
   @replace(/^\s+|\s+$/g, '')
