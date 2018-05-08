@@ -10,7 +10,4 @@ class Fustrate.Components.FilePicker extends Fustrate.Components.Base
 
     document.body.appendChild(input)
 
-    event = document.createEvent 'HTMLEvents'
-    event.initEvent 'click', true, false
-
-    input.dispatchEvent event
+    input.click()
