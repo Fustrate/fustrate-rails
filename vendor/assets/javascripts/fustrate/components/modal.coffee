@@ -36,7 +36,7 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
 
     @modal.data('modal', @)
 
-    super
+    super()
 
   initialize: ->
 

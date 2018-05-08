@@ -2,7 +2,7 @@ class Fustrate.Object extends Fustrate.Listenable
   constructor: (data) ->
     @extractFromData data
 
-    super
+    super(data)
 
   # Simple extractor to assign root keys as properties in the current object.
   # Formats a few common attributes as dates with moment.js

@@ -6,7 +6,7 @@ class Fustrate.Record extends Fustrate.Object
     $.get(@path(format: 'json')).done @extractFromData
 
   constructor: (data) ->
-    super
+    super(data)
 
     if typeof data is 'number' or typeof data is 'string'
       # If the parameter was a number or string, it's likely the record ID

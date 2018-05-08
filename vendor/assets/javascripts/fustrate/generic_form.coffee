@@ -2,12 +2,12 @@
 
 class Fustrate.GenericForm extends Fustrate.GenericPage
   addEventListeners: =>
-    super
+    super()
 
     @root.on 'submit', @onSubmit
 
   _reloadUIElements: =>
-    super
+    super()
 
     for domObject in $('[name]', @root)
       element = $ domObject

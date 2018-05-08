@@ -3,7 +3,7 @@ class Fustrate.GenericTable extends Fustrate.GenericPage
   table: null
 
   initialize: =>
-    super
+    super()
 
     @reloadTable()
 
