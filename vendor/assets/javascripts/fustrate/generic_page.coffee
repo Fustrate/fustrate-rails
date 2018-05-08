@@ -34,12 +34,10 @@ class Fustrate.GenericPage
     @buttons = {}
 
     $('[data-field]', @root).not('.modal [data-field]').each (i, element) =>
-      field = $ element
-      @fields[field.data('field')] = field
+      @fields[element.dataset.field] = $ element
 
     $('[data-button]', @root).not('.modal [data-button]').each (i, element) =>
-      button = $ element
-      @buttons[button.data('button')] = button
+      @buttons[element.dataset.button] = $ element
 
   flashSuccess: (message, { icon } = {}) ->
     new Fustrate.Components.Flash.Success(message, icon: icon)

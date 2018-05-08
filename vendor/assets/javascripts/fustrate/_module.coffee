@@ -44,11 +44,10 @@ class window.Fustrate
     # Loop through every element on the page with a data-js-class attribute
     # and convert the data attribute's value to a real object. Then instantiate
     # a new object of that class.
-    $('[data-js-class]').each (index, elem) ->
-      element = $(elem)
-      klass = Fustrate._stringToClass element.data('js-class')
+    for element in document.querySelectorAll('[data-js-class]')
+      klass = Fustrate._stringToClass element.dataset.jsClass
 
-      element.data 'js-object', new klass(element)
+      element.object = new klass($ element)
 
     $.ajaxSetup
       cache: false
@@ -84,15 +83,15 @@ class window.Fustrate
 
   # Take a string like 'Fustrate.Whiteboard.Entry' and retrieve the real class
   # with that name. Start at `window` and work down from there.
-  @_stringToClass: (string) ->
-    pieces = string.split('.')
+  @_stringToClass: (name) ->
+    segments = name.split('.')
 
-    Fustrate._arrayToClass(pieces, window)
+    Fustrate._arrayToClass(window, segments)
 
-  @_arrayToClass: (pieces, root) ->
-    return root[pieces[0]] if pieces.length is 1
+  @_arrayToClass: (root, segments) ->
+    return root[segments[0]] if segments.length is 1
 
-    Fustrate._arrayToClass pieces.slice(1), root[pieces[0]]
+    Fustrate._arrayToClass root[segments[0]], segments.slice(1)
 
   # Very similar to the Rails helper `link_to`. Returns an HTML string.
   @linkTo: (text, href, options = {}) ->

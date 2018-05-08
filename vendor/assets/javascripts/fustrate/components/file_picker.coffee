@@ -1,11 +1,16 @@
 class Fustrate.Components.FilePicker extends Fustrate.Components.Base
   constructor: (callback) ->
-    input = $ '<input type="file">'
+    input = document.createElement 'input'
+    input.setAttribute 'type', 'file'
 
-    input
-      .appendTo $('body')
-      .change ->
-        callback input[0].files
+    input.addEventListener 'change', ->
+      callback input.files
 
-        input.remove()
-      .click()
+      input.parentNode.removeChild input
+
+    document.body.appendChild(input)
+
+    event = document.createEvent 'HTMLEvents'
+    event.initEvent 'click', true, false
+
+    input.dispatchEvent event

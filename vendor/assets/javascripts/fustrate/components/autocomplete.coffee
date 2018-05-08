@@ -12,7 +12,7 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
     Awesomplete.SORT_BYLENGTH = ->
 
   constructor: (@input, types) ->
-    if $.isArray types
+    if Array.isArray types
       types = {
         plain:
           list: types.map (value) -> { value: value }
