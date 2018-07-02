@@ -5,7 +5,6 @@ require 'rails/engine'
 require 'bourbon'
 require 'i18n-js'
 require 'js-routes'
-require 'modernizr-rails'
 require 'momentjs-rails'
 
 require 'fustrate/rails/services/base'

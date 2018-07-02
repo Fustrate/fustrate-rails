@@ -35,6 +35,5 @@ Gem::Specification.new do |s|
   # JavaScript Libraries
   s.add_runtime_dependency 'i18n-js'
   s.add_runtime_dependency 'js-routes'
-  s.add_runtime_dependency 'modernizr-rails'
   s.add_runtime_dependency 'momentjs-rails'
 end
