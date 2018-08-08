@@ -10,6 +10,9 @@ module Fustrate
         BOOLEAN_FIELDS = [].freeze
 
         def call(subject, force: false, note: nil)
+          # Make sure any before_validation callbacks are run
+          subject.validate
+
           @subject = subject
           @force = force
           @note = note
