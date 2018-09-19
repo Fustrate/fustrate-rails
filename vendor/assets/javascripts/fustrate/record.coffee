@@ -2,10 +2,12 @@ class Fustrate.Record extends Fustrate.Object
   # Rails class name
   @class: null
 
-  reload: =>
-    $.get(@path(format: 'json')).done @extractFromData
+  @define 'class', get: ->
+    @constructor.class
 
   constructor: (data) ->
+    @_loaded = false
+
     super(data)
 
     if typeof data is 'number' or typeof data is 'string'
@@ -15,15 +17,25 @@ class Fustrate.Record extends Fustrate.Object
       # Otherwise we were probably given a hash of attributes
       @extractFromData data
 
-  save: =>
+  reload: (force_reload = false) =>
+    return $.when() if @_loaded and not force_reload
+
+    $.get(@path(format: 'json')).done (response) =>
+      @extractFromData(response)
+      @_loaded = true
+
+  save: (params = {}) =>
     url = if @id
       @path(format: 'json')
     else
       Routes[@constructor.create_path](format: 'json')
 
+    data = @_toFormData()
+    data.append(key, value) for own key, value of params if params
+      
     $.ajax
       url: url
-      data: @_toFormData()
+      data: data
       processData: false
       contentType: false
       method: if @id then 'PATCH' else 'POST'
@@ -36,9 +48,9 @@ class Fustrate.Record extends Fustrate.Object
         xhr
     .done @extractFromData
 
-  update: (data) =>
-    @extractFromData data
-    @save()
+  update: (data, params) =>
+    @extractFromData(data)
+    @save(params)
 
   delete: =>
     $.ajax @path(format: 'json'),
