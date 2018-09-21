@@ -34,12 +34,17 @@ module Fustrate
 
           return if @data.empty? && !@force
 
-          @subject.events.new(
+          log_edit_on.events.new(
             type: 'Edited',
             user: Current.user,
             data: @data,
             note: @note
           )
+        end
+        
+        # Allow edit data to be recorded on a model that isn't @subject
+        def log_edit_on
+          @subject
         end
 
         def process; end
