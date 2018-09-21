@@ -30,7 +30,9 @@ module Fustrate
 
         def record_edit
           # Get rid of changes from nil to '' and whatnot
-          @data.delete_if { |_, values| values.all?(&:blank?) || values.uniq.one? }
+          @data.delete_if do |_, values|
+            values.all?(&:blank?) || values[0] == values[1]
+          end
 
           return if @data.empty? && !@force
 
