@@ -93,7 +93,7 @@ module Fustrate
           old_id = @subject.send("#{name}_id_in_database")
           old_type = @subject.send("#{name}_type_in_database")
 
-          @data[relation.name] = [
+          @data[name] = [
             Object.const_get(old_type).find(old_id)&.to_s,
             @subject.send(name)&.to_s
           ]
