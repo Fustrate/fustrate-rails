@@ -18,7 +18,7 @@ module Fustrate
 
           process_changes
 
-          RENAME_COLUMNS.each do |from, to|
+          self.class::RENAME_COLUMNS.each do |from, to|
             @data[to] = @data.delete from if @data[from]
           end
 
@@ -102,7 +102,7 @@ module Fustrate
         def columns
           # .reject { |col| col.name.match?(/_(?:type|id)\z/) }
           @columns ||= @subject.class.columns
-            .reject { |col| IGNORE_COLUMNS.include? col.name }
+            .reject { |col| self.class::IGNORE_COLUMNS.include? col.name }
             .group_by { |column| column.sql_type_metadata.type }
             .map { |type, cols| [type, cols.map { |col| col.name.to_sym }] }
             .to_h
