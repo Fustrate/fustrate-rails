@@ -94,7 +94,7 @@ module Fustrate
           old_type = @subject.send("#{name}_type_in_database")
 
           @data[name] = [
-            Object.const_get(old_type).find(old_id)&.to_s,
+            (Object.const_get(old_type).find(old_id)&.to_s if old_type),
             @subject.send(name)&.to_s
           ]
         end
