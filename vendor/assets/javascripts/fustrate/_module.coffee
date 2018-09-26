@@ -51,7 +51,7 @@ class window.Fustrate
 
     $.ajaxSetup
       cache: false
-      beforeSend: $.rails.CSRFProtection
+      beforeSend: Rails.CSRFProtection
 
     $('table').wrap '<div class="responsive-table"></div>'
 
@@ -112,7 +112,7 @@ class window.Fustrate
       contentType: false
       dataType: 'script'
       beforeSend: (xhr) ->
-        $.rails.CSRFProtection xhr
+        Rails.CSRFProtection xhr
 
   @getCurrentPageJson: ->
     pathname = window.location.pathname.replace(/\/+$/, '')
