@@ -91,7 +91,7 @@ module Fustrate
 
           # The type, and in rare cases the ID, may not have actually changed
           old_id = @subject.send("#{name}_id_in_database")
-          old_type = @subject.send("#{name}_type_in_database")
+          old_type = @subject.send("#{name}_type_in_database").presence
 
           @data[name] = [
             (Object.const_get(old_type).find(old_id)&.to_s if old_type),
