@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'coffee-script', '>= 2.4'
   s.add_runtime_dependency 'jbuilder', '>= 2.7'
   s.add_runtime_dependency 'railties', '>= 5.2.0.rc1', '< 5.3'
-  s.add_runtime_dependency 'sass', '>= 3.4'
+  s.add_runtime_dependency 'sassc', '>= 3.4'
 
   # CSS Libraries
   s.add_runtime_dependency 'bourbon'
