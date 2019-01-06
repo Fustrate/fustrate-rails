@@ -33,7 +33,11 @@ $column-gutter: rem-calc(30) !default;
   }
 
   // Clearfix for all rows
-  @include clearfix;
+  &::after {
+    clear: both;
+    content: '';
+    display: block;
+  }
 }
 
 // Creates a column, should be used inside of a media query to control layouts
