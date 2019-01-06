@@ -29,9 +29,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'railties', '>= 5.2.0.rc1', '< 5.3'
   s.add_runtime_dependency 'sassc', '>= 2.0'
 
-  # CSS Libraries
-  s.add_runtime_dependency 'bourbon'
-
   # JavaScript Libraries
   s.add_runtime_dependency 'i18n-js'
   s.add_runtime_dependency 'js-routes'

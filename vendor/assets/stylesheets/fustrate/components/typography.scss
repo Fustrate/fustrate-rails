@@ -349,7 +349,11 @@ $print-color: #000 !default;
   }
 
   .clearfix {
-    @include clearfix;
+    &::after {
+      clear: both;
+      content: "";
+      display: block;
+    }
   }
 
   .hide {
