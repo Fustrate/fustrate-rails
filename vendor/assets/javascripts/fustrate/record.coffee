@@ -17,8 +17,8 @@ class Fustrate.Record extends Fustrate.Object
       # Otherwise we were probably given a hash of attributes
       @extractFromData data
 
-  reload: (force_reload = false) =>
-    return $.when() if @_loaded and not force_reload
+  reload: ({ force } = {}) =>
+    return $.when() if @_loaded and not force
 
     $.get(@path(format: 'json')).done (response) =>
       @extractFromData(response)
