@@ -49,9 +49,6 @@ Function::define = (name, methods) ->
 Number::accountingFormat = ->
   if @ < 0 then "($#{(@ * -1).toFixed(2)})" else "$#{@.toFixed(2)}"
 
-Number::truncate = (digits = 2) ->
-  @toFixed(digits).replace(/\.?0+$/, '')
-
 Number::bytesToString = ->
   return "#{@} B" if @ < 1000
 
@@ -61,26 +58,19 @@ Number::bytesToString = ->
 
   "#{(@ / 1000000000).truncate()} GB"
 
+Number::ordinalize = ->
+  s = ['th', 'st', 'nd', 'rd']
+  v = @ % 100
+  @ + (s[(v - 20) % 10] or s[v] or 'th')
+
+Number::truncate = (digits = 2) ->
+  @toFixed(digits).replace(/\.?0+$/, '')
+
 String::capitalize = ->
   @charAt(0).toUpperCase() + @slice(1)
 
 String::dasherize = ->
   @replace /_/g, '-'
-
-# Example:
-#   'hello {planet}'.format(planet: 'world') # => 'Hello world'
-String::format = ->
-  e = @toString()
-
-  return e if not arguments.length
-
-  n = if typeof(arguments[0]) in ['string', 'number']
-    Array.prototype.slice.call(arguments)
-  else
-    arguments[0]
-
-  e.replace /{([^}]+)}/g, (match, key) ->
-    if typeof n[key] is 'undefined' then match else n[key]
 
 String::humanize = ->
   @.replace(/[a-z][A-Z]/, (match) -> "#{match[0]} #{match[1]}")
@@ -104,6 +94,13 @@ String::phoneFormat = ->
     @replace /(\d{3})(\d{4})/, '$1-$2'
   else
     @
+
+# This is far too simple for most cases, but it works for the few things we need
+String::pluralize = ->
+  if @[@length - 1] is 'y'
+    return @substr(0, @length - 1) + 'ies'
+
+  @ + 's'
 
 String::presence = ->
   if @isBlank() then null else @
