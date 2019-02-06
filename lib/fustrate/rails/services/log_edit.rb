@@ -38,7 +38,7 @@ module Fustrate
           log_edit_on.events.new(
             type: 'Edited',
             user: Current.user,
-            data: { changes: @data, raw_changes: @subject.changes },
+            data: { changes: @data, raw_changes: raw_changes },
             note: @note
           )
         end
@@ -46,6 +46,10 @@ module Fustrate
         # Allow edit data to be recorded on a model that isn't @subject
         def log_edit_on
           @subject
+        end
+        
+        def raw_changes
+          @subject.changes
         end
 
         def process_changes
