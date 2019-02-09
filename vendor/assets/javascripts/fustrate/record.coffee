@@ -24,18 +24,21 @@ class Fustrate.Record extends Fustrate.Object
       @extractFromData(response)
       @_loaded = true
 
-  save: (params = {}) =>
-    url = if @id
-      @path(format: 'json')
+  update: (attributes = {}) =>
+    if @id
+      url = @path(format: 'json')
     else
-      Routes[@constructor.create_path](format: 'json')
+      @extractFromData(attributes)
+      url = Routes[@constructor.create_path](format: 'json')
 
-    data = @_toFormData()
-    data.append(key, value) for own key, value of params if params
-      
+    if @community and attributes.community_id is undefined
+      attributes.community_id = @community.id
+
+    formData = @_toFormData(new FormData, attributes, @constructor.paramKey())
+
     $.ajax
       url: url
-      data: data
+      data: formData
       processData: false
       contentType: false
       method: if @id then 'PATCH' else 'POST'
@@ -48,33 +51,43 @@ class Fustrate.Record extends Fustrate.Object
         xhr
     .done @extractFromData
 
-  update: (data, params) =>
-    @extractFromData(data)
-    @save(params)
-
   delete: =>
     $.ajax @path(format: 'json'),
       method: 'DELETE'
 
-  toParams: -> {}
-
   _toFormData: (data, object, namespace) =>
-    data ?= new FormData
-    object ?= @toParams()
-
     for own field, value of object when typeof value isnt 'undefined'
       key = if namespace then "#{namespace}[#{field}]" else field
 
       if value and typeof value is 'object'
-        if value instanceof Array
-          data.append "#{key}[]", array_value for array_value in value
-        else if value instanceof File
-          data.append key, value
-        else
-          @_toFormData(data, value, key)
+        @_appendObjectToFormData(data, key, value)
       else if typeof value is 'boolean'
         data.append key, Number(value)
       else if value isnt null and value isnt undefined
         data.append key, value
 
     data
+
+  _appendObjectToFormData: (data, key, value) =>
+    if value instanceof Array
+      data.append "#{key}[]", array_value for array_value in value
+    else if value instanceof File
+      data.append key, value
+    else if moment.isMoment(value)
+      data.append key, value.format()
+    else if not (value instanceof Fustrate.Record)
+      @_toFormData(data, value, key)
+
+  @paramKey: ->
+    @class.underscore().replace('/', '_')
+
+  @buildList: (items, additional_attributes = {}) ->
+    for item in items
+      new @ $.extend(true, {}, item, additional_attributes)
+
+  @create: (attributes) ->
+    record = new @
+
+    $.Deferred (@deferred) =>
+      record.update(attributes).fail(@deferred.reject).done =>
+        @deferred.resolve record
