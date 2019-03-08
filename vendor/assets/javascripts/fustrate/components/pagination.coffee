@@ -1,24 +1,24 @@
 class Fustrate.Components.Pagination extends Fustrate.Components.Base
-  constructor: ({ @current_page, @total_pages, @total_entries, @per_page }) ->
+  constructor: ({ @currentPage, @totalPages, @totalEntries, @perPage }) ->
     @base = @constructor._getPreppedPaginationURL()
 
   link: (text, page, options = {}) =>
     Fustrate.linkTo(text, "#{@base}page=#{page}", options)
 
   previousLink: =>
-    if @current_page > 1
+    if @currentPage > 1
       return "
         <li class=\"previous_page\">
-          #{@link('← Previous', @current_page - 1, rel: 'prev')}
+          #{@link('← Previous', @currentPage - 1, rel: 'prev')}
         </li>"
 
     '<li class="previous_page unavailable"><a href="#">← Previous</a></li>'
 
   nextLink: =>
-    if @current_page < @total_pages
+    if @currentPage < @totalPages
       return "
         <li class=\"next_page\">
-          #{@link('Next →', @current_page + 1, rel: 'next')}
+          #{@link('Next →', @currentPage + 1, rel: 'next')}
         </li>"
 
     '<li class="next_page unavailable"><a href="#">Next →</a></li>'
@@ -26,9 +26,9 @@ class Fustrate.Components.Pagination extends Fustrate.Components.Base
   generate: =>
     pages = []
 
-    if @total_pages > 1
+    if @totalPages > 1
       pages = for i in @windowedPageNumbers()
-        if i is @current_page
+        if i is @currentPage
           "<li class=\"current\">#{Fustrate.linkTo(i, '#')}</li>"
         else if i is 'gap'
           '<li class="unavailable"><span class="gap">…</span></li>'
@@ -41,27 +41,27 @@ class Fustrate.Components.Pagination extends Fustrate.Components.Base
     $('<ul class="pagination">').html pages.join(' ')
 
   windowedPageNumbers: =>
-    window_from = @current_page - 4
-    window_to = @current_page + 4
+    window_from = @currentPage - 4
+    window_to = @currentPage + 4
 
-    if window_to > @total_pages
-      window_from -= window_to - @total_pages
-      window_to = @total_pages
+    if window_to > @totalPages
+      window_from -= window_to - @totalPages
+      window_to = @totalPages
 
     if window_from < 1
       window_to += 1 - window_from
       window_from = 1
-      window_to = @total_pages if window_to > @total_pages
+      window_to = @totalPages if window_to > @totalPages
 
     middle = [window_from..window_to]
 
     left = if 4 < middle[0] then [1, 2, 'gap'] else [1...middle[0]]
 
-    if @total_pages - 3 > middle.last()
-      right = [(@total_pages - 1)..@total_pages]
+    if @totalPages - 3 > middle.last()
+      right = [(@totalPages - 1)..@totalPages]
       right.unshift 'gap'
-    else if middle.last() + 1 <= @total_pages
-      right = [(middle.last() + 1)..@total_pages]
+    else if middle.last() + 1 <= @totalPages
+      right = [(middle.last() + 1)..@totalPages]
     else
       right = []
 
