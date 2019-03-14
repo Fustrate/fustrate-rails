@@ -55,7 +55,7 @@ class Fustrate.GenericTable extends Fustrate.GenericPage
   # This should be fed a response from a JSON request for a paginated
   # collection.
   updatePagination: (response) =>
-    return unless response.total_pages
+    return unless response.totalPages
 
     @pagination = new Fustrate.Components.Pagination response
 
