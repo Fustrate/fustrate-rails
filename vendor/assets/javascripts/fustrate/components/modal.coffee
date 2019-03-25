@@ -278,8 +278,10 @@ class Fustrate.Components.Modal extends Fustrate.Components.Base
 
     return if not modal or modal.hasClass('locked')
 
+    jModal = modal.data('modal')
+
     # Don't continue to close if we're not supposed to
-    return unless modal.data('modal').closeOnBackgroundClick()
+    return unless jModal?.closeOnBackgroundClick()
 
     modal.trigger 'close.modal'
 
