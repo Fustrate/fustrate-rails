@@ -128,11 +128,13 @@ class Fustrate.Components.Autocomplete extends Fustrate.Components.Base
     $ source.item.call(@, datum, @value)
       .data datum: datum
       .get(0)
-
+  
   highlight: (text) =>
     return '' unless text
+    
+    escaped = @value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
-    text.replace RegExp("(#{@value.split(/\s+/).join('|')})", 'gi'),
+    text.replace RegExp("(#{escaped.split(/\s+/).join('|')})", 'gi'),
                  '<mark>$&</mark>'
 
   replace: (text) =>
