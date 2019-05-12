@@ -2,10 +2,6 @@
 
 require 'rails/engine'
 
-require 'i18n-js'
-require 'js-routes'
-require 'momentjs-rails'
-
 require 'fustrate/rails/services/base'
 require 'fustrate/rails/services/generate_csv'
 require 'fustrate/rails/services/generate_excel'
