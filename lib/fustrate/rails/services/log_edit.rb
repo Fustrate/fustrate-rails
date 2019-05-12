@@ -47,7 +47,7 @@ module Fustrate
         def log_edit_on
           @subject
         end
-        
+
         def raw_changes
           @subject.changes
         end
