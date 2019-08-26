@@ -16,10 +16,10 @@ class Jbuilder
       _set_value :data, (_scope { array! collection, *options })
     end
 
-    search_metadata!(collection)
+    pagination!(collection)
   end
   
-  def search_metadata!(results)
+  def pagination!(results)
     _set_value :currentPage,  results.current_page
     _set_value :totalPages,   results.total_pages
     _set_value :totalEntries, results.total_entries
