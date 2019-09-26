@@ -23,4 +23,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'jbuilder', '>= 2.7'
   s.add_runtime_dependency 'railties', '>= 5.2.0.rc1', '< 6.1'
+
+  # Generate Excel files.
+  s.add_runtime_dependency 'caxlsx', '> 3'
 end

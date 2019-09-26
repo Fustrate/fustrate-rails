@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'caxlsx'
+
 module Fustrate
   module Rails
     module Services
