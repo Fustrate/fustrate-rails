@@ -4,18 +4,21 @@ ActionController::Renderers.add :excel do |data, options|
   name = options[:filename] || 'export'
   sheet = options[:sheet] || name
 
-  headers['Content-Type'] = \
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-  headers['Content-Disposition'] = "attachment;filename=#{name}.xlsx"
-
-  render body: Fustrate::Rails::Services::GenerateExcel.new.call(data, sheet)
+  send_data(
+    Fustrate::Rails::Services::GenerateExcel.new.call(data, sheet),
+    filename: "#{name}.xlsx",
+    disposition: 'attachment',
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  )
 end
 
 ActionController::Renderers.add :csv do |data, options|
   name = options[:filename] || 'export'
 
-  headers['Content-Type'] = 'text/csv'
-  headers['Content-Disposition'] = "attachment;filename=#{name}.csv"
-
-  render body: Fustrate::Rails::Services::GenerateCsv.new.call(data)
+  send_data(
+    Fustrate::Rails::Services::GenerateCsv.new.call(data),
+    filename: "#{name}.csv",
+    disposition: 'attachment',
+    type: 'text/csv'
+  )
 end
