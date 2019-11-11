@@ -12,7 +12,7 @@ module Fustrate
               .add_style(alignment: { wrap_text: true })
 
             package.workbook.add_worksheet(name: sheet_name) do |sheet|
-              sheet.add_row data.first.keys
+              sheet.add_row data.first.keys if data.any?
 
               data.each { |row| sheet.add_row row.values, style: wrap }
             end
