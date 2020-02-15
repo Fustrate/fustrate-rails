@@ -38,7 +38,7 @@ module Fustrate
           log_edit_on_relation.new(
             type: 'Edited',
             user: Current.user,
-            data: { changes: @data, raw_changes: raw_changes },
+            data: { changes: @data, raw_changes: raw_changes }.merge(additional_data),
             note: @note
           )
         end
@@ -50,6 +50,10 @@ module Fustrate
         
         def log_edit_on_relation
           log_edit_on.events
+        end
+        
+        def additional_data
+          {}
         end
 
         def raw_changes
