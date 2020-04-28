@@ -25,7 +25,7 @@ module Fustrate
       end
 
       def data_from_file(name, **interpolations)
-        Dir.glob(Rails.root.join('spec', 'data', "#{name}.*")) do |filename|
+        Dir.glob(::Rails.root.join('spec', 'data', "#{name}.*")) do |filename|
           case File.extname filename
           when '.yml', '.yaml'
             return yaml_data_from_file(filename, **interpolations)
@@ -45,14 +45,14 @@ module Fustrate
 
       def image_file(name = 'wilber.jpg', type = 'image/jpeg')
         Rack::Test::UploadedFile.new(
-          Rails.root.join('spec', 'files', name),
+          ::Rails.root.join('spec', 'files', name),
           type
         )
       end
 
       def pdf_file(name = 'test.pdf', type = 'application/pdf')
         Rack::Test::UploadedFile.new(
-          Rails.root.join('spec', 'files', name),
+          ::Rails.root.join('spec', 'files', name),
           type
         )
       end
