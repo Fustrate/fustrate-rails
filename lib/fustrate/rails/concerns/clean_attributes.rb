@@ -1,0 +1,45 @@
+# frozen_string_literal: true
+
+# Copyright (c) 2020 Steven Hoffman
+# All rights reserved.
+
+module Fustrate
+  module Rails
+    module Concerns
+      module CleanAttributes
+        extend ActiveSupport::Concern
+
+        STRING_TYPES = %i[string text citext].freeze
+
+        # Collapse multiple spaces, remove leading/trailing whitespace, and remove carriage returns
+        def self.strip(text)
+          return if text.blank?
+
+          text.strip
+            .gsub(/ {2,}/, ' ')
+            .gsub(/^[ \t]+|[ \t]+$/, '')
+            .gsub(/\r\n?/, "\n")
+            .gsub(/\n{3,}/, "\n\n")
+        end
+
+        included do |base|
+          # There's no reason to clean polymorphic type columns
+          polymorphic_type_columns = base.reflect_on_all_associations
+            .select { |relation| relation.options[:polymorphic] }
+            .map { |relation| "#{relation.name}_type" }
+
+          string_columns = base.columns
+            .select { |column| STRING_TYPES.include?(column.sql_type_metadata.type) }
+            .reject { |column| polymorphic_type_columns.include?(column.name) }
+            .map(&:name)
+
+          before_validation do
+            string_columns.each do |attribute|
+              self[attribute] = CleanAttributes.strip self[attribute] if self[attribute]
+            end
+          end
+        end
+      end
+    end
+  end
+end
