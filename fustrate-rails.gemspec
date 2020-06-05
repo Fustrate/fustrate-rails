@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Copyright (c) 2020 Steven Hoffman
+# All rights reserved.
+
 $LOAD_PATH.push File.expand_path('lib', __dir__)
 require 'fustrate/rails/version'
 

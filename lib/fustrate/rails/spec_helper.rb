@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Copyright (c) 2020 Steven Hoffman
+# All rights reserved.
+
 module Fustrate
   module Rails
     module SpecHelper
@@ -30,31 +33,21 @@ module Fustrate
           when '.yml', '.yaml'
             return yaml_data_from_file(filename, **interpolations)
           else
-            raise ArgumentError,
-                  "Could not parse unknown file type #{File.extname filename}"
+            raise ArgumentError, "Could not parse unknown file type #{File.extname filename}"
           end
         end
       end
 
       def yaml_data_from_file(filename, **interpolations)
-        YAML.safe_load(
-          read_with_interpolations(filename, interpolations),
-          aliases: true
-        )
+        YAML.safe_load read_with_interpolations(filename, interpolations), aliases: true
       end
 
       def image_file(name = 'wilber.jpg', type = 'image/jpeg')
-        Rack::Test::UploadedFile.new(
-          ::Rails.root.join('spec', 'files', name),
-          type
-        )
+        Rack::Test::UploadedFile.new ::Rails.root.join('spec', 'files', name), type
       end
 
-      def pdf_file(name = 'test.pdf', type = 'application/pdf')
-        Rack::Test::UploadedFile.new(
-          ::Rails.root.join('spec', 'files', name),
-          type
-        )
+      def pdf_file(name = 'test.pdf')
+        Rack::Test::UploadedFile.new ::Rails.root.join('spec', 'files', name), 'application/pdf'
       end
 
       # A few cron scripts use `puts` and clog up STDOUT.

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Copyright (c) 2020 Steven Hoffman
+# All rights reserved.
+
 require 'rails/engine'
 
 require 'fustrate/rails/services/base'

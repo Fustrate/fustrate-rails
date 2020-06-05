@@ -1,19 +1,36 @@
 AllCops:
-  Include:
-    - Capfile
-    - config.ru
-    - Gemfile
-    - Guardfile
-    - Rakefile
-    - app/views/**/*.jbuilder
-  Exclude:
-    - bin/**/*
-    - db/**/*
-    - db/schema.rb
-  TargetRubyVersion: 2.6
+  EnabledByDefault: true
+  NewCops: enable
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
+Style/Copyright:
+  Notice: '^# Copyright (\(c\) )?2[0-9]{3} .+'
+
+Naming/FileName:
+  Exclude:
+    - lib/fustrate-rails.rb
+
+# ------------------------------------------------------------------------------
+# Cops that should not be run
+# ------------------------------------------------------------------------------
+
+# Recommends right hand side of multi-line assignment be on a new line
+Layout/MultilineAssignmentLayout:
+  Enabled: false
+
+Style/ConstantVisibility:
+  Enabled: false
+
 Style/Documentation:
+  Enabled: false
+
+Style/DocumentationMethod:
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
+
+Style/MissingElse:
   Enabled: false

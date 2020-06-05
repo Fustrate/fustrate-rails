@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Copyright (c) 2020 Steven Hoffman
+# All rights reserved.
+
 module Fustrate
   module Rails
     module Services
@@ -29,9 +32,7 @@ module Fustrate
 
         def record_edit
           # Get rid of changes from nil to '' and whatnot
-          @data.delete_if do |_, values|
-            values.all?(&:blank?) || values[0] == values[1]
-          end
+          @data.delete_if { |_, values| values.all?(&:blank?) || values[0] == values[1] }
 
           return if @data.empty? && !@force
 
@@ -47,11 +48,11 @@ module Fustrate
         def log_edit_on
           @subject
         end
-        
+
         def log_edit_on_relation
           log_edit_on.events
         end
-        
+
         def additional_data
           {}
         end
@@ -102,12 +103,12 @@ module Fustrate
           @data.delete("#{name}_type")
 
           # The type, and in rare cases the ID, may not have actually changed
-          old_id = @subject.send("#{name}_id_in_database")
-          old_type = @subject.send("#{name}_type_in_database").presence
+          old_id = @subject.__send__("#{name}_id_in_database")
+          old_type = @subject.__send__("#{name}_type_in_database").presence
 
           @data[name] = [
             (Object.const_get(old_type).find(old_id)&.to_s if old_type),
-            @subject.send(name)&.to_s
+            @subject.__send__(name)&.to_s
           ]
         end
 
@@ -116,14 +117,13 @@ module Fustrate
           @columns ||= @subject.class.columns
             .reject { |col| self.class::IGNORE_COLUMNS.include? col.name }
             .group_by { |column| column.sql_type_metadata.type }
-            .map { |type, cols| [type, cols.map { |col| col.name.to_sym }] }
-            .to_h
+            .transform_values { |cols| cols.map { |col| col.name.to_sym } }
         end
 
         def process_belongs_to_relation(name)
           return unless @data["#{name}_id"]
 
-          new_value = @subject.send(name)
+          new_value = @subject.__send__(name)
 
           change = @data.delete "#{name}_id"
 
