@@ -19,8 +19,8 @@ module Fustrate
         end
 
         module ClassMethods
-          def sanitize_html(*attributes, config, **options)
-            before_validation(**options) do
+          def sanitize_html(*attributes, config)
+            before_validation do
               attributes.flatten.each do |attribute|
                 self[attribute] = SanitizeHtml.sanitize(self[attribute], config) if self[attribute]
               end
