@@ -7,7 +7,7 @@ module Fustrate
   module Rails
     module Concerns
       module SanitizeHtml
-        extend ActiveSupport::Concern
+        extend ::ActiveSupport::Concern
 
         def self.sanitize(html, config)
           # Remove non-breaking & ideographic spaces before sanitizing, and un-fancy quotes.
@@ -15,14 +15,16 @@ module Fustrate
             .tr('‘’“”', %q(''""))
             .gsub(/(?:[\u00A0\u3000]|&nbsp;) ?/, ' ')
 
-          Sanitize.fragment(normalized, config).strip
+          ::Sanitize.fragment(normalized, config).strip
         end
 
         module ClassMethods
           def sanitize_html(*attributes, config)
             before_validation do
               attributes.flatten.each do |attribute|
-                self[attribute] = SanitizeHtml.sanitize(self[attribute], config) if self[attribute]
+                next unless self[attribute]
+
+                self[attribute] = ::Fustrate::Rails::Concerns::SanitizeHtml.sanitize(self[attribute], config)
               end
             end
           end

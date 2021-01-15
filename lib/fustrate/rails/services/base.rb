@@ -8,7 +8,7 @@ module Fustrate
     module Services
       class Base
         # Lets us use `t` and `l` helpers.
-        include ActionView::Helpers::TranslationHelper
+        include ::ActionView::Helpers::TranslationHelper
 
         protected
 
@@ -17,11 +17,11 @@ module Fustrate
         end
 
         def authorize(action, resource)
-          Authority.enforce(action, resource, Current.user)
+          ::Authority.enforce(action, resource, ::Current.user)
         end
 
         def transaction(&block)
-          ActiveRecord::Base.transaction(&block)
+          ::ActiveRecord::Base.transaction(&block)
         end
 
         class LoadPage < self
@@ -42,11 +42,11 @@ module Fustrate
           protected
 
           def default_scope
-            raise NotImplementedError, '#default_scope not defined'
+            raise ::NotImplementedError, '#default_scope not defined'
           end
 
           def default_order
-            return self.class::DEFAULT_ORDER.call if self.class::DEFAULT_ORDER.is_a? Proc
+            return self.class::DEFAULT_ORDER.call if self.class::DEFAULT_ORDER.is_a? ::Proc
 
             self.class::DEFAULT_ORDER
           end

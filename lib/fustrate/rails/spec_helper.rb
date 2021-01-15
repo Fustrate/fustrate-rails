@@ -6,56 +6,56 @@
 module Fustrate
   module Rails
     module SpecHelper
-      include ActiveSupport::Testing::TimeHelpers
+      include ::ActiveSupport::Testing::TimeHelpers
 
       def accept(mime)
-        request.accept = mime['/'] ? mime : Mime::Type.lookup_by_extension(mime)
+        request.accept = mime['/'] ? mime : ::Mime::Type.lookup_by_extension(mime)
       end
 
       def t(key, **interpolations)
-        I18n.t(key, interpolations)
+        ::I18n.t(key, interpolations)
       end
 
       # Just helps to shorten some absurdly long error message keys
       def error_t(model, attribute, key)
         key = "attributes.#{attribute}.#{key}" if attribute
 
-        I18n.t "activerecord.errors.models.#{model.model_name.i18n_key}.#{key}"
+        ::I18n.t "activerecord.errors.models.#{model.model_name.i18n_key}.#{key}"
       end
 
       def double_list(name, count, **stubs)
-        Array.new(count) { instance_double(name, stubs) }
+        ::Array.new(count) { instance_double(name, stubs) }
       end
 
       def data_from_file(name, **interpolations)
-        Dir.glob(::Rails.root.join('spec', 'data', "#{name}.*")) do |filename|
-          case File.extname filename
+        ::Dir.glob(::Rails.root.join('spec', 'data', "#{name}.*")) do |filename|
+          case ::File.extname filename
           when '.yml', '.yaml'
             return yaml_data_from_file(filename, **interpolations)
           else
-            raise ArgumentError, "Could not parse unknown file type #{File.extname filename}"
+            raise ::ArgumentError, "Could not parse unknown file type #{::File.extname filename}"
           end
         end
       end
 
       def yaml_data_from_file(filename, **interpolations)
-        YAML.safe_load read_with_interpolations(filename, interpolations), aliases: true
+        ::YAML.safe_load read_with_interpolations(filename, interpolations), aliases: true
       end
 
       def image_file(name = 'wilber.jpg', type = 'image/jpeg')
-        Rack::Test::UploadedFile.new ::Rails.root.join('spec', 'files', name), type
+        ::Rack::Test::UploadedFile.new ::Rails.root.join('spec', 'files', name), type
       end
 
       def pdf_file(name = 'test.pdf')
-        Rack::Test::UploadedFile.new ::Rails.root.join('spec', 'files', name), 'application/pdf'
+        ::Rack::Test::UploadedFile.new ::Rails.root.join('spec', 'files', name), 'application/pdf'
       end
 
       # A few cron scripts use `puts` and clog up STDOUT.
       def stfu
         orig_stdout = $stdout.clone
-        $stdout.reopen File.new('/dev/null', 'w')
+        $stdout.reopen ::File.new('/dev/null', 'w')
         yield
-      rescue StandardError => e
+      rescue ::StandardError => e
         $stdout.reopen orig_stdout
         raise e
       ensure
@@ -65,7 +65,7 @@ module Fustrate
       protected
 
       def read_with_interpolations(filename, interpolations)
-        File.read(filename) % interpolations
+        ::File.read(filename) % interpolations
       end
     end
   end

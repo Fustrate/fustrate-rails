@@ -38,7 +38,7 @@ module Fustrate
 
           log_edit_on_relation.new(
             type: 'Edited',
-            user: Current.user,
+            user: ::Current.user,
             data: { changes: @data, raw_changes: raw_changes }.merge(additional_data),
             note: @note
           )
@@ -90,7 +90,7 @@ module Fustrate
           @subject.class.reflect_on_all_associations.each do |relation|
             if relation.options[:polymorphic]
               process_polymorphic_relation(relation.name)
-            elsif relation.is_a?(ActiveRecord::Reflection::BelongsToReflection)
+            elsif relation.is_a?(::ActiveRecord::Reflection::BelongsToReflection)
               process_belongs_to_relation(relation.name)
             end
           end
@@ -107,7 +107,7 @@ module Fustrate
           old_type = @subject.__send__("#{name}_type_in_database").presence
 
           @data[name] = [
-            (Object.const_get(old_type).find(old_id)&.to_s if old_type),
+            (::Object.const_get(old_type).find(old_id)&.to_s if old_type),
             @subject.__send__(name)&.to_s
           ]
         end

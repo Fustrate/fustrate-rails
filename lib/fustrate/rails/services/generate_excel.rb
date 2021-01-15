@@ -8,7 +8,7 @@ module Fustrate
     module Services
       class GenerateExcel
         def call(data, sheet_name = 'Sheet 1')
-          Axlsx::Package.new do |package|
+          ::Axlsx::Package.new do |package|
             package.use_shared_strings = true
 
             @wrap = package.workbook.styles.add_style(alignment: { wrap_text: true })

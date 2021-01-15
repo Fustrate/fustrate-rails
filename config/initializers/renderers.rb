@@ -3,23 +3,23 @@
 # Copyright (c) 2020 Steven Hoffman
 # All rights reserved.
 
-ActionController::Renderers.add :excel do |data, options|
+::ActionController::Renderers.add :excel do |data, options|
   name = options[:filename] || 'export'
   sheet = options[:sheet] || name
 
   send_data(
-    Fustrate::Rails::Services::GenerateExcel.new.call(data, sheet),
+    ::Fustrate::Rails::Services::GenerateExcel.new.call(data, sheet),
     filename: "#{name}.xlsx",
     disposition: 'attachment',
     type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   )
 end
 
-ActionController::Renderers.add :csv do |data, options|
+::ActionController::Renderers.add :csv do |data, options|
   name = options[:filename] || 'export'
 
   send_data(
-    Fustrate::Rails::Services::GenerateCsv.new.call(data),
+    ::Fustrate::Rails::Services::GenerateCsv.new.call(data),
     filename: "#{name}.csv",
     disposition: 'attachment',
     type: 'text/csv'

@@ -7,7 +7,7 @@ module Fustrate
   module Rails
     module Concerns
       module CleanAttributes
-        extend ActiveSupport::Concern
+        extend ::ActiveSupport::Concern
 
         STRING_TYPES = %i[string text citext].freeze
 
@@ -29,13 +29,15 @@ module Fustrate
             .map { |relation| "#{relation.name}_type" }
 
           string_columns = base.columns
-            .select { |column| STRING_TYPES.include?(column.sql_type_metadata.type) }
+            .select { |column| self::STRING_TYPES.include?(column.sql_type_metadata.type) }
             .reject { |column| polymorphic_type_columns.include?(column.name) }
             .map(&:name)
 
           before_validation do
             string_columns.each do |attribute|
-              self[attribute] = CleanAttributes.strip self[attribute] if self[attribute]
+              next unless self[attribute]
+
+              self[attribute] = ::Fustrate::Rails::Concerns::CleanAttributes.strip self[attribute]
             end
           end
         end

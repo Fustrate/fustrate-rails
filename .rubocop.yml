@@ -1,6 +1,7 @@
 AllCops:
   EnabledByDefault: true
   NewCops: enable
+  TargetRubyVersion: 2.7
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -21,6 +22,9 @@ Layout/MultilineAssignmentLayout:
   Enabled: false
 
 Style/ConstantVisibility:
+  Enabled: false
+
+Style/DisableCopsWithinSourceCodeDirective:
   Enabled: false
 
 Style/Documentation:
