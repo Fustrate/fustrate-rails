@@ -15,11 +15,7 @@ module Fustrate
         def self.strip(text)
           return if text.blank?
 
-          text.strip
-            .gsub(/ {2,}/, ' ')
-            .gsub(/^[ \t]+|[ \t]+$/, '')
-            .gsub(/\r\n?/, "\n")
-            .gsub(/\n{3,}/, "\n\n")
+          text.strip.gsub(/ {2,}/, ' ').gsub(/^[ \t]+|[ \t]+$/, '').gsub(/\r\n?/, "\n").gsub(/\n{3,}/, "\n\n")
         end
 
         included do |base|

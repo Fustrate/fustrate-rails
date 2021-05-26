@@ -11,9 +11,7 @@ module Fustrate
 
         def self.sanitize(html, config)
           # Remove non-breaking & ideographic spaces before sanitizing, and un-fancy quotes.
-          normalized = html
-            .tr('‘’“”', %q(''""))
-            .gsub(/(?:[\u00A0\u3000]|&nbsp;) ?/, ' ')
+          normalized = html.tr('‘’“”', %q(''"")).gsub(/(?:[\u00A0\u3000]|&nbsp;) ?/, ' ')
 
           ::Sanitize.fragment(normalized, config).strip
         end

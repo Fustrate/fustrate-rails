@@ -80,12 +80,7 @@ describe ::Fustrate::Rails::Concerns::SanitizeHtml do
   end
 
   it 'puts newlines between root paragraphs' do
-    fragments = [
-      "<p>Hello</p>\n<p>World</p>",
-      '<p>Hello</p> <p>World</p>'
-    ]
-
-    fragments.each do |fragment|
+    ["<p>Hello</p>\n<p>World</p>", '<p>Hello</p> <p>World</p>'].each do |fragment|
       clean = described_class.sanitize(fragment, ::SANITIZE_CONFIG)
 
       expect(clean).to eq "<p>Hello</p>\n<p>World</p>"

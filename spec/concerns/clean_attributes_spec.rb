@@ -25,11 +25,7 @@ end
 
 describe ::Fustrate::Rails::Concerns::CleanAttributes do
   it 'nilifies blank strings' do
-    employee = ::Employee.new(
-      username: "\n\t ",
-      email: ' ',
-      website_bio: "\t\t\t"
-    )
+    employee = ::Employee.new(username: "\n\t ", email: ' ', website_bio: "\t\t\t")
 
     employee.validate
 
