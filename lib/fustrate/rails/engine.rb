@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2020 Steven Hoffman
+# Copyright (c) 2021 Steven Hoffman
 # All rights reserved.
 
 require 'rails/engine'

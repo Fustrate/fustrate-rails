@@ -7,7 +7,10 @@ Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
 Style/Copyright:
-  Notice: '^# Copyright (\(c\) )?2[0-9]{3} .+'
+  AutocorrectNotice: |
+    # Copyright (c) 2021 Steven Hoffman
+    # All rights reserved.
+  Notice: '^# Copyright \(c\) 2021 .+'
 
 Naming/FileName:
   Exclude:
