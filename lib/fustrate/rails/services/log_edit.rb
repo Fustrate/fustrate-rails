@@ -69,21 +69,25 @@ module Fustrate
         end
 
         def process_datetime_columns
-          Array(columns[:date]).select { |col| @data[col] }.each do |col|
+          columns_of_type(:date).each do |col|
             @data[col] = format_timestamps(@data[col], time: false)
           end
         end
 
         def process_date_columns
-          Array(columns[:datetime]).select { |col| @data[col] }.each do |col|
+          columns_of_type(:datetime).each do |col|
             @data[col] = format_timestamps(@data[col], time: true)
           end
         end
 
         def process_boolean_columns
-          Array(columns[:boolean]).select { |col| @data[col] }.each do |col|
+          columns_of_type(:boolean).each do |col|
             @data[col] = @data[col][1] ? %w[No Yes] : %w[Yes No]
           end
+        end
+
+        def columns_of_type(type)
+          Array(columns[type]).select { |col| @data[col] }
         end
 
         def process_relations
@@ -125,21 +129,17 @@ module Fustrate
 
           new_value = @subject.__send__(name)
 
-          change = @data.delete "#{name}_id"
+          old_value_id = @data.delete("#{name}_id")[0]
 
           # If we're removing the value, new_value.class will be nil, so we need to use reflection.
           @data[name] = [
-            (@subject.class.reflect_on_association(name).klass.find(change[0])&.to_s if change[0]),
+            (@subject.class.reflect_on_association(name).klass.find(old_value_id)&.to_s if old_value_id),
             new_value&.to_s
           ]
         end
 
         def format_timestamps(datetimes, time: true)
-          datetimes.map do |timestamp|
-            next unless timestamp
-
-            timestamp.strftime(time ? '%-m/%-d/%y %-I:%M %p' : '%-m/%-d/%y')
-          end
+          datetimes.map { |timestamp| timestamp&.strftime(time ? '%-m/%-d/%y %-I:%M %p' : '%-m/%-d/%y') }
         end
       end
     end
