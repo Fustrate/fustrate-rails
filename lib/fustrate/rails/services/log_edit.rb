@@ -127,8 +127,9 @@ module Fustrate
 
           change = @data.delete "#{name}_id"
 
+          # If we're removing the value, new_value.class will be nil, so we need to use reflection.
           @data[name] = [
-            (new_value.class.find(change[0])&.to_s if change[0]),
+            (@subject.class.reflect_on_association(name).klass.find(change[0])&.to_s if change[0]),
             new_value&.to_s
           ]
         end
