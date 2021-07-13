@@ -26,8 +26,8 @@ require 'fustrate/rails/version'
   s.add_development_dependency 'rspec', '~> 3.8'
   s.add_development_dependency 'sqlite3'
 
-  s.add_dependency 'activesupport', '>= 6.0.3', '< 7'
-  s.add_dependency 'jbuilder', '>= 2.10'
-  s.add_dependency 'railties', '>= 6.0.3', '< 7'
-  s.add_dependency 'sanitize', '>= 5.1'
+  s.add_dependency 'activesupport', '~> 6.1'
+  s.add_dependency 'jbuilder', '~> 2.10'
+  s.add_dependency 'railties', '~> 6.1'
+  s.add_dependency 'sanitize', '~> 5.1'
 end
