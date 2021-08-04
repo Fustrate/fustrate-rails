@@ -29,5 +29,5 @@ require 'fustrate/rails/version'
   s.add_dependency 'activesupport', '~> 6.1'
   s.add_dependency 'jbuilder', '~> 2.10'
   s.add_dependency 'railties', '~> 6.1'
-  s.add_dependency 'sanitize', '~> 5.1'
+  s.add_dependency 'sanitize', '~> 6.0'
 end
