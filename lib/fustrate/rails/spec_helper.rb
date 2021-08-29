@@ -12,10 +12,6 @@ module Fustrate
         request.accept = mime['/'] ? mime : ::Mime::Type.lookup_by_extension(mime)
       end
 
-      def t(key, **interpolations)
-        ::I18n.t(key, interpolations)
-      end
-
       # Just helps to shorten some absurdly long error message keys
       def error_t(model, attribute, key)
         key = "attributes.#{attribute}.#{key}" if attribute
