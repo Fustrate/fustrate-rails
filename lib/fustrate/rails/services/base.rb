@@ -32,10 +32,7 @@ module Fustrate
           def call(page: nil, includes: nil, scope: nil, order: nil)
             (scope || default_scope)
               .reorder(order || default_order)
-              .paginate(
-                page: (page || params[:page]),
-                per_page: self.class::RESULTS_PER_PAGE
-              )
+              .paginate(page: page || params[:page], per_page: self.class::RESULTS_PER_PAGE)
               .includes(includes || self.class::DEFAULT_INCLUDES)
           end
 
