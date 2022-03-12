@@ -12,17 +12,11 @@ module Fustrate
 
         protected
 
-        def service(service_class)
-          service_class.new
-        end
+        def service(service_class) = service_class.new
 
-        def authorize(action, resource)
-          ::Authority.enforce(action, resource, ::Current.user)
-        end
+        def authorize(action, resource) = ::Authority.enforce(action, resource, ::Current.user)
 
-        def transaction(&block)
-          ::ActiveRecord::Base.transaction(&block)
-        end
+        def transaction(&) = ::ActiveRecord::Base.transaction(&)
 
         class LoadPage < self
           DEFAULT_ORDER = nil
@@ -38,9 +32,7 @@ module Fustrate
 
           protected
 
-          def default_scope
-            raise ::NotImplementedError, '#default_scope not defined'
-          end
+          def default_scope = (raise ::NotImplementedError, '#default_scope not defined')
 
           def default_order
             return self.class::DEFAULT_ORDER.call if self.class::DEFAULT_ORDER.is_a? ::Proc

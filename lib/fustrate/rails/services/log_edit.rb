@@ -39,27 +39,19 @@ module Fustrate
           log_edit_on_relation.new(
             type: 'Edited',
             user: ::Current.user,
-            data: { changes: @data, raw_changes: raw_changes }.merge(additional_data),
+            data: { changes: @data, raw_changes:, **additional_data },
             note: @note
           )
         end
 
         # Allow edit data to be recorded on a model that isn't @subject
-        def log_edit_on
-          @subject
-        end
+        def log_edit_on = @subject
 
-        def log_edit_on_relation
-          log_edit_on.events
-        end
+        def log_edit_on_relation = log_edit_on.events
 
-        def additional_data
-          {}
-        end
+        def additional_data = {}
 
-        def raw_changes
-          @subject.changes
-        end
+        def raw_changes = @subject.changes
 
         def process_changes
           process_datetime_columns

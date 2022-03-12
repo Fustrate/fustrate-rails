@@ -61,20 +61,16 @@ class Sanitize
   end
 
   def self.clean_whitespace(node)
-    if node.text?
-      node.content = node.content.gsub(/[[:space:]]+/, ' ')
-    elsif node.element?
-      clean_element_whitespace(node)
-    end
+    return clean_element_whitespace(node) unless node.text?
+
+    node.content = node.content.gsub(/[[:space:]]+/, ' ')
   end
 
   def self.clean_element_whitespace(node)
-    if node.name.casecmp('p').zero?
-      clean_paragraph_tag(node.children.first, true)
-      clean_paragraph_tag(node.children.last, false)
-    else
-      node
-    end
+    return unless node.name.casecmp('p').zero?
+
+    clean_paragraph_tag(node.children.first, true)
+    clean_paragraph_tag(node.children.last, false)
   end
 
   def self.clean_paragraph_tag(node, is_first)
@@ -100,31 +96,23 @@ class Sanitize
     end
   end
 
-  def self.empty_element?(node)
-    node.element? && !self_closing?(node) && !content?(node)
-  end
+  def self.empty_element?(node) = node.element? && !self_closing?(node) && !content?(node)
 
   def self.content?(node)
     return true if text?(node)
 
-    if node.element?
-      node.children.each do |child|
-        return true if content_or_self_closing?(child)
-      end
+    return false unless node.element?
+
+    node.children.each do |child|
+      return true if content_or_self_closing?(child)
     end
 
     false
   end
 
-  def self.content_or_self_closing?(node)
-    self_closing?(node) || text?(node) || content?(node)
-  end
+  def self.content_or_self_closing?(node) = self_closing?(node) || text?(node) || content?(node)
 
-  def self.self_closing?(node)
-    self::SELF_CLOSING.include?(node.name.downcase)
-  end
+  def self.self_closing?(node) = self::SELF_CLOSING.include?(node.name.downcase)
 
-  def self.text?(node)
-    node.text? && node.text.present?
-  end
+  def self.text?(node) = node.text? && node.text.present?
 end

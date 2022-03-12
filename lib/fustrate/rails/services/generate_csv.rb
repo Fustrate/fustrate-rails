@@ -7,11 +7,7 @@ module Fustrate
   module Rails
     module Services
       class GenerateCsv
-        def call(data)
-          return csv_from_hash(data) if data.first.is_a? ::Hash
-
-          csv_from_array(data)
-        end
+        def call(data) = data.first.is_a?(::Hash) ? csv_from_hash(data) : csv_from_array(data)
 
         protected
 

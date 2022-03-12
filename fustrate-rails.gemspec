@@ -31,4 +31,6 @@ require 'fustrate/rails/version'
   s.add_dependency 'jbuilder', '~> 2.11'
   s.add_dependency 'railties', '>= 6.0.3', '< 8'
   s.add_dependency 'sanitize', '~> 6.0'
+
+  s.metadata['rubygems_mfa_required'] = 'true'
 end
