@@ -15,6 +15,8 @@ module Fustrate
         def self.strip(text)
           return if text.blank?
 
+          return text.map { |element| strip(element) } if text.is_a?(::Array)
+
           text.strip.gsub(/ {2,}/, ' ').gsub(/^[ \t]+|[ \t]+$/, '').gsub(/\r\n?/, "\n").gsub(/\n{3,}/, "\n\n")
         end
 

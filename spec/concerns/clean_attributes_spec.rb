@@ -16,6 +16,8 @@ require 'fustrate/rails/concerns/clean_attributes'
     t.text :website_bio
     # SQLite doesn't have a citext type... not sure how to test that specific part.
     t.string :email
+    # SQLite also doesn't have an array type...
+    t.string :aliases, array: true
   end
 end
 
@@ -46,6 +48,18 @@ describe ::Fustrate::Rails::Concerns::CleanAttributes do
     expect(employee.username).to eq 'strip this text'
     expect(employee.email).to eq 'strip this text'
     expect(employee.website_bio).to eq 'strip this text'
+  end
+
+  # This doesn't work with SQLite, I need to run these tests on postgres
+  xit 'strips an array of strings' do
+    employee = ::Employee.new(username: "\n\t ", email: ' ', website_bio: "\t\t\t", aliases: [' dave', 'd dawg '])
+
+    employee.validate
+
+    expect(employee.username).to be_nil
+    expect(employee.email).to be_nil
+    expect(employee.website_bio).to be_nil
+    expect(employee.aliases).to eq ['dave', 'd dawg']
   end
 
   it 'removes trailing spaces on each line' do
