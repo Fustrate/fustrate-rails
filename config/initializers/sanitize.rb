@@ -98,17 +98,7 @@ class Sanitize
 
   def self.empty_element?(node) = node.element? && !self_closing?(node) && !content?(node)
 
-  def self.content?(node)
-    return true if text?(node)
-
-    return false unless node.element?
-
-    node.children.each do |child|
-      return true if content_or_self_closing?(child)
-    end
-
-    false
-  end
+  def self.content?(node) = text?(node) || (node.element? && node.children.any? { content_or_self_closing?(_1) })
 
   def self.content_or_self_closing?(node) = self_closing?(node) || text?(node) || content?(node)
 

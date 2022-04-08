@@ -15,7 +15,7 @@ module Fustrate
         def self.strip(text)
           return if text.blank?
 
-          return text.map { |element| strip(element) } if text.is_a?(::Array)
+          return text.map { strip(_1) } if text.is_a?(::Array)
 
           text.strip.gsub(/ {2,}/, ' ').gsub(/^[ \t]+|[ \t]+$/, '').gsub(/\r\n?/, "\n").gsub(/\n{3,}/, "\n\n")
         end
@@ -23,12 +23,12 @@ module Fustrate
         included do |base|
           # There's no reason to clean polymorphic type columns
           polymorphic_type_columns = base.reflect_on_all_associations
-            .select { |relation| relation.options[:polymorphic] }
-            .map { |relation| "#{relation.name}_type" }
+            .select { _1.options[:polymorphic] }
+            .map { "#{_1.name}_type" }
 
           string_columns = base.columns
-            .select { |column| self::STRING_TYPES.include?(column.sql_type_metadata.type) }
-            .reject { |column| polymorphic_type_columns.include?(column.name) }
+            .select { self::STRING_TYPES.include?(_1.sql_type_metadata.type) }
+            .reject { polymorphic_type_columns.include?(_1.name) }
             .map(&:name)
 
           before_validation do

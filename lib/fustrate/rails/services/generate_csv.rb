@@ -16,7 +16,7 @@ module Fustrate
             csv << data.first.keys
 
             data.each do |row|
-              csv << (row.values.map { |val| val&.to_s&.tr("\n", "\v") })
+              csv << (row.values.map { _1&.to_s&.tr("\n", "\v") })
             end
           end
         end
@@ -25,7 +25,7 @@ module Fustrate
           ::CSV.generate do |csv|
             # It's just an array of arrays; the first row is likely the header
             data.each do |row|
-              csv << (Array(row).map { |val| val&.to_s&.tr("\n", "\v") })
+              csv << (Array(row).map { _1&.to_s&.tr("\n", "\v") })
             end
           end
         end

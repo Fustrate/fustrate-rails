@@ -81,9 +81,7 @@ module Fustrate
           end
         end
 
-        def columns_of_type(type)
-          Array(columns[type]).select { |col| changes[col] }
-        end
+        def columns_of_type(type) = Array(columns[type]).select { changes[_1] }
 
         def process_relations
           subject.class.reflect_on_all_associations.each do |relation|
@@ -113,11 +111,11 @@ module Fustrate
         end
 
         def columns
-          # .reject { |col| col.name.match?(/_(?:type|id)\z/) }
+          # .reject { _1.name.match?(/_(?:type|id)\z/) }
           @columns ||= subject.class.columns
-            .reject { |col| self.class::IGNORE_COLUMNS.include? col.name }
-            .group_by { |column| column.sql_type_metadata.type }
-            .transform_values { |cols| cols.map { |col| col.name.to_sym } }
+            .reject { self.class::IGNORE_COLUMNS.include? _1.name }
+            .group_by { _1.sql_type_metadata.type }
+            .transform_values { |cols| cols.map { _1.name.to_sym } }
         end
 
         def process_belongs_to_relation(name)
@@ -135,7 +133,7 @@ module Fustrate
         end
 
         def format_timestamps(datetimes, time: true)
-          datetimes.map { |timestamp| timestamp&.strftime(time ? '%-m/%-d/%y %-I:%M %p' : '%-m/%-d/%y') }
+          datetimes.map { _1&.strftime(time ? '%-m/%-d/%y %-I:%M %p' : '%-m/%-d/%y') }
         end
       end
     end

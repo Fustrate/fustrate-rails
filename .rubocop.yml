@@ -24,6 +24,10 @@ Naming/FileName:
 Layout/MultilineAssignmentLayout:
   Enabled: false
 
+# Recommends squishing a multi-line hash into one line. I don't like that. It's not readable.
+Layout/RedundantLineBreak:
+  Enabled: false
+
 Style/ConstantVisibility:
   Enabled: false
 

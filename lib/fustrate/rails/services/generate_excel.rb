@@ -26,7 +26,7 @@ module Fustrate
         def add_data_to_sheet(data, sheet)
           sheet.add_row data.first.keys if data.any?
 
-          data.each { |row| sheet.add_row row.values, style: @wrap }
+          data.each { sheet.add_row _1.values, style: @wrap }
         end
       end
     end
