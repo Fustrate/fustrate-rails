@@ -50,7 +50,7 @@ module Fustrate
 
         def log_edit_on_relation = log_edit_on.events
 
-        def edit_data = { changes:, raw_changes:, **additional_data }
+        def edit_data = { changes:, raw_changes:, **additional_data, reason: ::Current.params[:reason] }.compact
 
         def additional_data = {}
 
