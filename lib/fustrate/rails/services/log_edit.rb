@@ -37,22 +37,18 @@ module Fustrate
         end
 
         def record_edit
-          # Get rid of changes from nil to '' and whatnot
-          changes.delete_if { |_, values| values.all?(&:blank?) || values[0] == values[1] }
+          clean_changes!
 
           return if changes.empty? && !force
 
-          log_edit_on_relation.new(type: 'Edited', user:, note:, data: edit_data)
+          log_edit_on.edits.new(user:, note:, reason: ::Current.params[:reason], pretty_changes: changes, raw_changes:)
         end
+
+        # Get rid of changes from nil to '' and whatnot
+        def clean_changes! = changes.delete_if { |_, values| values.all?(&:blank?) || values[0] == values[1] }
 
         # Allow edits to be recorded on a model that isn't `subject`
         def log_edit_on = subject
-
-        def log_edit_on_relation = log_edit_on.events
-
-        def edit_data = { changes:, raw_changes:, **additional_data, reason: ::Current.params[:reason] }.compact
-
-        def additional_data = {}
 
         def raw_changes = subject.changes
 
