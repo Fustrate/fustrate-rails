@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fustrate-rails (0.8.0)
+    fustrate-rails (0.9.0)
       activesupport (>= 6.0.3, < 8)
       jbuilder (~> 2.11)
       railties (>= 6.0.3, < 8)
@@ -74,7 +74,7 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
-    regexp_parser (2.2.1)
+    regexp_parser (2.3.0)
     rexml (3.2.5)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
@@ -98,7 +98,7 @@ GEM
       rubocop-ast (>= 1.16.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.16.0)
+    rubocop-ast (1.17.0)
       parser (>= 3.1.1.0)
     ruby-progressbar (1.11.0)
     sanitize (6.0.0)

@@ -31,9 +31,7 @@ describe ::Fustrate::Rails::Concerns::CleanAttributes do
 
     employee.validate
 
-    expect(employee.username).to be_nil
-    expect(employee.email).to be_nil
-    expect(employee.website_bio).to be_nil
+    expect(employee).to have_attributes(username: nil, email: nil, website_bio: nil)
   end
 
   it 'strips non-blank strings' do
@@ -45,9 +43,8 @@ describe ::Fustrate::Rails::Concerns::CleanAttributes do
 
     employee.validate
 
-    expect(employee.username).to eq 'strip this text'
-    expect(employee.email).to eq 'strip this text'
-    expect(employee.website_bio).to eq 'strip this text'
+    expect(employee)
+      .to have_attributes(username: 'strip this text', email: 'strip this text', website_bio: 'strip this text')
   end
 
   # This doesn't work with SQLite, I need to run these tests on postgres
@@ -56,10 +53,7 @@ describe ::Fustrate::Rails::Concerns::CleanAttributes do
 
     employee.validate
 
-    expect(employee.username).to be_nil
-    expect(employee.email).to be_nil
-    expect(employee.website_bio).to be_nil
-    expect(employee.aliases).to eq ['dave', 'd dawg']
+    expect(employee).to have_attributes(username: nil, email: nil, website_bio: nil, aliases: ['dave', 'd dawg'])
   end
 
   it 'removes trailing spaces on each line' do
@@ -71,9 +65,8 @@ describe ::Fustrate::Rails::Concerns::CleanAttributes do
 
     employee.validate
 
-    expect(employee.username).to eq "hello\nworld\n!"
-    expect(employee.email).to eq "hello\nworld\n!"
-    expect(employee.website_bio).to eq "hello\nworld\n!"
+    expect(employee)
+      .to have_attributes(username: "hello\nworld\n!", email: "hello\nworld\n!", website_bio: "hello\nworld\n!")
   end
 
   it 'normalizes CRLF and CR to LF' do
@@ -85,9 +78,8 @@ describe ::Fustrate::Rails::Concerns::CleanAttributes do
 
     employee.validate
 
-    expect(employee.username).to eq "hello\nworld\n!"
-    expect(employee.email).to eq "hello\nworld\n!"
-    expect(employee.website_bio).to eq "hello\nworld\n!"
+    expect(employee)
+      .to have_attributes(username: "hello\nworld\n!", email: "hello\nworld\n!", website_bio: "hello\nworld\n!")
   end
 
   it 'removes excessive newlines' do
@@ -99,8 +91,7 @@ describe ::Fustrate::Rails::Concerns::CleanAttributes do
 
     employee.validate
 
-    expect(employee.username).to eq "hello\n\nworld!"
-    expect(employee.email).to eq "hello\n\nworld!"
-    expect(employee.website_bio).to eq "hello\n\nworld!"
+    expect(employee)
+      .to have_attributes(username: "hello\n\nworld!", email: "hello\n\nworld!", website_bio: "hello\n\nworld!")
   end
 end
