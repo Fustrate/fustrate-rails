@@ -24,15 +24,17 @@ module Fustrate
 
           # Assign strong parameters based on the class name - just a convenience method for services.
           def assign_params(permitted_params, key: nil)
-            assign_attributes ::Current.params.require(
-              key || ::ActiveModel::Naming.param_key(self.class)
-            ).permit(permitted_params)
+            if key == false
+              assign_attributes ::Current.params.permit(permitted_params)
+            else
+              assign_attributes ::Current.params.require(key || default_param_key).permit(permitted_params)
+            end
           end
 
           # Define a different Editable record to log edits on
-          def log_edits_on
-            self
-          end
+          def log_edits_on = self
+
+          def default_param_key = ::ActiveModel::Naming.param_key(self.class)
         end
       end
     end
