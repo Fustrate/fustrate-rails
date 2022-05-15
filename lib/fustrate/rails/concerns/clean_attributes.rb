@@ -13,9 +13,9 @@ module Fustrate
 
         # Collapse multiple spaces, remove leading/trailing whitespace, and remove carriage returns
         def self.strip(text)
-          return if text.blank?
-
           return text.map { strip(_1) } if text.is_a?(::Array)
+
+          return if text.blank?
 
           text.strip.gsub(/ {2,}/, ' ').gsub(/^[ \t]+|[ \t]+$/, '').gsub(/\r\n?/, "\n").gsub(/\n{3,}/, "\n\n")
         end
