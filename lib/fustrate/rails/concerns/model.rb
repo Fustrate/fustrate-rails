@@ -16,6 +16,14 @@ module Fustrate
 
             @_human_name || to_s.underscore
           end
+
+          def build_from_params(permitted_params, **attributes)
+            params_key = attributes.delete(:params_key)
+
+            new(**attributes) do |record|
+              record.assign_params permitted_params, key: params_key
+            end
+          end
         end
 
         included do
