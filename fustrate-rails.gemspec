@@ -25,7 +25,7 @@ require 'fustrate/rails/version'
   s.add_development_dependency 'rake', '> 10.0'
   s.add_development_dependency 'rspec', '~> 3.8'
   s.add_development_dependency 'rubocop', '~> 1.1'
-  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'sqlite3', '~> 1.4'
 
   s.add_dependency 'activesupport', '>= 6.0.3', '< 8'
   s.add_dependency 'jbuilder', '~> 2.11'
