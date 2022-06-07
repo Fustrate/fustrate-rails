@@ -38,12 +38,12 @@ module Fustrate
         ::YAML.safe_load read_with_interpolations(filename, interpolations), aliases: true
       end
 
-      def image_file(name = 'wilber.jpg', type = 'image/jpeg')
-        ::Rack::Test::UploadedFile.new ::Rails.root.join('spec', 'files', name), type
+      def image_file(filename, type = 'image/jpeg')
+        ::Rack::Test::UploadedFile.new ::Rails.root.join('spec', 'files', filename), type
       end
 
-      def pdf_file(name = 'test.pdf')
-        ::Rack::Test::UploadedFile.new ::Rails.root.join('spec', 'files', name), 'application/pdf'
+      def pdf_file(filename)
+        ::Rack::Test::UploadedFile.new ::Rails.root.join('spec', 'files', filename), 'application/pdf'
       end
 
       # A few cron scripts use `puts` and clog up STDOUT.
@@ -60,9 +60,7 @@ module Fustrate
 
       protected
 
-      def read_with_interpolations(filename, interpolations)
-        ::File.read(filename) % interpolations
-      end
+      def read_with_interpolations(filename, interpolations) = ::File.read(filename) % interpolations
     end
   end
 end

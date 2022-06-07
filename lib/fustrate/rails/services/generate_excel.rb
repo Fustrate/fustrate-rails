@@ -7,15 +7,13 @@ module Fustrate
   module Rails
     module Services
       class GenerateExcel
-        def call(data, sheet_name = 'Sheet 1')
+        def call(data, name = 'Sheet 1')
           ::Axlsx::Package.new do |package|
             package.use_shared_strings = true
 
             @wrap = package.workbook.styles.add_style(alignment: { wrap_text: true })
 
-            package.workbook.add_worksheet(name: sheet_name) do |sheet|
-              add_data_to_sheet(data, sheet)
-            end
+            package.workbook.add_worksheet(name:) { add_data_to_sheet(data, _1) }
 
             return package.to_stream.read
           end
