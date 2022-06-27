@@ -12,9 +12,9 @@ module Fustrate
         module ClassMethods
           # Allow models to define a more reasonable name, usually used to remove a module/namespace.
           def human_name(new_name = nil)
-            @_human_name = new_name.to_s if new_name
+            @human_name = new_name.to_s if new_name
 
-            @_human_name || to_s.underscore
+            @human_name ||= to_s.underscore.gsub(%r{\A.*/}, '')
           end
 
           def build_from_params(permitted_params, **attributes)
