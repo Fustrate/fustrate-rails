@@ -20,24 +20,28 @@ module Fustrate
           text.strip.gsub(/ {2,}/, ' ').gsub(/^[ \t]+|[ \t]+$/, '').gsub(/\r\n?/, "\n").gsub(/\n{3,}/, "\n\n")
         end
 
-        included do |base|
+        def self.string_columns(klass)
           # There's no reason to clean polymorphic type columns
-          polymorphic_type_columns = base.reflect_on_all_associations
+          polymorphic_type_columns = klass.reflect_on_all_associations
             .select { _1.options[:polymorphic] }
             .map { "#{_1.name}_type" }
 
-          string_columns = base.columns
+          klass.columns
             .select { self::STRING_TYPES.include?(_1.sql_type_metadata.type) }
             .reject { polymorphic_type_columns.include?(_1.name) }
             .map(&:name)
+        end
 
-          before_validation do
-            string_columns.each do |attribute|
-              next unless self[attribute]
+        def self.clean_record(record)
+          string_columns(record.class).each do |attribute|
+            next unless record[attribute]
 
-              self[attribute] = ::Fustrate::Rails::Concerns::CleanAttributes.strip self[attribute]
-            end
+            record[attribute] = strip record[attribute]
           end
+        end
+
+        included do
+          before_validation { ::Fustrate::Rails::Concerns::CleanAttributes.clean_record(self) }
         end
       end
     end
