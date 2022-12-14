@@ -53,27 +53,23 @@ module Fustrate
         def raw_changes = subject.changes
 
         def process_changes
-          process_datetime_columns
-          process_date_columns
+          process_timestamps(:datetime, '%-m/%-d/%y %-I:%M %p')
+          process_timestamps(:date, '%-m/%-d/%y')
+          process_timestamps(:time, '%-I:%M %p')
+
           process_boolean_columns
           process_relations
         end
 
-        def process_datetime_columns
-          columns_of_type(:date).each do |col|
-            changes[col] = format_timestamps(changes[col], time: false)
-          end
-        end
-
-        def process_date_columns
-          columns_of_type(:datetime).each do |col|
-            changes[col] = format_timestamps(changes[col], time: true)
+        def process_timestamps(type, time_format)
+          columns_of_type(type).each do |column_name|
+            changes[column_name].map! { _1&.strftime(time_format) }
           end
         end
 
         def process_boolean_columns
-          columns_of_type(:boolean).each do |col|
-            changes[col] = changes[col][1] ? %w[No Yes] : %w[Yes No]
+          columns_of_type(:boolean).each do |column_name|
+            changes[column_name] = changes[column_name][1] ? %w[No Yes] : %w[Yes No]
           end
         end
 
@@ -126,10 +122,6 @@ module Fustrate
             (subject.class.reflect_on_association(name).klass.find(old_value_id)&.to_s if old_value_id),
             new_value&.to_s
           ]
-        end
-
-        def format_timestamps(datetimes, time: true)
-          datetimes.map { _1&.strftime(time ? '%-m/%-d/%y %-I:%M %p' : '%-m/%-d/%y') }
         end
       end
     end

@@ -18,11 +18,9 @@ module Fustrate
           end
 
           def build_from_params(permitted_params, **attributes)
-            params_key = attributes.delete(:params_key)
+            key = attributes.delete(:params_key)
 
-            new(**attributes) do |record|
-              record.assign_params permitted_params, key: params_key
-            end
+            new(**attributes) { _1.assign_params(permitted_params, key:) }
           end
         end
 

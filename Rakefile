@@ -3,8 +3,8 @@
 # Copyright (c) 2022 Steven Hoffman
 # All rights reserved.
 
-require 'rspec/core/rake_task'
 require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
 
 ::RSpec::Core::RakeTask.new(:spec)
 

@@ -19,9 +19,7 @@ module Fustrate
         ::I18n.t "activerecord.errors.models.#{model.model_name.i18n_key}.#{key}"
       end
 
-      def double_list(name, count, **stubs)
-        ::Array.new(count) { instance_double(name, stubs) }
-      end
+      def double_list(name, count, **stubs) = ::Array.new(count) { instance_double(name, stubs) }
 
       def data_from_file(name, **interpolations)
         ::Dir.glob(::Rails.root.join('spec', 'data', "#{name}.*")) do |filename|

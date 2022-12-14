@@ -45,3 +45,7 @@ Style/MethodCallWithArgsParentheses:
 
 Style/MissingElse:
   Enabled: false
+
+# I'd rather just have the :: there and be done with it.
+Style/RedundantConstantBase:
+  Enabled: false
