@@ -9,9 +9,9 @@ require 'fustrate/rails/concerns/sanitize_html'
 require 'sanitize'
 
 SANITIZE_CONFIG = {
-  elements: %w[p span],
+  elements: %w[p span br],
   attributes: { 'p' => %w[style] }, # rubocop:disable Style/StringHashKeys
-  transformers: [->(data) { ::Sanitize.clean_nodes(data[:node]) }],
+  transformers: [-> { ::Sanitize.clean_nodes(_1[:node]) }],
   css: {
     allow_comments: false,
     allow_hacks: false,
@@ -84,6 +84,14 @@ describe ::Fustrate::Rails::Concerns::SanitizeHtml do
       clean = described_class.sanitize(fragment, ::SANITIZE_CONFIG)
 
       expect(clean).to eq "<p>Hello</p>\n<p>World</p>"
+    end
+  end
+
+  it 'trims line breaks and whitespace from the start and end of the text' do
+    ['<br><br>Test', 'Test<br>', ' <br>  Test <br>  '].each do |fragment|
+      clean = described_class.sanitize(fragment, ::SANITIZE_CONFIG)
+
+      expect(clean).to eq 'Test'
     end
   end
 end

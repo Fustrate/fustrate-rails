@@ -9,12 +9,13 @@ module Fustrate
       module SanitizeHtml
         extend ::ActiveSupport::Concern
 
-        def self.sanitize(html, config)
-          # Remove non-breaking & ideographic spaces before sanitizing, and un-fancy quotes.
-          normalized = html.tr('‘’“”', %q(''"")).gsub(/(?:[\u00A0\u3000]|&nbsp;) ?/, ' ')
+        def self.sanitize(html, config) = smart_strip ::Sanitize.fragment(normalize(html), config)
 
-          ::Sanitize.fragment(normalized, config).strip
-        end
+        # Remove non-breaking & ideographic spaces before sanitizing, and un-fancy quotes.
+        def self.normalize(html) = html.tr('‘’“”', %q(''"")).gsub(/(?:[\u00A0\u3000]|&nbsp;) ?/, ' ')
+
+        # There shouldn't be whitespace or newlines at the beginning or end of the text
+        def self.smart_strip(html) = html.gsub(/\A(?:[[:space:]]|<br>)+|(?:[[:space:]]|<br>)+\z/, '')
 
         module ClassMethods
           def sanitize_html(*attributes, config)
