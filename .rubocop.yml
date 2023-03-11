@@ -28,21 +28,26 @@ Layout/MultilineAssignmentLayout:
 Layout/RedundantLineBreak:
   Enabled: false
 
+# Wants every constant to be listed in #public_constant or #private_constant
 Style/ConstantVisibility:
   Enabled: false
 
 Style/DisableCopsWithinSourceCodeDirective:
   Enabled: false
 
+# Every class and module *should* be documented, but I don't have the time
 Style/Documentation:
   Enabled: false
 
+# Every method *should* be documented, but I don't have the time
 Style/DocumentationMethod:
   Enabled: false
 
+# Converts `a_method 1` to `a_method(1)`
 Style/MethodCallWithArgsParentheses:
   Enabled: false
 
+# Not every `if` needs an `else`
 Style/MissingElse:
   Enabled: false
 
