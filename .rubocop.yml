@@ -40,6 +40,10 @@ Style/Documentation:
 Style/DocumentationMethod:
   Enabled: false
 
+# Prefers `if !condition` over `unless condition`
+Style/InvertibleUnlessCondition:
+  Enabled: false
+
 # Converts `a_method 1` to `a_method(1)`
 Style/MethodCallWithArgsParentheses:
   Enabled: false
