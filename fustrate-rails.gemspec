@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2022 Steven Hoffman
+# Copyright (c) Steven Hoffman
 # All rights reserved.
 
 $LOAD_PATH.push ::File.expand_path('lib', __dir__)

@@ -8,9 +8,9 @@ Layout/MultilineMethodCallIndentation:
 
 Style/Copyright:
   AutocorrectNotice: |
-    # Copyright (c) 2022 Steven Hoffman
+    # Copyright (c) Steven Hoffman
     # All rights reserved.
-  Notice: '^# Copyright \(c\) 2022 .+'
+  Notice: '^# Copyright \(c\) Steven Hoffman'
 
 Naming/FileName:
   Exclude:

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2022 Steven Hoffman
+# Copyright (c) Steven Hoffman
 # All rights reserved.
 
 require 'bundler/gem_tasks'
