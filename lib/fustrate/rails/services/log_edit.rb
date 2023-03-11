@@ -41,14 +41,17 @@ module Fustrate
 
           return if changes.empty? && !force
 
-          log_edit_on.edits.new(user:, note:, reason: ::Current.params[:reason], pretty_changes: changes, raw_changes:)
+          subject.log_edits_on.edits.new(
+            user:,
+            note:,
+            reason: ::Current.params[:reason],
+            pretty_changes: changes,
+            raw_changes:
+          )
         end
 
         # Get rid of changes from nil to '' and whatnot
         def clean_changes! = changes.delete_if { |_, values| values.all?(&:blank?) || values[0] == values[1] }
-
-        # Allow edits to be recorded on a model that isn't `subject`
-        def log_edit_on = subject
 
         def raw_changes = subject.changes
 
