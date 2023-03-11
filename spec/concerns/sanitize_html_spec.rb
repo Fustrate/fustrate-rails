@@ -10,7 +10,7 @@ require 'sanitize'
 
 SANITIZE_CONFIG = {
   elements: %w[p span br],
-  attributes: { 'p' => %w[style] }, # rubocop:disable Style/StringHashKeys
+  attributes: { p: %w[style] }.stringify_keys,
   transformers: [-> { ::Sanitize.clean_nodes(_1[:node]) }],
   css: {
     allow_comments: false,

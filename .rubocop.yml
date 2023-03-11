@@ -32,9 +32,6 @@ Layout/RedundantLineBreak:
 Style/ConstantVisibility:
   Enabled: false
 
-Style/DisableCopsWithinSourceCodeDirective:
-  Enabled: false
-
 # Every class and module *should* be documented, but I don't have the time
 Style/Documentation:
   Enabled: false
