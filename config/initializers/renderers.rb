@@ -5,14 +5,16 @@
 
 ::ActionController::Renderers.add :excel do |data, options|
   name = options[:filename] || 'export'
-  sheet = options[:sheet] || name
 
-  send_data(
-    ::Fustrate::Rails::Services::GenerateExcel.new.call(data, sheet),
-    filename: "#{name}.xlsx",
-    disposition: 'attachment',
-    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-  )
+  data_to_send = case data
+                 when ::Axlsx::Package then data.to_stream.read
+                 when ::StringIO then data.read
+                 when ::Array then ::Fustrate::Rails::Services::GenerateExcel.new.call(data, options[:sheet] || name)
+                 else
+                   data
+                 end
+
+  send_data(data_to_send, filename: "#{name}.xlsx", disposition: 'attachment', type: :xlsx)
 end
 
 ::ActionController::Renderers.add :csv do |data, options|
