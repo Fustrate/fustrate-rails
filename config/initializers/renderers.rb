@@ -6,31 +6,33 @@
 ::ActionController::Renderers.add :excel do |data, options|
   name = options[:filename] || 'export'
 
-  render_options = { filename: "#{name}.xlsx", disposition: 'attachment', type: :xlsx }
+  xlsx_options = { filename: "#{name}.xlsx", disposition: 'attachment', type: :xlsx }
 
   case data
   when ::Axlsx::Package
-    send_data(data.to_stream.read, **render_options)
+    send_data(data.to_stream.read, **xlsx_options)
   when ::Array
-    send_data(::Fustrate::Rails::Services::GenerateExcel.new.call(data, options[:sheet] || name), **render_options)
+    send_data(::Fustrate::Rails::Services::GenerateExcel.new.call(data, options[:sheet] || name), **xlsx_options)
   when ::Pathname
-    render_options[:filename] = data.basename.to_s if render_options[:filename] == 'export'
+    xlsx_options[:filename] = data.basename.to_s if xlsx_options[:filename] == 'export'
 
-    send_file(data, **render_options)
+    send_file(data, **xlsx_options)
   else
-    send_data(data, **render_options)
+    send_data(data, **xlsx_options)
   end
 end
 
 ::ActionController::Renderers.add :csv do |data, options|
   name = options[:filename] || 'export'
 
-  send_data(
-    ::Fustrate::Rails::Services::GenerateCsv.new.call(data),
-    filename: "#{name}.csv",
-    disposition: 'attachment',
-    type: :csv
-  )
+  csv_options = { filename: "#{name}.csv", disposition: 'attachment', type: :csv }
+
+  case data
+  when ::Array, ::Hash
+    send_data(::Fustrate::Rails::Services::GenerateCsv.new.call(data), **csv_options)
+  else
+    send_data(data, **csv_options)
+  end
 end
 
 ::ActionController::Renderers.add :zip do |path, options|
