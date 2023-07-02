@@ -6,3 +6,21 @@
 source 'https://rubygems.org'
 
 gemspec
+
+# Rails' ActiveRecord ORM
+gem 'activerecord', '>= 6.0.3', '< 8'
+
+# Gem management
+gem 'bundler', '> 2.4'
+
+# Deployment tasks
+gem 'rake', '> 13.0'
+
+# Test with RSpec
+gem 'rspec', '~> 3.12'
+
+# Ruby code linting
+gem 'rubocop', '~> 1.54'
+
+# Database for testing
+gem 'sqlite3', '~> 1.4'

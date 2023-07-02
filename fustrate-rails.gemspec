@@ -11,6 +11,7 @@ require 'fustrate/rails/version'
   s.version = ::Fustrate::Rails::VERSION
   s.authors = ['Steven Hoffman']
   s.required_ruby_version = '>= 3.2.0'
+  s.metadata['rubygems_mfa_required'] = 'true'
 
   s.summary = 'A few useful services and initializers.'
   s.homepage = 'https://github.com/fustrate/fustrate-rails'
@@ -20,17 +21,8 @@ require 'fustrate/rails/version'
   s.executables = []
   s.require_paths = ['lib']
 
-  s.add_development_dependency 'activerecord', '>= 6.0.3', '< 8'
-  s.add_development_dependency 'bundler', '> 1.16'
-  s.add_development_dependency 'rake', '> 10.0'
-  s.add_development_dependency 'rspec', '~> 3.8'
-  s.add_development_dependency 'rubocop', '~> 1.30'
-  s.add_development_dependency 'sqlite3', '~> 1.4'
-
   s.add_dependency 'activesupport', '>= 6.0.3', '< 8'
   s.add_dependency 'jbuilder', '~> 2.11'
   s.add_dependency 'railties', '>= 6.0.3', '< 8'
   s.add_dependency 'sanitize', '~> 6.0'
-
-  s.metadata['rubygems_mfa_required'] = 'true'
 end
