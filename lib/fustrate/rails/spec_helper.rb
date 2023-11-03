@@ -21,19 +21,15 @@ module Fustrate
 
       def double_list(name, count, **stubs) = ::Array.new(count) { instance_double(name, stubs) }
 
-      def data_from_file(name, **interpolations)
+      def data_from_file(name, **)
         ::Dir.glob(::Rails.root.join('spec', 'data', "#{name}.*")) do |filename|
           case ::File.extname filename
           when '.yml', '.yaml'
-            return yaml_data_from_file(filename, **interpolations)
+            return yaml_data_from_file(filename, **)
           else
             raise ::ArgumentError, "Could not parse unknown file type #{::File.extname filename}"
           end
         end
-      end
-
-      def yaml_data_from_file(filename, **interpolations)
-        ::YAML.safe_load read_with_interpolations(filename, interpolations), aliases: true
       end
 
       def image_file(filename, type = 'image/jpeg')
@@ -58,7 +54,9 @@ module Fustrate
 
       protected
 
-      def read_with_interpolations(filename, interpolations) = ::File.read(filename) % interpolations
+      def yaml_data_from_file(filename, **) = ::YAML.safe_load read_with_interpolations(filename, **), aliases: true
+
+      def read_with_interpolations(filename, **interpolations) = ::File.read(filename) % interpolations
     end
   end
 end
