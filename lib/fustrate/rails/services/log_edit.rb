@@ -51,7 +51,7 @@ module Fustrate
         end
 
         # Get rid of changes from nil to '' and whatnot
-        def clean_changes! = changes.delete_if { |_, values| values.all?(&:blank?) || values[0] == values[1] }
+        def clean_changes! = changes.delete_if { |_, values| values.all?(&:blank?) || values.first == values.last }
 
         def raw_changes = subject.changes
 
@@ -118,7 +118,7 @@ module Fustrate
 
           new_value = subject.__send__(name)
 
-          old_value_id = changes.delete("#{name}_id")[0]
+          old_value_id = changes.delete("#{name}_id").first
 
           # If we're removing the value, new_value.class will be nil, so we need to use reflection.
           changes[name] = [
