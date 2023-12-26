@@ -10,7 +10,7 @@ require 'fustrate/rails/version'
   s.name = 'fustrate-rails'
   s.version = ::Fustrate::Rails::VERSION
   s.authors = ['Steven Hoffman']
-  s.required_ruby_version = '>= 3.2.0'
+  s.required_ruby_version = '>= 3.3.0'
   s.metadata['rubygems_mfa_required'] = 'true'
 
   s.summary = 'A few useful services and initializers.'
