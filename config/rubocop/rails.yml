@@ -1,0 +1,22 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  # Exclude auto-generated files and uploads
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'public/**/*'
+    - 'storage/**/*'
+
+Rails:
+  Enabled: true
+
+# There are a ton of times I don't want to validate!
+Rails/SkipsModelValidations:
+  Enabled: false
+
+# This cop "may detect #to_s calls that are not related to Active Support"
+Rails/ToSWithArgument:
+  Enabled: false

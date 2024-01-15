@@ -20,7 +20,10 @@ gem 'rake', '> 13.0'
 gem 'rspec', '~> 3.12'
 
 # Ruby code linting
-gem 'rubocop', '~> 1.54'
+gem 'rubocop', '~> 1.54', require: false
+
+# Ruby code linting - performance
+gem 'rubocop-performance', '~> 1.14', require: false
 
 # Database for testing
 gem 'sqlite3', '~> 1.4'

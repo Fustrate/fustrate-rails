@@ -1,10 +1,5 @@
-AllCops:
-  EnabledByDefault: true
-  NewCops: enable
-  TargetRubyVersion: 3.3
-
-Layout/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
+inherit_from:
+  - config/rubocop/default.yml
 
 Style/Copyright:
   AutocorrectNotice: |
@@ -16,40 +11,12 @@ Naming/FileName:
   Exclude:
     - lib/fustrate-rails.rb
 
-# ------------------------------------------------------------------------------
-# Cops that should not be run
-# ------------------------------------------------------------------------------
-
-# Recommends right hand side of multi-line assignment be on a new line
-Layout/MultilineAssignmentLayout:
-  Enabled: false
-
-# Recommends squishing a multi-line hash into one line. I don't like that. It's not readable.
-Layout/RedundantLineBreak:
-  Enabled: false
-
-# Wants every constant to be listed in #public_constant or #private_constant
-Style/ConstantVisibility:
-  Enabled: false
-
 # Every class and module *should* be documented, but I don't have the time
 Style/Documentation:
   Enabled: false
 
 # Every method *should* be documented, but I don't have the time
 Style/DocumentationMethod:
-  Enabled: false
-
-# Prefers `if !condition` over `unless condition`
-Style/InvertibleUnlessCondition:
-  Enabled: false
-
-# Converts `a_method 1` to `a_method(1)`
-Style/MethodCallWithArgsParentheses:
-  Enabled: false
-
-# Not every `if` needs an `else`
-Style/MissingElse:
   Enabled: false
 
 # I'd rather just have the :: there and be done with it.
