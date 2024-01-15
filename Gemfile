@@ -8,7 +8,7 @@ source 'https://rubygems.org'
 gemspec
 
 # Rails' ActiveRecord ORM
-gem 'activerecord', '>= 6.0.3', '< 8'
+gem 'activerecord', '~> 7.1'
 
 # Gem management
 gem 'bundler', '> 2.4'
@@ -20,10 +20,10 @@ gem 'rake', '> 13.0'
 gem 'rspec', '~> 3.12'
 
 # Ruby code linting
-gem 'rubocop', '~> 1.54', require: false
+gem 'rubocop', '~> 1.60', require: false
 
 # Ruby code linting - performance
-gem 'rubocop-performance', '~> 1.14', require: false
+gem 'rubocop-performance', '~> 1.20', require: false
 
 # Database for testing
-gem 'sqlite3', '~> 1.4'
+gem 'sqlite3', '~> 1.7'
