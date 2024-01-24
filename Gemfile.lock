@@ -2,10 +2,10 @@ PATH
   remote: .
   specs:
     fustrate-rails (0.10.0)
-      activesupport (>= 6.0.3, < 8)
+      activesupport (~> 7.1)
       jbuilder (~> 2.11)
-      railties (>= 6.0.3, < 8)
-      sanitize (~> 6.0)
+      railties (~> 7.1)
+      sanitize (~> 6.1)
 
 GEM
   remote: https://rubygems.org/
@@ -137,6 +137,9 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
+    rubocop-performance (1.20.2)
+      rubocop (>= 1.48.1, < 2.0)
+      rubocop-ast (>= 1.30.0, < 2.0)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     sanitize (6.1.0)
@@ -157,13 +160,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (>= 6.0.3, < 8)
+  activerecord (~> 7.1)
   bundler (> 2.4)
   fustrate-rails!
   rake (> 13.0)
   rspec (~> 3.12)
-  rubocop (~> 1.54)
-  sqlite3 (~> 1.4)
+  rubocop (~> 1.60)
+  rubocop-performance (~> 1.20)
+  sqlite3 (~> 1.7)
 
 BUNDLED WITH
    2.5.5
