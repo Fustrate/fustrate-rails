@@ -99,8 +99,8 @@ module Fustrate
 
         def find_old_polymorphic_record(name)
           # The type, and in rare cases the ID, may not have actually changed
-          old_id = subject.__send__("#{name}_id_in_database")
-          old_type = subject.__send__("#{name}_type_in_database").presence
+          old_id = subject.__send__(:"#{name}_id_in_database")
+          old_type = subject.__send__(:"#{name}_type_in_database").presence
 
           ::Object.const_get(old_type).find(old_id)&.to_s if old_type
         end
