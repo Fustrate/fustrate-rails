@@ -6,23 +6,23 @@
 $LOAD_PATH.push ::File.expand_path('lib', __dir__)
 require 'fustrate/rails/version'
 
-::Gem::Specification.new do |s|
-  s.name = 'fustrate-rails'
-  s.version = ::Fustrate::Rails::VERSION
-  s.authors = ['Steven Hoffman']
-  s.required_ruby_version = '>= 3.3.0'
-  s.metadata['rubygems_mfa_required'] = 'true'
+::Gem::Specification.new do |spec|
+  spec.name = 'fustrate-rails'
+  spec.version = ::Fustrate::Rails::VERSION
+  spec.authors = ['Steven Hoffman']
+  spec.required_ruby_version = '>= 3.3.0'
+  spec.metadata['rubygems_mfa_required'] = 'true'
 
-  s.summary = 'A few useful services and initializers.'
-  s.homepage = 'https://github.com/fustrate/fustrate-rails'
-  s.license = 'MIT'
+  spec.summary = 'A few useful services and initializers.'
+  spec.homepage = 'https://github.com/fustrate/fustrate-rails'
+  spec.license = 'MIT'
 
-  s.files = ::Dir['{config,lib}/**/*']
-  s.executables = []
-  s.require_paths = ['lib']
+  spec.files = ::Dir['{config,lib}/**/*']
+  spec.executables = []
+  spec.require_paths = ['lib']
 
-  s.add_dependency 'activesupport', '~> 7.1'
-  s.add_dependency 'jbuilder', '~> 2.11'
-  s.add_dependency 'railties', '~> 7.1'
-  s.add_dependency 'sanitize', '~> 6.1'
+  spec.add_dependency 'activesupport', '~> 7.1'
+  spec.add_dependency 'jbuilder', '~> 2.11'
+  spec.add_dependency 'railties', '~> 7.1'
+  spec.add_dependency 'sanitize', '~> 6.1'
 end

@@ -17,12 +17,18 @@ require 'fustrate/rails/concerns/clean_attributes'
     # SQLite doesn't have a citext type... not sure how to test that specific part.
     t.string :email
     # SQLite also doesn't have an array type...
-    t.string :aliases, array: true
+    t.string :aliases
   end
 end
 
 class Employee < ::ActiveRecord::Base
   include ::Fustrate::Rails::Concerns::CleanAttributes
+
+  serialize :aliases
+
+  after_initialize do |employee|
+    employee.aliases = [] if employee.aliases.nil?
+  end
 end
 
 describe ::Fustrate::Rails::Concerns::CleanAttributes do
