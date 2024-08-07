@@ -5,7 +5,9 @@ Style/Copyright:
   AutocorrectNotice: |
     # Copyright (c) Steven Hoffman
     # All rights reserved.
-  Notice: '^# Copyright \(c\) Steven Hoffman'
+  Notice: |
+    Copyright \(c\) Steven Hoffman
+    All rights reserved.
 
 Naming/FileName:
   Exclude:
