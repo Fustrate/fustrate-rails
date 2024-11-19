@@ -87,6 +87,10 @@ Style/MethodCallWithArgsParentheses:
 Style/MissingElse:
   Enabled: false
 
+# This isn't a big deal to me
+Style/SafeNavigationChainLength:
+  Enabled: false
+
 # Hashes that come from a database JSON column use strings for keys
 Style/StringHashKeys:
   Enabled: false
