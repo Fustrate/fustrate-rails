@@ -2,9 +2,9 @@ PATH
   remote: .
   specs:
     fustrate-rails (0.10.1)
-      activesupport (~> 7.1)
+      activesupport (>= 7.2)
       jbuilder (~> 2.11)
-      railties (~> 7.1)
+      railties (>= 7.2)
       sanitize (~> 6.1)
 
 GEM
@@ -72,7 +72,7 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mini_portile2 (2.8.8)
-    minitest (5.25.1)
+    minitest (5.25.2)
     nokogiri (1.16.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)

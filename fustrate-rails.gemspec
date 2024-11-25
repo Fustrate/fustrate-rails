@@ -21,8 +21,8 @@ require 'fustrate/rails/version'
   spec.executables = []
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'activesupport', '~> 7.1'
+  spec.add_dependency 'activesupport', '>= 7.2'
   spec.add_dependency 'jbuilder', '~> 2.11'
-  spec.add_dependency 'railties', '~> 7.1'
+  spec.add_dependency 'railties', '>= 7.2'
   spec.add_dependency 'sanitize', '~> 6.1'
 end
