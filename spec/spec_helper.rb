@@ -4,7 +4,6 @@
 # All rights reserved.
 
 require 'unary_plus'
-require 'unary_plus/engine'
 
 ::RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

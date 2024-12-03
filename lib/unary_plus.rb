@@ -10,3 +10,5 @@ loader.setup
 
 module UnaryPlus
 end
+
+require 'unary_plus/railtie' if defined?(Rails::Railtie)
