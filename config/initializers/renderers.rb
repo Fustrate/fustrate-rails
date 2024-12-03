@@ -3,6 +3,8 @@
 # Copyright (c) Steven Hoffman
 # All rights reserved.
 
+require 'action_controller/metal/renderers'
+
 ::ActionController::Renderers.add :excel do |data, options|
   name = options[:filename] || 'export'
 

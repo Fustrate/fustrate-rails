@@ -7,8 +7,11 @@ source 'https://rubygems.org'
 
 gemspec
 
+# ActionController
+gem 'actionpack', '~> 7.2'
+
 # Rails' ActiveRecord ORM
-gem 'activerecord', '~> 7.1'
+gem 'activerecord', '~> 7.2'
 
 # Gem management
 gem 'bundler', '> 2.4'

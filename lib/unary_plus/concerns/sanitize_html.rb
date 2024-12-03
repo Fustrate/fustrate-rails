@@ -4,7 +4,6 @@
 # All rights reserved.
 
 require 'sanitize'
-require_relative '../../../config/initializers/sanitize'
 
 module UnaryPlus
   module Concerns

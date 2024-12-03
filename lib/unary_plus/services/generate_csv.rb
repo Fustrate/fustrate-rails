@@ -3,6 +3,8 @@
 # Copyright (c) Steven Hoffman
 # All rights reserved.
 
+require 'csv'
+
 module UnaryPlus
   module Services
     class GenerateCsv
