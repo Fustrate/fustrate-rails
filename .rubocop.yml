@@ -9,10 +9,6 @@ Style/Copyright:
     Copyright \(c\) Steven Hoffman
     All rights reserved.
 
-Naming/FileName:
-  Exclude:
-    - lib/fustrate-rails.rb
-
 # Every class and module *should* be documented, but I don't have the time
 Style/Documentation:
   Enabled: false

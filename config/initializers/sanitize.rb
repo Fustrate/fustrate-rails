@@ -3,6 +3,8 @@
 # Copyright (c) Steven Hoffman
 # All rights reserved.
 
+require 'sanitize'
+
 class Sanitize
   class CSS
     def properties(css)
@@ -14,8 +16,60 @@ class Sanitize
 
       tree!(tree)
 
-      ::CSSTreeStringifier.new.stringify(tree)
+      CSSTreeStringifier.new.stringify(tree)
     end
+  end
+
+  class CSSTreeStringifier
+    # Options:
+    #
+    #   * **:exclude_comments** - When `true`, comments will be excluded.
+    def initialize(**options)
+      @options = options
+    end
+
+    # Converts a node or array of nodes from an inline style attribute into a CSS string based on
+    # their original tokenized input.
+    def stringify(nodes)
+      @string = +''
+      @last = {}
+
+      nodes.each do |node|
+        next if node.nil?
+
+        append_stringified_node(node)
+
+        @last = node
+      end
+
+      @string.strip
+    end
+
+    protected
+
+    def append_stringified_node(node)
+      return append_comment_node(node) if node[:node] == :comment
+      return append_whitespace_node if node[:node] == :whitespace
+
+      if node.key?(:raw)
+        @string << node[:raw]
+      elsif node.key?(:tokens)
+        @string << self.class.new(**@options).stringify(node[:tokens])
+      end
+    end
+
+    def append_comment_node(node)
+      @string << node[:raw] unless exclude_comments?
+    end
+
+    def append_whitespace_node
+      # No consecutive whitespace or whitespace after property names
+      @string << ' ' if allow_whitespace?
+    end
+
+    def allow_whitespace? = @last[:node] != :ident && !@string.end_with?(' ')
+
+    def exclude_comments? = @options[:exclude_comments]
   end
 
   SELF_CLOSING = %w[br td img hr input].freeze

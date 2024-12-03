@@ -3,8 +3,10 @@
 # Copyright (c) Steven Hoffman
 # All rights reserved.
 
-module Fustrate
-  module Rails
-    VERSION = '0.10.1'
-  end
+require 'zeitwerk'
+
+loader = Zeitwerk::Loader.for_gem
+loader.setup
+
+module UnaryPlus
 end

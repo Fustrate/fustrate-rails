@@ -3,10 +3,7 @@
 # Copyright (c) Steven Hoffman
 # All rights reserved.
 
-require 'active_support'
-require_relative '../../config/initializers/sanitize'
-require 'fustrate/rails/concerns/sanitize_html'
-require 'sanitize'
+require 'spec_helper'
 
 SANITIZE_CONFIG = {
   elements: %w[p span br],
@@ -19,7 +16,7 @@ SANITIZE_CONFIG = {
   }
 }.freeze
 
-describe ::Fustrate::Rails::Concerns::SanitizeHtml do
+::RSpec.describe ::UnaryPlus::Concerns::SanitizeHtml do
   it 'baseline' do
     clean = described_class.sanitize(<<~HTML, ::SANITIZE_CONFIG)
       <p>Hello World</p>

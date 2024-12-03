@@ -3,12 +3,14 @@
 # Copyright (c) Steven Hoffman
 # All rights reserved.
 
-$LOAD_PATH.push ::File.expand_path('lib', __dir__)
-require 'fustrate/rails/version'
+lib = File.expand_path('lib', __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require 'unary_plus/version'
 
 ::Gem::Specification.new do |spec|
-  spec.name = 'fustrate-rails'
-  spec.version = ::Fustrate::Rails::VERSION
+  spec.name = 'unary_plus'
+  spec.version = ::UnaryPlus::VERSION
   spec.authors = ['Steven Hoffman']
   spec.required_ruby_version = '>= 3.3.0'
   spec.metadata['rubygems_mfa_required'] = 'true'
@@ -25,4 +27,5 @@ require 'fustrate/rails/version'
   spec.add_dependency 'jbuilder', '~> 2.11'
   spec.add_dependency 'railties', '>= 7.2'
   spec.add_dependency 'sanitize', '~> 6.1'
+  spec.add_dependency 'zeitwerk', '~> 2.6'
 end

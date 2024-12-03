@@ -1,9 +1,11 @@
-# fustrate-rails
+# unary_plus
+
+It's useless the vast majority of the time.
 
 ## Installation
 
 Add the following to Gemfile:
 
 ```
-gem 'fustrate-rails'
+gem 'unary_plus'
 ```

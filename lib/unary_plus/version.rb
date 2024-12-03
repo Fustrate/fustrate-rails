@@ -3,5 +3,6 @@
 # Copyright (c) Steven Hoffman
 # All rights reserved.
 
-require 'fustrate/rails/engine'
-require 'fustrate/rails/version'
+module UnaryPlus
+  VERSION = '0.10.1'
+end

@@ -12,7 +12,7 @@
   when ::Axlsx::Package
     send_data(data.to_stream.read, **xlsx_options)
   when ::Array
-    send_data(::Fustrate::Rails::Services::GenerateExcel.new.call(data, options[:sheet] || name), **xlsx_options)
+    send_data(::UnaryPlus::Services::GenerateExcel.new.call(data, options[:sheet] || name), **xlsx_options)
   when ::Pathname
     xlsx_options[:filename] = data.basename.to_s if xlsx_options[:filename] == 'export'
 
@@ -29,7 +29,7 @@ end
 
   case data
   when ::Array, ::Hash
-    send_data(::Fustrate::Rails::Services::GenerateCsv.new.call(data), **csv_options)
+    send_data(::UnaryPlus::Services::GenerateCsv.new.call(data), **csv_options)
   else
     send_data(data, **csv_options)
   end

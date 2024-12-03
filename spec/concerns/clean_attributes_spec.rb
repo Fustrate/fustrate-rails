@@ -3,9 +3,10 @@
 # Copyright (c) Steven Hoffman
 # All rights reserved.
 
+require 'spec_helper'
+
 require 'active_record'
 require 'active_support'
-require 'fustrate/rails/concerns/clean_attributes'
 
 ::ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
 ::ActiveRecord::Base.logger = ::Logger.new($stdout)
@@ -22,7 +23,7 @@ require 'fustrate/rails/concerns/clean_attributes'
 end
 
 class Employee < ::ActiveRecord::Base
-  include ::Fustrate::Rails::Concerns::CleanAttributes
+  include ::UnaryPlus::Concerns::CleanAttributes
 
   serialize :aliases
 
@@ -31,7 +32,7 @@ class Employee < ::ActiveRecord::Base
   end
 end
 
-describe ::Fustrate::Rails::Concerns::CleanAttributes do
+::RSpec.describe ::UnaryPlus::Concerns::CleanAttributes do
   it 'nilifies blank strings' do
     employee = ::Employee.new(username: "\n\t ", email: ' ', website_bio: "\t\t\t")
 
