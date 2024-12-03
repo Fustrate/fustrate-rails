@@ -184,12 +184,12 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 7.1)
   bundler (> 2.4)
-  unary_plus!
   rake (> 13.0)
   rspec (~> 3.12)
   rubocop (~> 1.60)
   rubocop-performance (~> 1.20)
   sqlite3 (~> 1.7)
+  unary_plus!
 
 BUNDLED WITH
    2.5.22
