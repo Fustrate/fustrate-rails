@@ -3,6 +3,8 @@
 # Copyright (c) Steven Hoffman
 # All rights reserved.
 
+require 'active_support/testing/time_helpers'
+
 module UnaryPlus
   module SpecHelper
     include ::ActiveSupport::Testing::TimeHelpers

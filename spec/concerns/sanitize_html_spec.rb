@@ -5,6 +5,8 @@
 
 require 'spec_helper'
 
+require_relative '../../config/initializers/sanitize'
+
 SANITIZE_CONFIG = {
   elements: %w[p span br],
   attributes: { p: %w[style] }.stringify_keys,
