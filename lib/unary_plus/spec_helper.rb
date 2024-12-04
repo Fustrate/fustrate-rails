@@ -44,7 +44,7 @@ module UnaryPlus
     # A few cron scripts use `puts` and clog up STDOUT.
     def stfu
       orig_stdout = $stdout.clone
-      $stdout.reopen ::File.new('/dev/null', 'w')
+      $stdout.reopen ::File.new(File::NULL, 'w')
       yield
     rescue ::StandardError => e
       $stdout.reopen orig_stdout
